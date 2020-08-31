@@ -1,12 +1,12 @@
 {
     "target": {
-        "host": "192.168.88.1",
+        "host": "192.168.1.170",
         "workgroup": ""
     },
     "credentials": {
         "user": " ",
         "password": "",
-        "random_user": "rkdqlfih"
+        "random_user": "jkxmqaue"
     },
     "services": {
         "LDAP": {

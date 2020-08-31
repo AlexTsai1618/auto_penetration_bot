@@ -21,37 +21,41 @@ class Enum2Report:
         This function is used to scan through smb portocol by port 139,445
         """
 
-        mas = masscan.PortScanner()
-        mas.scan(ipaddress, ports='445,139')
-        data = mas.scan_result
-        loop = asyncio.new_event_loop()
-        
-        for ip in data['scan']:
-            print(data['scan'][ip])
-        
-            if data['scan'][ip]['tcp'][139]['state']=="open" or data['scan'][ip]['tcp'][445]['state']=="open":
-                result = loop.run_until_complete(self.enum4liunx_ng_schedual(ip))
-                print(str(ip)+" port 139 enumeration "+ str(result))
+        nm = nmap.PortScanner()
+        data = nm.scan(ipaddress,'445,139')
 
-    def enum4liunx_ng_execute(self,ip):
-        subprocess.run(["python3","./enum4linux-ng/enum4linux-ng.py","-As",ip,"-u"," ","-oJ","./report/"+ip+".e4raw.json"])
+        
+        for i in data['scan']:
+        
+            if data["scan"][i]["tcp"][445]["state"] == "open" or data["scan"][i]["tcp"][445]["state"] == "open":
+                result = loop.run_until_complete(self.(i))
+                t = threading.Thread(target=self.schedual, args=(i,))
+                t.start()
+                t.join()                
+                # print(str(i)+" enumeration is "+ str(result))
+    
+    async def nmap(self,ip):
+        
+        return ip +" nmap Success!
+    async def enum4liunx_ng_execute(self,ip):
+        subprocess.run(["python3","./enum4linux-ng/enum4linux-ng.py","-As",ip,"-u"," ","-oJ","./report/"+ip+"/"+ip+".e4raw.json"])
         return ip +" En4liunx Success!"
 
-    async def enum4liunx_ng_schedual(self,ip):
+    def schedual(self,ip):
     # def enum4liunx_ng(self):
-        print(ip)
-        t = threading.Thread(target=self.enum4liunx_ng_execute, args=(ip,))
-        t.start()
-        t.join()
+        loop = asyncio.new_event_loop()
+        task = [
+            asyncio.ensure_future(self.enum4liunx_ng_execute(ip))
+            asyncio.ensure_future(self.nmap(ip))
+        ]
         # print(ip)
-        # try:
-        #     result = subprocess.check_output(['enum4linux','-a',ip],stderr=subprocess.STDOUT)
-        #     result = result.decode('utf-8')
-        #     print(ip + " in enum4linux!!!  "+ result)
-        # except subprocess.CalledProcessError as e:
-        #     # raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
-        #     result = e.output.decode('utf-8')
-  
+        # t = threading.Thread(target=self.enum4liunx_ng_execute, args=(ip,))
+        # t.start()
+        # t.join()
+        # t2 = threading.Thread(target=self.nmap,args=(ip,))
+        loop.run_until_complete(self.(i))
+
+    async def ms
 
 if __name__ == "__main__":
-    Enum2Report("192.168.88.208")
+    Enum2Report("192.168.1.1/24")

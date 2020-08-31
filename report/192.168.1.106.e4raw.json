@@ -1,12 +1,12 @@
 {
     "target": {
-        "host": "192.168.88.1",
+        "host": "192.168.1.106",
         "workgroup": ""
     },
     "credentials": {
         "user": " ",
         "password": "",
-        "random_user": "qywyhxqn"
+        "random_user": "qjjteqrl"
     },
     "services": {
         "LDAP": {
@@ -50,17 +50,13 @@
             "mapping": "denied",
             "listing": "n/a"
         },
-        "Downloads": {
-            "mapping": "ok",
-            "listing": "ok"
+        "E$": {
+            "mapping": "denied",
+            "listing": "n/a"
         },
         "IPC$": {
             "mapping": "ok",
             "listing": "not supported"
-        },
-        "Users": {
-            "mapping": "ok",
-            "listing": "ok"
         }
     },
     "policy": null,
@@ -68,8 +64,8 @@
     "errors": {
         "services": {
             "enum_services": [
-                "Could not connect to LDAP on 389/tcp: connection refused",
-                "Could not connect to LDAPS on 686/tcp: connection refused"
+                "Could not connect to LDAP on 389/tcp: timed out",
+                "Could not connect to LDAPS on 686/tcp: timed out"
             ]
         },
         "null_session_possible": {
