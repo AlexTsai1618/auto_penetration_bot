@@ -8,9 +8,17 @@ verify_ssl = true
 [packages]
 requests = "*"
 python-nmap = "*"
-python-masscan = "*"
 nmap = "*"
 luigi = "*"
+termcolor = "==1.1.0"
+terminaltables = "==3.1.0"
+netaddr = "*"
+whois = "*"
+urllib3 = "*"
+impacket = "==0.9.21"
+ldap3 = "==2.7"
+PyYAML = "==5.3.1"
+python-masscan = "*"
 
 [requires]
 python_version = "3.8"
