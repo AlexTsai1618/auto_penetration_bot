@@ -25,21 +25,27 @@ class Enum2Report:
         nm = nmap.PortScanner()
         data = nm.scan(i,'445,139')
 
-        
+        ips = []
         for i in data['scan']:
         
             if data["scan"][i]["tcp"][445]["state"] == "open" or data["scan"][i]["tcp"][445]["state"] == "open":
                 os.mkdir('data/raw/'+i)
-                t = threading.Thread(target=self.schedual, args=(i,))
-                t.start()
-                t.join()                
+                ips.append(i)
+        for i in ips:
+            tasks = list()
+            task = threading.Thread(target=self.schedual, args=(i,))
+            task.start()
+            tasks.append(task)
+
+        for task in tasks:
+            task.join()                
                 # print(str(i)+" enumeration is "+ str(result))
     
     def nmap_enum(self,ip):
         nm=nmap.PortScanner()
         data = {"os_data":"","shares_data":""}
-        data['os_data'] = nm.scan(ip, '445', arguments='./scripts/smb-os-discovery.nse')
-        data['shares_data'] = nm.scan(ip,'445',arguments='./scripts/smb-enum-shares.nse')
+        data['os_data'] = nm.scan("192.168.1.106", '445',arguments='--script=smb-os-discovery.nse')
+        data['shares_data'] = nm.scan(ip,'445',arguments='--script=smb-enum-shares.nse')
         path = 'data/raw/'+ip+'/nmap_enum.json'
         with open(path,'w') as file:
             json.dump(data,file)  
@@ -59,15 +65,17 @@ class Enum2Report:
     def schedual(self,ip):
 
         t1 = threading.Thread(target=self.enum4liunx_ng_execute, args=(ip,))
-        t1.start()
-        t1.join()
         t2 = threading.Thread(target=self.nmap_enum, args=(ip,))
-        t2.start()
-        t2.join()
         t3 = threading.Thread(target=self.smb_brute_force, args=(ip,))
+        
+        t1.start()
+        t2.start()
         t3.start()
+
+        t1.join()
+        t2.join()
         t3.join()
 
 
 if __name__ == "__main__":
-    Enum2Report("192.168.1.106")
+    Enum2Report("192.168.1.1/24")
