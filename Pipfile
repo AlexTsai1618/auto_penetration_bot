@@ -19,6 +19,7 @@ impacket = "==0.9.21"
 ldap3 = "==2.7"
 PyYAML = "==5.3.1"
 python-masscan = "*"
+ipykernel = "*"
 
 [requires]
 python_version = "3.8"

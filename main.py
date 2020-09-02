@@ -1,4 +1,5 @@
-import masscan,json,subprocess,asyncio,threading,nmap,re
+import masscan,json,subprocess,asyncio,threading,nmap,re,os
+import json
 from queue import Queue
 import time
 class Enum2Report:
@@ -15,47 +16,58 @@ class Enum2Report:
 
         self.port_scanning(ipaddress)
 
-    def port_scanning(self,ipaddress):
+    def port_scanning(self,i):
 
         """
         This function is used to scan through smb portocol by port 139,445
         """
 
         nm = nmap.PortScanner()
-        data = nm.scan(ipaddress,'445,139')
+        data = nm.scan(i,'445,139')
 
         
         for i in data['scan']:
         
             if data["scan"][i]["tcp"][445]["state"] == "open" or data["scan"][i]["tcp"][445]["state"] == "open":
-                result = loop.run_until_complete(self.(i))
+                os.mkdir('data/raw/'+i)
                 t = threading.Thread(target=self.schedual, args=(i,))
                 t.start()
                 t.join()                
                 # print(str(i)+" enumeration is "+ str(result))
     
-    async def nmap(self,ip):
+    def nmap_enum(self,ip):
+        nm=nmap.PortScanner()
+        data = {"os_data":"","shares_data":""}
+        data['os_data'] = nm.scan(ip, '445', arguments='./scripts/smb-os-discovery.nse')
+        data['shares_data'] = nm.scan(ip,'445',arguments='./scripts/smb-enum-shares.nse')
+        path = 'data/raw/'+ip+'/nmap_enum.json'
+        with open(path,'w') as file:
+            json.dump(data,file)  
+
+   
+    def enum4liunx_ng_execute(self,ip):
+        # try:
+        subprocess.run(["python3","./enum4linux-ng/enum4linux-ng.py","-As",ip,"-u"," ","-oJ","data/raw/"+ip+"/"+ip+".e4raw.json"])
+        return ip +" En4liunx Success!"      
+
+    
+    def smb_brute_force(self,ip):
         
-        return ip +" nmap Success!
-    async def enum4liunx_ng_execute(self,ip):
-        subprocess.run(["python3","./enum4linux-ng/enum4linux-ng.py","-As",ip,"-u"," ","-oJ","./report/"+ip+"/"+ip+".e4raw.json"])
-        return ip +" En4liunx Success!"
-
+        subprocess.check_output(['medusa','-M','smbnt','-h',ip,'-U','data/wordlist/usernames.txt','-p','data/wordlist/passlist.txt','-F','-O','/'+ip+'/'+ip+'_password.txt'])
+        return ip +" Brute Force Success!"  
+           
     def schedual(self,ip):
-    # def enum4liunx_ng(self):
-        loop = asyncio.new_event_loop()
-        task = [
-            asyncio.ensure_future(self.enum4liunx_ng_execute(ip))
-            asyncio.ensure_future(self.nmap(ip))
-        ]
-        # print(ip)
-        # t = threading.Thread(target=self.enum4liunx_ng_execute, args=(ip,))
-        # t.start()
-        # t.join()
-        # t2 = threading.Thread(target=self.nmap,args=(ip,))
-        loop.run_until_complete(self.(i))
 
-    async def ms
+        t1 = threading.Thread(target=self.enum4liunx_ng_execute, args=(ip,))
+        t1.start()
+        t1.join()
+        t2 = threading.Thread(target=self.nmap_enum, args=(ip,))
+        t2.start()
+        t2.join()
+        t3 = threading.Thread(target=self.smb_brute_force, args=(ip,))
+        t3.start()
+        t3.join()
+
 
 if __name__ == "__main__":
-    Enum2Report("192.168.1.1/24")
+    Enum2Report("192.168.1.106")
