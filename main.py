@@ -4,18 +4,18 @@ from queue import Queue
 import time
 class Enum2Report:
 
-    def main(self,ipaddress):
-        print(
-        "\n _____                       ____  ____                       _  "+ 
-        "\n| ____|_ __  _   _ _ __ ___ |___ \|  _ \ ___ _ __   ___  _ __| |_   "+ 
-        "\n|  _| | '_ \| | | | '_ ` _ \  __) | |_) / _ \ '_ \ / _ \| '__| __|  "+ 
-        "\n| |___| | | | |_| | | | | | |/ __/|  _ <  __/ |_) | (_) | |  | |_   "+ 
-        "\n|_____|_| |_|\__,_|_| |_| |_|_____|_| \_\___| .__/ \___/|_|   \__|  "+ 
-        "\n                                            |_|                   " 
-        )
+    # def __init__(self,ipaddress):
+    #     print(
+    #     "\n _____                       ____  ____                       _  "+ 
+    #     "\n| ____|_ __  _   _ _ __ ___ |___ \|  _ \ ___ _ __   ___  _ __| |_   "+ 
+    #     "\n|  _| | '_ \| | | | '_ ` _ \  __) | |_) / _ \ '_ \ / _ \| '__| __|  "+ 
+    #     "\n| |___| | | | |_| | | | | | |/ __/|  _ <  __/ |_) | (_) | |  | |_   "+ 
+    #     "\n|_____|_| |_|\__,_|_| |_| |_|_____|_| \_\___| .__/ \___/|_|   \__|  "+ 
+    #     "\n                                            |_|                   " 
+    #     )
 
-        self.port_scanning(ipaddress)
-        print("init")        
+    #     self.port_scanning(ipaddress)
+    #     print("init")        
     def port_scanning(self,i):
         print("port_scanning")
         """
@@ -54,7 +54,7 @@ class Enum2Report:
                 data['shares_data'] = 'NULL'
         else:
             data['os_data'] = np.scan("192.168.88.1",arguments='-O -v')['scan']['192.168.88.1']['osmatch'][0]['name']
-            if nm.scan(ip,'445',arguments='--script nmap_script/scripts/smb-enum-shares.nse')['scan'][ip]['hostscript']:
+            if nm.scan(ip,'445',arguments='--script nmap_script/scripts/smb-enum-shares.nse -oX nmap_os.xml')['scan'][ip]['hostscript']:
                 data['shares_data'] = nm.scan(ip,'445',arguments='--script nmap_script/scripts/smb-enum-shares.nse')['scan'][ip]['hostscript'][0]['output']
             else:
                 data['shares_data'] = 'NULL'
@@ -73,7 +73,7 @@ class Enum2Report:
     def smb_brute_force(self,ip):
         print("[+]" + ip +" is in brute_force!")
         try:
-            subprocess.run(['medusa','-M','smbnt','-h',ip,'-u','admin','-P','data/wordlist/passlist.txt','-f','-O','data/raw/'+ip+'/'+ip+'_password.txt'])
+            subprocess.run(['medusa','-M','smbnt','-h',ip,'-u','admin','-P','data/wordlist/dummypass.txt','-f','-O','data/raw/'+ip+'/'+ip+'_password.txt'])
         except subprocess.CalledProcessError as e:
             raise BuildError('\'%s\' exited with error code: %s' % (name, e.returncode))
             file_path = 'data/raw/'+ip+'/'+ip+'_password.txt'
@@ -96,6 +96,10 @@ class Enum2Report:
         t2.join()
         t3.join()
 
-
+def enum4liunx_ng_execute(ip):
+    print("[+]" + ip +" is in enum4liunx!")
+    subprocess.run(["python3","enum4linux-ng/enum4linux-ng.py","-As",ip,"-u"," ","-oJ","data/raw/"+ip+"/"+ip+".e4raw.json"])
+    return ip +" En4liunx Success!" 
 if __name__ == "__main__":
-    Enum2Report().smb_brute_force("192.168.88.1")
+    enum4liunx_ng_execute("192.168.89.208")
+    # Enum2Report.enum4liunx_ng_execute("192.168.89.208")

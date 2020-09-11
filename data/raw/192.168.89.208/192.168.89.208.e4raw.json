@@ -1,0 +1,135 @@
+{
+    "target": {
+        "host": "192.168.89.208",
+        "workgroup": ""
+    },
+    "credentials": {
+        "user": " ",
+        "password": "",
+        "random_user": "fldnkvid"
+    },
+    "services": {
+        "LDAP": {
+            "port": 389,
+            "accessible": false
+        },
+        "LDAPS": {
+            "port": 636,
+            "accessible": false
+        },
+        "SMB": {
+            "port": 445,
+            "accessible": true
+        },
+        "SMB over NetBIOS": {
+            "port": 139,
+            "accessible": true
+        }
+    },
+    "smb1_only": false,
+    "sessions_possible": true,
+    "null_session_possible": false,
+    "user_session_possible": true,
+    "random_user_session_possible": true,
+    "workgroup": "WORKGROUP",
+    "domain_sid": "NULL SID",
+    "member_of": "workgroup",
+    "os_info": {
+        "server_type_string": "Wk Sv NT PtB LMB     ",
+        "platform_id": "500",
+        "os_version": "10.0",
+        "server_type": "0x51003",
+        "os": "Windows 10, Windows Server 2019, Windows Server 2016"
+    },
+    "users": null,
+    "groups": null,
+    "shares": {
+        "ADMIN$": {
+            "type": "Disk",
+            "comment": "\u9060\u7aef\u7ba1\u7406",
+            "access": {
+                "mapping": "denied",
+                "listing": "n/a"
+            }
+        },
+        "C$": {
+            "type": "Disk",
+            "comment": "\u9810\u8a2d\u5171\u7528",
+            "access": {
+                "mapping": "denied",
+                "listing": "n/a"
+            }
+        },
+        "Documents": {
+            "type": "Disk",
+            "comment": "",
+            "access": {
+                "mapping": "ok",
+                "listing": "ok"
+            }
+        },
+        "Downloads": {
+            "type": "Disk",
+            "comment": "",
+            "access": {
+                "mapping": "ok",
+                "listing": "denied"
+            }
+        },
+        "IPC$": {
+            "type": "IPC",
+            "comment": "\u9060\u7aef IPC",
+            "access": {
+                "mapping": "ok",
+                "listing": "not supported"
+            }
+        },
+        "Users": {
+            "type": "Disk",
+            "comment": "",
+            "access": {
+                "mapping": "ok",
+                "listing": "ok"
+            }
+        }
+    },
+    "policy": null,
+    "printers": null,
+    "errors": {
+        "services": {
+            "enum_services": [
+                "Could not connect to LDAP on 389/tcp: timed out",
+                "Could not connect to LDAPS on 636/tcp: timed out"
+            ]
+        },
+        "null_session_possible": {
+            "enum_sessions": [
+                "Could not establish null session: STATUS_ACCESS_DENIED"
+            ]
+        },
+        "users": {
+            "enum_users_rpc": [
+                "Could not extract users from querydispinfo output, please open a GitHub issue",
+                "Could not extract users from eumdomusers output, please open a GitHub issue"
+            ]
+        },
+        "groups": {
+            "enum_groups_rpc": [
+                "Could not parse result of enumalsgroups domain command, please open a GitHub issue",
+                "Could not parse result of enumalsgroups builtin command, please open a GitHub issue",
+                "Could not parse result of enumdomgroups command, please open a GitHub issue"
+            ]
+        },
+        "policy": {
+            "enum_policy": [
+                "SamrConnect2() call failed on port 445/tcp",
+                "DCE/SAMR named pipe connect failed on port 139/tcp"
+            ]
+        },
+        "printers": {
+            "enum_printers": [
+                "Could not parse result of enumprinters command, please open a GitHub issue"
+            ]
+        }
+    }
+}
