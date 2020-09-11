@@ -157,7 +157,7 @@ def run(target):
 				logger.red('[%s] PATCHED' % logger.RED(target))
 		except Exception as e:
 			logger.verbose('Got error whilst checking vulnerability status %s' % logger.BLUE(str(e)))
-			return Falses
+			return False
 
 		pipes_found = []
 
