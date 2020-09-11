@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Fri Sep 11 03:34:43 2020 as: nmap -p 445 -&#45;script smb-vuln* -oX data/raw/192.168.89.208/192.168.89.208_vuln.xml 192.168.89.208 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-vuln* -oX data/raw/192.168.89.208/192.168.89.208_vuln.xml 192.168.89.208" start="1599809683" startstr="Fri Sep 11 03:34:43 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1599809683" endtime="1599809688"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.89.208" addrtype="ipv4"/>
+<address addr="C6:47:BB:4B:CC:B9" addrtype="mac"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<hostscript><script id="smb-vuln-ms10-054" output="false">false</script><script id="smb-vuln-ms10-061" output="ERROR: Script execution failed (use -d to debug)"/></hostscript><times srtt="546" rttvar="3753" to="100000"/>
+</host>
+<runstats><finished time="1599809688" timestr="Fri Sep 11 03:34:48 2020" elapsed="5.73" summary="Nmap done at Fri Sep 11 03:34:48 2020; 1 IP address (1 host up) scanned in 5.73 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

@@ -21,6 +21,7 @@ PyYAML = "==5.3.1"
 python-masscan = "*"
 ipykernel = "*"
 xmltodict = "*"
+ipynb = "*"
 
 [requires]
 python_version = "3.8"
