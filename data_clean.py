@@ -10,14 +10,17 @@ class filename:
     MS17 = "ms17-010.xml"
     PSSWD = "password.txt"
     SHARE = "share.xml"
+    OS = "os.xml"
 
 def schedual(files):
 
     files.sort(key=None, reverse=False)
     # print(files[0])
-    os,fqdn,workgroup = os_clean(files[6])
-    account,password = account_clean(files[7])
-    share_data = share_clean(files[8])
+    print(files)
+
+    os,fqdn,workgroup = os_clean([e for e in files if e.endswith(filename.OS)][0])
+    account,password = account_clean([e for e in files if e.endswith(filename.PSSWD)][0])
+    share_data = share_clean([e for e in files if e.endswith(filename.SHARE)][0])
     datas = {
         "os":os,
         "fqdn":fqdn,
@@ -29,6 +32,10 @@ def schedual(files):
     }
     print(datas)
     print(os,fqdn,workgroup,account,password,share_data)
+def nmap_datas(raw_files):
+    raw_file = open(raw_file,"rb")
+    parsed_file = xmltodict.parse((raw_file))
+    
 def data_path():
     directories = os.listdir('data/raw')
     thread_list = []

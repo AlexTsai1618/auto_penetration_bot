@@ -116,13 +116,13 @@ def check_ip(ip):
     with print_lock:
         if final_response[9] == "\x05" and final_response[10] == "\x02" and final_response[11] == "\x00" and final_response[12] == "\xc0":      
             # print "[+] %s (%s) is likely VULNERABLE to MS17-010" % (ip, os)
-            filename = ip + "_ms17010.txt"
+            filename = ip + "_ms17-010.txt"
             path = "data/raw/" + ip + '/' + filename
             file2 = open(path,"w")
             file2.write("vulnerable")
             file2.close()
         else:
-            filename = ip + "_ms17010.txt"
+            filename = ip + "_ms17-010.txt"
             path = "data/raw/" + ip + '/' + filename
             # print "[-] %s (%s) stays in safety" % (ip, os)
             file = open(path,"w")

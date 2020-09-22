@@ -71,22 +71,23 @@ class Enum2Report:
                 t3 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms08-067',"ms08-067",))
                 t4 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms10-054',"ms10-054",))
                 t5 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms10-061',"ms10-061",))
-                t6 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms17-010',"ms17-010",))
-                t7 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-enum-shares.nse',"share",))
+                # t6 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms17-010',"ms17-010",))
+                t6 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-enum-shares.nse',"share",))
+
                 t1.start()
                 t2.start()
                 t3.start()
                 t4.start()
                 t5.start()
                 t6.start()
-                t7.start()
+                
                 t1.join()
                 t2.join()
                 t3.join()
                 t4.join()
                 t5.join()
                 t6.join()
-                t7.join()       
+               
         else:
             subprocess.run(['nmap','-p','445',ip,'-O','-v','-oX','data/raw/'+ ip +'/'+ ip +'_os.xml'])
             if nm.scan(ip,'445',arguments='--script nmap_script/scripts/smb-enum-shares.nse')['scan'][ip]['hostscript']:
@@ -95,31 +96,30 @@ class Enum2Report:
                 t3 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms08-067',"ms08-067",))
                 t4 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms10-054',"ms10-054",))
                 t5 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms10-061',"ms10-061",))
-                t6 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms17-010',"ms17-010",))
-                t7 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-enum-shares.nse',"share",))
+                t6 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-enum-shares.nse',"share",))
                 t1.start()
                 t2.start()
                 t3.start()
                 t4.start()
                 t5.start()
                 t6.start()
-                t7.start()
+                
                 t1.join()
                 t2.join()
                 t3.join()
                 t4.join()
                 t5.join()
                 t6.join()
-                t7.join()
                 
-                self.nmap_run_script(ip,'smb-enum-shares.nse',"share")
-                # if nm.scan(ip,'445',arguments='--script nmap_script/scripts/smb-vuln*')['scan'][ip]['hostscript']:
-                self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
-                self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
-                self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
-                self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
-                self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
-                self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
+                
+                # self.nmap_run_script(ip,'smb-enum-shares.nse',"share")
+                # # if nm.scan(ip,'445',arguments='--script nmap_script/scripts/smb-vuln*')['scan'][ip]['hostscript']:
+                # self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
+                # self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
+                # self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
+                # self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
+                # self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
+                # self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
         print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" has finished nmap_enumartion!"+ bcolors.ENDC) 
         # data['shares_data'] = nm.scan(ip,'445',arguments='--script nmap_script/scripts/smb-enum-shares.nse')['scan'][ip]['hostscript'][0]['output']
         # path = 'data/raw/'+ip+'/nmap_enum.json'
@@ -132,7 +132,7 @@ class Enum2Report:
     def smb_brute_force(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" is in brute_force!"+ bcolors.ENDC)
         try:
-            subprocess.run(['medusa','-M','smbnt','-h',ip,'-u','admin','-P','data/wordlist/dummypass.txt','-f','-O','data/raw/'+ip+'/'+ip+'_password.txt'],stdout=open(os.devnull,'wb'))
+            subprocess.run(['medusa','-M','smbnt','-h',ip,'-U','data/wordlist/dummyusernames.txt','admin','-P','data/wordlist/dummypass.txt','-f','-O','data/raw/'+ip+'/'+ip+'_password.txt'],stdout=open(os.devnull,'wb'))
 
         except subprocess.CalledProcessError as e:
             raise BuildError('\'%s\' exited with error code: %s' % (name, e.returncode))
@@ -144,25 +144,32 @@ class Enum2Report:
            
     def schedual(self,ip):
 
-        # t1 = threading.Thread(target=self.enum4liunx_ng_execute, args=(ip,))
+       
         t1 = threading.Thread(target=self.smbghost_detection, args=(ip,))
         t2 = threading.Thread(target=self.nmap_enum, args=(ip,))
         t3 = threading.Thread(target=self.smb_brute_force, args=(ip,))
         t4 = threading.Thread(target=self.ms17_010_detection,args=(ip,))
+        t5 = threading.Thread(target=self.smb_bleeding_detection,args=(ip,))
+
         
         t1.start()
         t2.start()
         t3.start()
         t4.start()
-
+        t5.start()
         t1.join()
         t2.join()
         t3.join()
         t4.join()
+        t5.join()
     def ms17_010_detection(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" ms17_010_detection is going!"+ bcolors.ENDC)
-        subprocess.run(['python2','ms17010.py','-i',ip])
+        subprocess.run(['python2','ms17-010.py','-i',ip])
         print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" ms17_010_detection have just finished!"+ bcolors.ENDC)  
+    def smb_bleeding_detection(self,ip):
+        print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" smb_bleeding_detection is going!"+ bcolors.ENDC)
+        subprocess.run(['python3','SMBleed-scanner/SMBGhost-SMBleed-scanner.py',ip])
+        print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" smb_bleeding_detection have just finished!"+ bcolors.ENDC)  
     def smbghost_detection(self,ip):
         print(bcolors.WARNING + bcolors.BOLD +"[+]" + ip +" is in smbghost detection"+ bcolors.ENDC)
         import socket
@@ -182,7 +189,7 @@ class Enum2Report:
 
         nb, = struct.unpack(">I", sock.recv(4))
         res = sock.recv(nb)
-        filename = ip + "_cve2020-0796.txt"
+        filename = ip + "_cve_2020-0796.txt"
         path = "data/raw/" + ip + '/' + filename
         if res[68:70] != b"\x11\x03" or res[70:72] != b"\x02\x00":
 
