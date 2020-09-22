@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Tue Sep 22 04:43:20 2020 as: nmap -p 445 -&#45;script -smb-enum-shares -oX test.xml 192.168.168.250 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script -smb-enum-shares -oX test.xml 192.168.168.250" start="1600764200" startstr="Tue Sep 22 04:43:20 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<runstats><finished time="1600764200" timestr="Tue Sep 22 04:43:20 2020" elapsed="0.43" summary="Nmap done at Tue Sep 22 04:43:20 2020; 0 IP addresses (0 hosts up) scanned in 0.43 seconds" exit="error" errormsg="NSE: failed to initialize the script engine:&#xa;/usr/bin/../share/nmap/nse_main.lua:818: &apos;-smb-enum-shares&apos; did not match a category, filename, or directory&#xa;stack traceback:&#xa;&#x9;[C]: in function &apos;error&apos;&#xa;&#x9;/usr/bin/../share/nmap/nse_main.lua:818: in local &apos;get_chosen_scripts&apos;&#xa;&#x9;/usr/bin/../share/nmap/nse_main.lua:1310: in main chunk&#xa;&#x9;[C]: in ?&#xa;"/><hosts up="0" down="0" total="0"/>
+</runstats>
+</nmaprun>

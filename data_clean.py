@@ -73,8 +73,8 @@ def data_path():
         thread.join()
 def share_clean(raw_file):
     with open(raw_file,"rb") as raw_file:
-        parsed_file = xmltodict.parse(raw_file)
         try:
+            parsed_file = xmltodict.parse(raw_file)
             data = {}
             tables =  parsed_file['nmaprun']['host']['hostscript']["script"]['table']
             temp = []
@@ -92,15 +92,15 @@ def share_clean(raw_file):
 def os_clean(raw_file):
     data = {}
     with open(raw_file,'rb')as file:
-        parsed_file = xmltodict.parse((file))
-        parsed_file2 = parsed_file['nmaprun']['host']['hostscript']["script"]['elem']
         try:
+            parsed_file = xmltodict.parse((file))
+            parsed_file2 = parsed_file['nmaprun']['host']['hostscript']["script"]['elem']
             os = parsed_file2[0]['#text']
             fqdn = parsed_file2[4]['#text']
             workgroup = parsed_file2[6]['#text']
             return os,fqdn,workgroup
         except:
-            return "NULL","NULL","NULL","NULL"
+            return "NULL","NULL","NULL"
 def account_clean(raw_file):
     with open(raw_file,'r') as file:
         try:
