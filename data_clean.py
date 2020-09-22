@@ -1,4 +1,4 @@
-import xmltodict,os,threading
+import xmltodict,os,threading,subprocess
 
 # def report_generate(datas):
 class filename:
@@ -11,6 +11,8 @@ class filename:
     PSSWD = "password.txt"
     SHARE = "share.xml"
     OS = "os.xml"
+    CVE2020 = "cve_2020_1206.txt"
+    CVE2020_2 = "cve_2020_0796.txt"
 
 def schedual(files):
     os,fqdn,workgroup = os_clean([e for e in files if e.endswith(filename.OS)][0])
@@ -20,8 +22,8 @@ def schedual(files):
     ms08067_data = nmap_datas([e for e in files if e.endswith(filename.MS08)][0])
     ms10054_data = nmap_datas([e for e in files if e.endswith(filename.MS10)][0])
     ms10061_data = nmap_datas([e for e in files if e.endswith(filename.MS10_2)][0])
-    # cve_2020_0796_data = 
-    # cve_2020_1206_data = 
+    cve_2020_0796_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020)][0])
+    cve_2020_1206_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020_2)][0])
     datas = {
         "os":os,
         "fqdn":fqdn,
@@ -29,8 +31,8 @@ def schedual(files):
         "account":account,
         "password":password,
         "share_data":share_data,
-        # "cve_2020_1206":cve_2020_1206_data,
-        # "cve_2020_0796":cve_2020_0796_data,
+        "cve_2020_1206":cve_2020_1206_data,
+        "cve_2020_0796":cve_2020_0796_data,
         "ms07-029":ms07029_data,
         "ms08-067":ms08067_data,
         "ms10-054":ms10054_data,
@@ -52,6 +54,10 @@ def nmap_datas(raw_files):
             else:
                 message =  "Vulnerable"
     return message
+def handle_txt_file(raw_files):
+    with open(raw_files,'r')as file:
+        result = file.read()
+    return result
 def data_path():
     directories = os.listdir('data/raw')
     thread_list = []
@@ -86,6 +92,7 @@ def os_clean(raw_file):
     data = {}
     with open(raw_file,'rb')as file:
         parsed_file = xmltodict.parse((file))
+        
         os = parsed_file['nmaprun']['host']['hostscript']["script"]['elem'][0]['#text']
         fqdn = parsed_file['nmaprun']['host']['hostscript']["script"]['elem'][4]['#text']
         workgroup = parsed_file['nmaprun']['host']['hostscript']["script"]['elem'][6]['#text']
@@ -99,6 +106,7 @@ def account_clean(raw_file):
         password = clean_data[1]
         
     return account,password
-    
-# print(account_clean('data/raw/192.168.89.208/192.168.89.208_password.txt'))
-data_path()
+
+if __name__ == "__main__":
+    data_path()
+    subprocess.run(['sudo','rm','-rf','data/raw/*'])

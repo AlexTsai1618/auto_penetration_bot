@@ -32,7 +32,7 @@ class Enum2Report:
         self.port_scanning(ipaddress)
           
     def port_scanning(self,i):
-        print(bcolors.WARNING + bcolors.BOLD +"[+]We are now in port_scanning" + bcolors.ENDC)
+        print(bcolors.WARNING + bcolors.BOLD +"[+] We are now in port_scanning" + bcolors.ENDC)
         """
         This function is used to scan through smb portocol by port 139,445
         """
@@ -41,17 +41,20 @@ class Enum2Report:
         data = nm.scan(i,'445,139')
 
         ips = []
-        for i in data['scan']:
-        
-            if data["scan"][i]["tcp"][445]["state"] == "open" or data["scan"][i]["tcp"][445]["state"] == "open":
-                os.mkdir('data/raw/'+i)
+        for ip in data['scan']:
+            
+            if data["scan"][ip]["tcp"][445]["state"] == "open" or data["scan"][ip]["tcp"][139]["state"] == "open":
+                
+                os.mkdir('data/raw/'+ip)
+                print(bcolors.WARNING + bcolors.BOLD +"[+]"+ ip +" is founded" + bcolors.ENDC)
                 ips.append(i)
         # for i in ips:
             
-                task = threading.Thread(target=self.schedual, args=(i,))
+                task = threading.Thread(target=self.schedual, args=(ip,))
                 task.start()
                 tasks.append(task)
-
+            else:
+                print(bcolors.FAIL + bcolors.BOLD +"[+] SMB was not detected in "+ip + bcolors.ENDC)
         for task in tasks:
             task.join()                
                 # print(str(i)+" enumeration is "+ str(result))
@@ -189,7 +192,7 @@ class Enum2Report:
 
         nb, = struct.unpack(">I", sock.recv(4))
         res = sock.recv(nb)
-        filename = ip + "_cve_2020-0796.txt"
+        filename = ip + "_cve_2020_0796.txt"
         path = "data/raw/" + ip + '/' + filename
         if res[68:70] != b"\x11\x03" or res[70:72] != b"\x02\x00":
 
@@ -211,7 +214,9 @@ def enum4liunx_ng_execute(ip):
 
 if __name__ == "__main__":
     # enum4liunx_ng_execute("192.168.89.208")
-    Enum2Report("192.168.89.208")
+    Enum2Report("192.168.88.1/24")
+    # subprocess.run(['python3','data_clean.py'])
+    
     # smbghost_detection("192.168.89.208")
 
 
