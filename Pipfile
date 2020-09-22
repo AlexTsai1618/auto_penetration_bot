@@ -24,6 +24,9 @@ xmltodict = "*"
 ipynb = "*"
 pandas = "*"
 docx = "*"
+ipaddress = "*"
+pycrypto = "*"
+pysmb = "*"
 
 [requires]
 python_version = "3.8"

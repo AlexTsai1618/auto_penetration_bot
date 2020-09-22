@@ -148,14 +148,21 @@ class Enum2Report:
         t1 = threading.Thread(target=self.smbghost_detection, args=(ip,))
         t2 = threading.Thread(target=self.nmap_enum, args=(ip,))
         t3 = threading.Thread(target=self.smb_brute_force, args=(ip,))
+        t4 = threading.Thread(target=self.ms17_010_detection,args=(ip,))
         
         t1.start()
         t2.start()
         t3.start()
+        t4.start()
 
         t1.join()
         t2.join()
         t3.join()
+        t4.join()
+    def ms17_010_detection(self,ip):
+        print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" ms17_010_detection is going!"+ bcolors.ENDC)
+        subprocess.run(['python2','ms17010.py','-i',ip])
+        print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" ms17_010_detection have just finished!"+ bcolors.ENDC)  
     def smbghost_detection(self,ip):
         print(bcolors.WARNING + bcolors.BOLD +"[+]" + ip +" is in smbghost detection"+ bcolors.ENDC)
         import socket
