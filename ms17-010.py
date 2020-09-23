@@ -119,14 +119,14 @@ def check_ip(ip):
             filename = ip + "_ms17-010.txt"
             path = "data/raw/" + ip + '/' + filename
             file2 = open(path,"w")
-            file2.write("vulnerable")
+            file2.write("Vulnerable")
             file2.close()
         else:
             filename = ip + "_ms17-010.txt"
             path = "data/raw/" + ip + '/' + filename
             # print "[-] %s (%s) stays in safety" % (ip, os)
             file = open(path,"w")
-            file.write("Not vulnerable")
+            file.write("Not Vulnerable")
             file.close()
 
     s.close()

@@ -35,7 +35,7 @@ def schedual(files,ip):
     ms10061_data = nmap_datas([e for e in files if e.endswith(filename.MS10_2)][0])
     ms17010_data = handle_txt_file([e for e in files if e.endswith(filename.MS17)][0])
     cve_2020_0796_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020)][0])
-    cve_2020_1206_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020_2)][0])
+    # cve_2020_1206_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020_2)][0])
     datas = {
         "ip":ip,
         "os":os,
@@ -44,7 +44,7 @@ def schedual(files,ip):
         "account":account,
         "password":password,
         "share_data":share_data,
-        "cve_2020_1206":cve_2020_1206_data,
+        # "cve_2020_1206":cve_2020_1206_data,
         "cve_2020_0796":cve_2020_0796_data,
         "ms07-029":ms07029_data,
         "ms08-067":ms08067_data,
@@ -66,18 +66,31 @@ def nmap_datas(raw_files):
         parsed_file = xmltodict.parse(file)
         if "hostscript" not in parsed_file['nmaprun']['host']:
             message =  "Not Vulernable"
+            return message  
         else:
-            if "#text" not in parsed_file['nmaprun']['host']['hostscript']["script"] and parsed_file['nmaprun']['host']['hostscript']["script"]["@output"] == "ERROR: Script execution failed (use -d to debug)":
-                message = "Not Vulnerable"
-            elif "#text" not in parsed_file['nmaprun']['host']['hostscript']["script"] and parsed_file['nmaprun']['host']['hostscript']["script"]["#text"] == "false":
-                message = "Not Vulnerable"
+            if "#text" not in parsed_file['nmaprun']['host']['hostscript']["script"]:
+                if parsed_file['nmaprun']['host']['hostscript']["script"]["@output"] == "ERROR: Script execution failed (use -d to debug)":
+                    message = "Not Vulnerable"
+                    return message  
+                elif parsed_file['nmaprun']['host']['hostscript']["script"]["table"]["elem"][1]["#text"] == "VULNERABLE" :
+                    message =  "Vulnerable"
+                    return message  
             else:
-                message =  "Vulnerable"
-    return message
+                if parsed_file['nmaprun']['host']['hostscript']["script"]["#text"] == "false":
+                    message = "Not Vulnerable"    
+                    return message  
+    
+    
+        
+    
 def handle_txt_file(raw_files):
-    with open(raw_files,'r')as file:
-        result = file.read()
-    return result
+    try:
+        with open(raw_files,'r')as file:
+            result = file.read()
+            return result
+    except:
+        return "NULL"
+    
 def data_path():
     directories = os.listdir('data/raw')
     thread_list = []

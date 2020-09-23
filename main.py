@@ -48,9 +48,13 @@ class Enum2Report:
                 
                 print(bcolors.WARNING + bcolors.BOLD +"[+]"+ ip +" is founded" + bcolors.ENDC)
                 path = 'data/raw/'+ip
-                if os.path.isdir(path) =="False":
+                # print(os.path.isdir(path))
+                # input()
+                if not os.path.isdir(path):
+                    print(bcolors.OKGREEN + bcolors.BOLD +"[+]"+ ip +" folder is created" + bcolors.ENDC)
                     os.mkdir('data/raw/'+ip)
-                
+                # os.mkdir(path)
+               
                 ips.append(i)
         # for i in ips:
             
@@ -158,7 +162,14 @@ class Enum2Report:
         print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" ms17_010_detection have just finished!"+ bcolors.ENDC)  
     def smb_bleeding_detection(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" smb_bleeding_detection is going!"+ bcolors.ENDC)
-        subprocess.run(['python3','SMBleed-scanner/SMBGhost-SMBleed-scanner.py',ip])
+        try:
+            subprocess.run(['python3','SMBleed-scanner/SMBGhost-SMBleed-scanner.py',ip])
+        except:
+            filename = ip + "_cve_2020_1206.txt"
+            path = "data/raw/" + ip + '/' + filename
+            file2 = open(path,"w")
+            file2.write("Not vulnerable")
+            file2.close()
         print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" smb_bleeding_detection have just finished!"+ bcolors.ENDC)  
     def smbghost_detection(self,ip):
         print(bcolors.WARNING + bcolors.BOLD +"[+]" + ip +" is in smbghost detection"+ bcolors.ENDC)
@@ -200,6 +211,6 @@ def enum4liunx_ng_execute(ip):
 
 
 if __name__ == "__main__":
-    Enum2Report("192.168.89.1/24")
+    Enum2Report("192.168.89.212")
     subprocess.run(['python3','data_clean.py'])
     
