@@ -30,7 +30,7 @@ class Enum2Report:
         )
 
         self.port_scanning(ipaddress)
-          
+        print(bcolors.OKBLUE + bcolors.BOLD +"[+] We are now in port_scanning" + bcolors.ENDC)
     def port_scanning(self,i):
         print(bcolors.WARNING + bcolors.BOLD +"[+] We are now in port_scanning" + bcolors.ENDC)
         """
@@ -45,8 +45,12 @@ class Enum2Report:
             
             if data["scan"][ip]["tcp"][445]["state"] == "open" or data["scan"][ip]["tcp"][139]["state"] == "open":
                 
-                os.mkdir('data/raw/'+ip)
+                
                 print(bcolors.WARNING + bcolors.BOLD +"[+]"+ ip +" is founded" + bcolors.ENDC)
+                path = 'data/raw/'+ip
+                if os.path.isdir(path) =="false":
+                    os.mkdir('data/raw/'+ip)
+                
                 ips.append(i)
         # for i in ips:
             
@@ -74,7 +78,6 @@ class Enum2Report:
                 t3 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms08-067',"ms08-067",))
                 t4 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms10-054',"ms10-054",))
                 t5 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms10-061',"ms10-061",))
-                # t6 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms17-010',"ms17-010",))
                 t6 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-enum-shares.nse',"share",))
 
                 t1.start()
@@ -113,24 +116,8 @@ class Enum2Report:
                 t4.join()
                 t5.join()
                 t6.join()
-                
-                
-                # self.nmap_run_script(ip,'smb-enum-shares.nse',"share")
-                # # if nm.scan(ip,'445',arguments='--script nmap_script/scripts/smb-vuln*')['scan'][ip]['hostscript']:
-                # self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
-                # self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
-                # self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
-                # self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
-                # self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
-                # self.nmap_run_script(ip,'smb-vuln-ms06-025',"ms06-025") 
-        print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" has finished nmap_enumartion!"+ bcolors.ENDC) 
-        # data['shares_data'] = nm.scan(ip,'445',arguments='--script nmap_script/scripts/smb-enum-shares.nse')['scan'][ip]['hostscript'][0]['output']
-        # path = 'data/raw/'+ip+'/nmap_enum.json'
-        # with open(path,'w') as file:
-        #     json.dump(data,file)  
 
-   
-
+        print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" has finished nmap_enumartion!"+ bcolors.ENDC)
     
     def smb_brute_force(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" is in brute_force!"+ bcolors.ENDC)
@@ -213,15 +200,6 @@ def enum4liunx_ng_execute(ip):
 
 
 if __name__ == "__main__":
-    # enum4liunx_ng_execute("192.168.89.208")
-    Enum2Report("192.168.88.1/24")
-    # subprocess.run(['python3','data_clean.py'])
+    Enum2Report("192.168.89.1/24")
+    subprocess.run(['python3','data_clean.py'])
     
-    # smbghost_detection("192.168.89.208")
-
-
-
-
-
-
-     #subprocess.run(['nmap','-p','445',"192.168.89.208",'--script','smb-enum-shares.nse','-oX','data/raw/'+ "192.168.89.208" +'/'+  +'192.168.89.208_share.xml'])

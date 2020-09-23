@@ -1,4 +1,4 @@
-import xmltodict,os,threading,subprocess
+import xmltodict,os,threading,subprocess,json
 
 # def report_generate(datas):
 class filename:
@@ -14,7 +14,8 @@ class filename:
     CVE2020 = "cve_2020_1206.txt"
     CVE2020_2 = "cve_2020_0796.txt"
 
-def schedual(files):
+def schedual(files,ip):
+
     os,fqdn,workgroup = os_clean([e for e in files if e.endswith(filename.OS)][0])
     account,password = account_clean([e for e in files if e.endswith(filename.PSSWD)][0])
     share_data = share_clean([e for e in files if e.endswith(filename.SHARE)][0])
@@ -26,6 +27,7 @@ def schedual(files):
     cve_2020_0796_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020)][0])
     cve_2020_1206_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020_2)][0])
     datas = {
+        "ip":ip,
         "os":os,
         "fqdn":fqdn,
         "workgroup":workgroup,
@@ -41,8 +43,13 @@ def schedual(files):
         "ms17-010":ms17010_data,
 
     }
-    print(datas)
-    print(os,fqdn,workgroup,account,password,share_data)
+    datas = json.dumps(datas)
+    outputfile = ip + ".json"
+    
+    filepath = 'data/clean_data/'+outputfile
+    print(filepath)
+    with open(filepath,'w')as file:
+        file.write(datas)
 def nmap_datas(raw_files):
     
     with open(raw_files,"rb")as file:
@@ -50,7 +57,9 @@ def nmap_datas(raw_files):
         if "hostscript" not in parsed_file['nmaprun']['host']:
             message =  "Not Vulernable"
         else:
-            if parsed_file['nmaprun']['host']['hostscript']["script"]["@output"] == "false" or parsed_file['nmaprun']['host']['hostscript']["script"]["@output"] == "ERROR: Script execution failed (use -d to debug)":
+            if "#text" not in parsed_file['nmaprun']['host']['hostscript']["script"] and parsed_file['nmaprun']['host']['hostscript']["script"]["@output"] == "ERROR: Script execution failed (use -d to debug)":
+                message = "Not Vulnerable"
+            elif "#text" not in parsed_file['nmaprun']['host']['hostscript']["script"] and parsed_file['nmaprun']['host']['hostscript']["script"]["#text"] == "false":
                 message = "Not Vulnerable"
             else:
                 message =  "Vulnerable"
@@ -63,12 +72,15 @@ def data_path():
     directories = os.listdir('data/raw')
     thread_list = []
     for directory in directories:
-        temp_path = os.path.join('data/raw',directory)
-        temp_files = os.listdir(temp_path)
-        files = [os.path.join(temp_path,file) for file in temp_files]
-        task = threading.Thread(target=schedual, args=(files,))
-        task.start()
-        thread_list.append(task)
+        if directory == "192.168.89.208":
+            print(directory)
+            input()
+            temp_path = os.path.join('data/raw',directory)
+            temp_files = os.listdir(temp_path)
+            files = [os.path.join(temp_path,file) for file in temp_files]
+            task = threading.Thread(target=schedual, args=(files,directory))
+            task.start()
+            thread_list.append(task)
     for thread in thread_list:
         thread.join()
 def share_clean(raw_file):
