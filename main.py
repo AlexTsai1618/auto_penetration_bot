@@ -48,7 +48,7 @@ class Enum2Report:
                 
                 print(bcolors.WARNING + bcolors.BOLD +"[+]"+ ip +" is founded" + bcolors.ENDC)
                 path = 'data/raw/'+ip
-                if os.path.isdir(path) =="false":
+                if os.path.isdir(path) =="False":
                     os.mkdir('data/raw/'+ip)
                 
                 ips.append(i)

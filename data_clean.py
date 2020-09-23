@@ -1,6 +1,16 @@
 import xmltodict,os,threading,subprocess,json
 
 # def report_generate(datas):
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[91m'
+    FAIL = '\033[93m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 class filename:
     MS06 = "ms06-025.xml"
     MS07 = "ms07-029.xml"
@@ -47,7 +57,7 @@ def schedual(files,ip):
     outputfile = ip + ".json"
     
     filepath = 'data/clean_data/'+outputfile
-    print(filepath)
+    print(bcolors.OKBLUE + bcolors.BOLD +"[+] " + ip + " json file is generated"  + bcolors.ENDC)
     with open(filepath,'w')as file:
         file.write(datas)
 def nmap_datas(raw_files):
@@ -72,15 +82,12 @@ def data_path():
     directories = os.listdir('data/raw')
     thread_list = []
     for directory in directories:
-        if directory == "192.168.89.208":
-            print(directory)
-            input()
-            temp_path = os.path.join('data/raw',directory)
-            temp_files = os.listdir(temp_path)
-            files = [os.path.join(temp_path,file) for file in temp_files]
-            task = threading.Thread(target=schedual, args=(files,directory))
-            task.start()
-            thread_list.append(task)
+        temp_path = os.path.join('data/raw',directory)
+        temp_files = os.listdir(temp_path)
+        files = [os.path.join(temp_path,file) for file in temp_files]
+        task = threading.Thread(target=schedual, args=(files,directory))
+        task.start()
+        thread_list.append(task)
     for thread in thread_list:
         thread.join()
 def share_clean(raw_file):

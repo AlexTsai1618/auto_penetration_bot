@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Wed Sep 23 02:30:21 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw/192.168.89.210/192.168.89.210_os.xml 192.168.89.210 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw/192.168.89.210/192.168.89.210_os.xml 192.168.89.210" start="1600842621" startstr="Wed Sep 23 02:30:21 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1600842622" endtime="1600842622"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.89.210" addrtype="ipv4"/>
+<address addr="76:77:3B:4B:EA:9B" addrtype="mac"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" product="Windows 7 Enterprise 7601 Service Pack 1 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows 7 Enterprise 7601 Service Pack 1 (Windows 7 Enterprise 6.1)&#xa;  OS CPE: cpe:/o:microsoft:windows_7::sp1&#xa;  Computer name: IE9WIN7&#xa;  NetBIOS computer name: IE9WIN7\x00&#xa;  Workgroup: WORKGROUP\x00&#xa;  System time: 2020-09-22T23:30:21-07:00&#xa;"><elem key="os">Windows 7 Enterprise 7601 Service Pack 1</elem>
+<elem key="lanmanager">Windows 7 Enterprise 6.1</elem>
+<elem key="server">IE9WIN7\x00</elem>
+<elem key="date">2020-09-22T23:30:21-07:00</elem>
+<elem key="fqdn">IE9WIN7</elem>
+<elem key="domain_dns">IE9WIN7</elem>
+<elem key="workgroup">WORKGROUP\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_7::sp1</elem>
+</script></hostscript><times srtt="499" rttvar="3787" to="100000"/>
+</host>
+<runstats><finished time="1600842622" timestr="Wed Sep 23 02:30:22 2020" elapsed="0.58" summary="Nmap done at Wed Sep 23 02:30:22 2020; 1 IP address (1 host up) scanned in 0.58 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>
