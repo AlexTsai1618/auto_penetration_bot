@@ -1,0 +1,3 @@
+[submodule "SMBleed-detection"]
+	path = SMBleed-detection
+	url = https://github.com/ZecOps/SMBGhost-SMBleed-scanner.git
