@@ -35,6 +35,7 @@ pyreadline = "*"
 pyOpenSSL = ">=0.16.2"
 Flask = ">=1.0"
 impacket = "*"
+docxtpl = "*"
 
 [requires]
 python_version = "3.8"
