@@ -86,13 +86,13 @@ def schedual(filepath,files,ip):
         "ms17-010":ms17010_data,
 
     }
-    # datas = json.dumps(datas)
+    datas = json.dumps(datas)
     outputfile = ip + ".json"
     print(datas) 
     filepath = 'data/clean_data/'+outputfile
-    # print(bcolors.OKBLUE + bcolors.BOLD +"[+] " + ip + " json file is generated"  + bcolors.ENDC)
-    # with open(filepath,'w')as file:
-    #     file.write(json.dumps(datas))
+    print(bcolors.OKBLUE + bcolors.BOLD +"[+] " + ip + " json file is generated"  + bcolors.ENDC)
+    with open(filepath,'w')as file:
+        file.write(datas)
 def nmap_datas(raw_files):
     
     with open(raw_files,"rb")as file:
