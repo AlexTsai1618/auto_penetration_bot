@@ -30,7 +30,7 @@ def checkfile(all_files,filename_end,modelname):
             data =  nmap_datas([e for e in files if e.endswith(filename_end)][0])
             return data
         elif modelname == "os_clean":
-            os,fqdn,workgroup =  os_clean([e for e in files if e.endswith(filename_end)][0])
+            os_data,fqdn,workgroup =  os_clean([e for e in files if e.endswith(filename_end)][0])
             return os_data,fqdn,workgroup
         elif modelname == "share_clean":
             data = share_clean([e for e in files if e.endswith(filename_end)][0])
@@ -71,7 +71,7 @@ def schedual(filepath,files,ip):
     cve_2020_1206_data = checkfile(all_files,filename.CVE2020_2,"handle_txt_file")
     datas = {
         "ip":ip,
-        "os":os,
+        "os":os_data,
         "fqdn":fqdn,
         "workgroup":workgroup,
         "account":account,
