@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Thu Sep 24 04:28:24 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw/192.168.121.5/192.168.121.5_os.xml 192.168.121.5 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw/192.168.121.5/192.168.121.5_os.xml 192.168.121.5" start="1600936104" startstr="Thu Sep 24 04:28:24 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="connect" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1600936105" endtime="1600936105"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="192.168.121.5" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="microsoft-ds" product="Windows 10 Pro 19041 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows 10 Pro 19041 (Windows 10 Pro 6.3)&#xa;  OS CPE: cpe:/o:microsoft:windows_10::-&#xa;  Computer name: LAPTOP-27O5T1G8&#xa;  NetBIOS computer name: LAPTOP-27O5T1G8\x00&#xa;  Workgroup: WORKGROUP\x00&#xa;  System time: 2020-09-24T16:28:25+08:00&#xa;"><elem key="os">Windows 10 Pro 19041</elem>
+<elem key="lanmanager">Windows 10 Pro 6.3</elem>
+<elem key="server">LAPTOP-27O5T1G8\x00</elem>
+<elem key="date">2020-09-24T16:28:25+08:00</elem>
+<elem key="fqdn">LAPTOP-27O5T1G8</elem>
+<elem key="domain_dns">LAPTOP-27O5T1G8</elem>
+<elem key="workgroup">WORKGROUP\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_10::-</elem>
+</script></hostscript><times srtt="782" rttvar="3768" to="100000"/>
+</host>
+<runstats><finished time="1600936105" timestr="Thu Sep 24 04:28:25 2020" elapsed="0.23" summary="Nmap done at Thu Sep 24 04:28:25 2020; 1 IP address (1 host up) scanned in 0.23 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

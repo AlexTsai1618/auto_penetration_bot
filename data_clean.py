@@ -24,13 +24,15 @@ class filename:
     OS = "os.xml"
     CVE2020 = "cve_2020_1206.txt"
     CVE2020_2 = "cve_2020_0796.txt"
-def checkfile(all_files,filename_end,modelname):
-    if filename_end in all_files:
+def checkfile(files,filename_end,modelname):
+    try:
+    
         if modelname == "nmap_datas":
             data =  nmap_datas([e for e in files if e.endswith(filename_end)][0])
             return data
         elif modelname == "os_clean":
             os_data,fqdn,workgroup =  os_clean([e for e in files if e.endswith(filename_end)][0])
+
             return os_data,fqdn,workgroup
         elif modelname == "share_clean":
             data = share_clean([e for e in files if e.endswith(filename_end)][0])
@@ -41,7 +43,8 @@ def checkfile(all_files,filename_end,modelname):
         elif modelname == "account_clean":
             account,password = account_clean([e for e in files if e.endswith(filename_end)][0])
             return account,password
-    else:
+    except:
+
         if modelname == "nmap_datas":
             return "NULL"
         elif modelname == "os_clean":
@@ -53,22 +56,24 @@ def checkfile(all_files,filename_end,modelname):
         elif modelname == "account_clean":
             return "NULL","NULL"
 def schedual(filepath,files,ip):
-    print(ip)
-    input()
+  
+    import os
     all_files = os.listdir(filepath)
-    os_data,fqdn,workgroup = checkfile(all_files,filename.OS,"os_clean")
-    account,password = checkfile(all_files,filename.PSSWD,"account_clean")
-    share_data = checkfile(all_files,filename.SHARE,"share_clean")
-    ms07029_data = checkfile(all_files,filename.MS07,"nmap_datas")
-    ms08067_data = checkfile(all_files,filename.MS08,"nmap_datas")
-    ms10054_data = checkfile(all_files,filename.MS10,"nmap_datas")
-    ms10061_data = checkfile(all_files,filename.MS10_2,"nmap_datas")
-    # ms17010_data = handle_txt_file([e for e in files if e.endswith(filename.MS17)][0])
-    ms17010_data = checkfile(all_files,filename.MS07,"handle_txt_file")
-    # cve_2020_0796_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020)][0])
-    cve_2020_0796_data = checkfile(all_files,filename.CVE2020,"handle_txt_file")
-    # cve_2020_1206_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020_2)][0])
-    cve_2020_1206_data = checkfile(all_files,filename.CVE2020_2,"handle_txt_file")
+    os_data,fqdn,workgroup = checkfile(files,filename.OS,"os_clean")
+    # os_data,fqdn,workgroup = os_clean([e for e in files if e.endswith(filename.OS)][0])
+    
+    account,password = checkfile(files,filename.PSSWD,"account_clean")
+    share_data = checkfile(files,filename.SHARE,"share_clean")
+    ms07029_data = checkfile(files,filename.MS07,"nmap_datas")
+    ms08067_data = checkfile(files,filename.MS08,"nmap_datas")
+    ms10054_data = checkfile(files,filename.MS10,"nmap_datas")
+    ms10061_data = checkfile(files,filename.MS10_2,"nmap_datas")
+    ms17010_data = handle_txt_file([e for e in files if e.endswith(filename.MS17)][0])
+    ms17010_data = checkfile(files,filename.MS07,"handle_txt_file")
+    cve_2020_0796_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020)][0])
+    cve_2020_0796_data = checkfile(files,filename.CVE2020,"handle_txt_file")
+    cve_2020_1206_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020_2)][0])
+    cve_2020_1206_data = checkfile(files,filename.CVE2020_2,"handle_txt_file")
     datas = {
         "ip":ip,
         "os":os_data,
@@ -125,10 +130,10 @@ def handle_txt_file(raw_files):
         return "NULL"
     
 def data_path():
-    directories = os.listdir('data/raw')
+    directories = os.listdir('data/raw_data')
     thread_list = []
     for directory in directories:
-        temp_path = os.path.join('data/raw',directory)
+        temp_path = os.path.join('data/raw_data',directory)
         temp_files = os.listdir(temp_path)
         files = [os.path.join(temp_path,file) for file in temp_files]
         task = threading.Thread(target=schedual, args=(temp_path,files,directory))
@@ -156,6 +161,7 @@ def share_clean(raw_file):
             return data
 def os_clean(raw_file):
     data = {}
+    import os
     if os.path.isfile(raw_file):
         with open(raw_file,'rb')as file:
             try:

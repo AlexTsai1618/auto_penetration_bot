@@ -1,4 +1,4 @@
-import masscan,json,subprocess,asyncio,threading,nmap,re,os
+import json,subprocess,asyncio,threading,nmap,re,os
 import json
 from queue import Queue
 import time
@@ -49,11 +49,11 @@ class Enum2Report:
                 
                 
                 print(bcolors.WARNING + bcolors.BOLD +"[+]"+ ip +" is founded" + bcolors.ENDC)
-                path = 'data/raw/'+ip
+                path = 'data/raw_data/'+ip
 
                 if not os.path.isdir(path):
                     print(bcolors.OKGREEN + bcolors.BOLD +"[+]"+ ip +" folder is created" + bcolors.ENDC)
-                    os.mkdir('data/raw/'+ip)
+                    os.mkdir('data/raw_data/'+ip)
 
                 ips.append(i)
 
@@ -69,9 +69,9 @@ class Enum2Report:
         print(bcolors.WARNING + bcolors.BOLD +"[+] "+ip+" "+ name + " exploit has started" + bcolors.ENDC)
         
         try:
-            subprocess.run(['nmap','-p','445',ip,'--script',script,'-oX','data/raw/'+ ip +'/'+ ip +'_'+name+'.xml'],stdout=open(os.devnull,'wb'))
+            subprocess.run(['nmap','-p','445',ip,'--script',script,'-oX','data/raw_data/'+ ip +'/'+ ip +'_'+name+'.xml'],stdout=open(os.devnull,'wb'))
         except:
-            filename = 'data/raw/'+ ip +'/'+ ip +'_'+name+'.txt'
+            filename = 'data/raw_data/'+ ip +'/'+ ip +'_'+name+'.txt'
             with open(filename,'wb')as file:
                 file.write("NULL")
         print(bcolors.OKGREEN + bcolors.BOLD + "[+] "+ip+" "+ name + " exploit has Finished" + bcolors.ENDC)
@@ -104,7 +104,7 @@ class Enum2Report:
                 t6.join()
                
         else:
-            subprocess.run(['nmap','-p','445',ip,'-O','-v','-oX','data/raw/'+ ip +'/'+ ip +'_os.xml'])
+            subprocess.run(['nmap','-p','445',ip,'-O','-v','-oX','data/raw_data/'+ ip +'/'+ ip +'_os.xml'])
             if nm.scan(ip,'445',arguments='--script nmap_script/scripts/smb-enum-shares.nse')['scan'][ip]['hostscript']:
                 t1 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms06-025',"ms06-025",))
                 t2 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms07-029',"ms07-029",))
@@ -130,9 +130,9 @@ class Enum2Report:
     
     def smb_brute_force(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" is in brute_force!"+ bcolors.ENDC)
-        path = 'data/raw/'+ip+'/'+ip+'_password.txt'
+        path = 'data/raw_data/'+ip+'/'+ip+'_password.txt'
         try:
-            subprocess.run(['medusa','-M','smbnt','-h',ip,'-U','data/wordlist/dummyusernames.txt','admin','-P','data/wordlist/dummypass.txt','-f','-O','data/raw/'+ip+'/'+ip+'_password.txt'],stdout=open(os.devnull,'wb'))
+            subprocess.run(['medusa','-M','smbnt','-h',ip,'-U','data/wordlist/dummyusernames.txt','admin','-P','data/wordlist/dummypass.txt','-f','-O','data/raw_data/'+ip+'/'+ip+'_password.txt'],stdout=open(os.devnull,'wb'))
             self.check_file(path)
         except:
             file = open(path,'w')
@@ -164,7 +164,7 @@ class Enum2Report:
     def ms17_010_detection(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" ms17_010_detection is going!"+ bcolors.ENDC)
         filename = ip + "_ms17-010.txt"
-        path = "data/raw/" + ip + '/' + filename
+        path = "data/raw_data/" + ip + '/' + filename
         try:
             subprocess.run(['python2','ms17-010.py','-i',ip])
             self.check_file(path)
@@ -174,7 +174,7 @@ class Enum2Report:
     def smb_bleeding_detection(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" smb_bleeding_detection is going!"+ bcolors.ENDC)
         filename = ip + "_cve_2020_1206.txt"
-        path = "data/raw/" + ip + '/' + filename
+        path = "data/raw_data/" + ip + '/' + filename
         try:
             subprocess.run(['python3','SMBleed-scanner/SMBGhost-SMBleed-scanner.py',ip])
             self.check_file(path)
@@ -206,7 +206,7 @@ class Enum2Report:
         nb, = struct.unpack(">I", sock.recv(4))
         res = sock.recv(nb)
         filename = ip + "_cve_2020_0796.txt"
-        path = "data/raw/" + ip + '/' + filename
+        path = "data/raw_data/" + ip + '/' + filename
         if res[68:70] != b"\x11\x03" or res[70:72] != b"\x02\x00":
 
             print(path)
@@ -231,10 +231,10 @@ class Enum2Report:
                       
 def enum4liunx_ng_execute(ip):
     print(bcolors.WARNING +"[+]" + ip +" is in enum4liunx!"+ bcolors.ENDC)
-    subprocess.run(["python3","enum4linux-ng/enum4linux-ng.py","-As",ip,"-u"," ","-oJ","data/raw/"+ip+"/"+ip+".e4raw.json"],stdout=open(os.devnull,'wb'))
+    subprocess.run(["python3","enum4linux-ng/enum4linux-ng.py","-As",ip,"-u"," ","-oJ","data/raw_data/"+ip+"/"+ip+".e4raw_data.json"],stdout=open(os.devnull,'wb'))
     return ip +" En4liunx Success!" 
 
 if __name__ == "__main__":
-    Enum2Report("192.168.121.173")
+    Enum2Report("192.168.121.0/24")
     subprocess.run(['python3','data_clean.py'])
     
