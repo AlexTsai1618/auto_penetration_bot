@@ -1,3 +1,6 @@
 [submodule "SMBleed-detection"]
 	path = SMBleed-detection
 	url = https://github.com/ZecOps/SMBGhost-SMBleed-scanner.git
+[submodule "enum4linux-ng"]
+	path = enum4linux-ng
+	url = https://github.com/cddmp/enum4linux-ng.git
