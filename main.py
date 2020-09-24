@@ -132,7 +132,7 @@ class Enum2Report:
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" is in brute_force!"+ bcolors.ENDC)
         path = 'data/raw_data/'+ip+'/'+ip+'_password.txt'
         try:
-            subprocess.run(['medusa','-M','smbnt','-h',ip,'-U','data/wordlist/dummyusernames.txt','admin','-P','data/wordlist/dummypass.txt','-f','-O','data/raw_data/'+ip+'/'+ip+'_password.txt'],stdout=open(os.devnull,'wb'))
+            subprocess.run(['medusa','-M','smbnt','-h',ip,'-U','data/wordlist_data/dummyusernames.txt','admin','-P','data/wordlist_data/dummypass.txt','-f','-O','data/raw_data/'+ip+'/'+ip+'_password.txt'],stdout=open(os.devnull,'wb'))
             self.check_file(path)
         except:
             file = open(path,'w')
