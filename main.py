@@ -3,7 +3,9 @@ import json
 from queue import Queue
 import time
 from subprocess import Popen,PIPE
-
+import xml.etree.ElementTree as ET
+# class paths:
+    
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -48,16 +50,13 @@ class Enum2Report:
                 
                 print(bcolors.WARNING + bcolors.BOLD +"[+]"+ ip +" is founded" + bcolors.ENDC)
                 path = 'data/raw/'+ip
-                # print(os.path.isdir(path))
-                # input()
+
                 if not os.path.isdir(path):
                     print(bcolors.OKGREEN + bcolors.BOLD +"[+]"+ ip +" folder is created" + bcolors.ENDC)
                     os.mkdir('data/raw/'+ip)
-                # os.mkdir(path)
-               
+
                 ips.append(i)
-        # for i in ips:
-            
+
                 task = threading.Thread(target=self.schedual, args=(ip,))
                 task.start()
                 tasks.append(task)
@@ -65,10 +64,16 @@ class Enum2Report:
                 print(bcolors.FAIL + bcolors.BOLD +"[+] SMB was not detected in "+ip + bcolors.ENDC)
         for task in tasks:
             task.join()                
-                # print(str(i)+" enumeration is "+ str(result))
+
     def nmap_run_script(self,ip,script,name):
         print(bcolors.WARNING + bcolors.BOLD +"[+] "+ip+" "+ name + " exploit has started" + bcolors.ENDC)
-        subprocess.run(['nmap','-p','445',ip,'--script',script,'-oX','data/raw/'+ ip +'/'+ ip +'_'+name+'.xml'],stdout=open(os.devnull,'wb'))
+        
+        try:
+            subprocess.run(['nmap','-p','445',ip,'--script',script,'-oX','data/raw/'+ ip +'/'+ ip +'_'+name+'.xml'],stdout=open(os.devnull,'wb'))
+        except:
+            filename = 'data/raw/'+ ip +'/'+ ip +'_'+name+'.txt'
+            with open(filename,'wb')as file:
+                file.write("NULL")
         print(bcolors.OKGREEN + bcolors.BOLD + "[+] "+ip+" "+ name + " exploit has Finished" + bcolors.ENDC)
     def nmap_enum(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+]" + ip +" is in nmap_enumartion!" + bcolors.ENDC)
@@ -125,15 +130,15 @@ class Enum2Report:
     
     def smb_brute_force(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" is in brute_force!"+ bcolors.ENDC)
+        path = 'data/raw/'+ip+'/'+ip+'_password.txt'
         try:
             subprocess.run(['medusa','-M','smbnt','-h',ip,'-U','data/wordlist/dummyusernames.txt','admin','-P','data/wordlist/dummypass.txt','-f','-O','data/raw/'+ip+'/'+ip+'_password.txt'],stdout=open(os.devnull,'wb'))
-
-        except subprocess.CalledProcessError as e:
-            raise BuildError('\'%s\' exited with error code: %s' % (name, e.returncode))
-            file_path = 'data/raw/'+ip+'/'+ip+'_password.txt'
-            file = open(file_path,'w')
+            self.check_file(path)
+        except:
+            file = open(path,'w')
             file.write("password is strong!!")
             file.close()
+            self.check_file(path)
         print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" brute_force has finished!"+ bcolors.ENDC)  
            
     def schedual(self,ip):
@@ -158,19 +163,29 @@ class Enum2Report:
         t5.join()
     def ms17_010_detection(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" ms17_010_detection is going!"+ bcolors.ENDC)
-        subprocess.run(['python2','ms17-010.py','-i',ip])
+        filename = ip + "_ms17-010.txt"
+        path = "data/raw/" + ip + '/' + filename
+        try:
+            subprocess.run(['python2','ms17-010.py','-i',ip])
+            self.check_file(path)
+        except:
+            self.check_file(path)
         print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" ms17_010_detection have just finished!"+ bcolors.ENDC)  
     def smb_bleeding_detection(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" smb_bleeding_detection is going!"+ bcolors.ENDC)
+        filename = ip + "_cve_2020_1206.txt"
+        path = "data/raw/" + ip + '/' + filename
         try:
             subprocess.run(['python3','SMBleed-scanner/SMBGhost-SMBleed-scanner.py',ip])
+            self.check_file(path)
+            print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" smb_bleeding_detection have just finished!"+ bcolors.ENDC)  
         except:
-            filename = ip + "_cve_2020_1206.txt"
-            path = "data/raw/" + ip + '/' + filename
+
             file2 = open(path,"w")
             file2.write("Not vulnerable")
             file2.close()
-        print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" smb_bleeding_detection have just finished!"+ bcolors.ENDC)  
+            self.check_file(path)
+            print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" smb_bleeding_detection have just finished!"+ bcolors.ENDC)  
     def smbghost_detection(self,ip):
         print(bcolors.WARNING + bcolors.BOLD +"[+]" + ip +" is in smbghost detection"+ bcolors.ENDC)
         import socket
@@ -197,20 +212,29 @@ class Enum2Report:
             print(path)
             with open(path,'w')as file:
                 file.write("Not vulnerable")
-           
-            print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" smbghost detection has finished!"+ bcolors.ENDC)  
+                self.check_file(path)    
+                print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" smbghost detection has finished!"+ bcolors.ENDC)
         else:
             with open(path,'w')as file:
                 file.write("vulnerable")            
-            
-            print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" smbghost detection has finished!"+ bcolors.ENDC)              
+
+                self.check_file(path)    
+                print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" smbghost detection has finished!"+ bcolors.ENDC)
+    def check_file(self,path):
+        path = os.path.join(path)
+        if not os.path.isfile(path):
+            with open(path,'w')as file:
+                file.write("NULL")
+            print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + path +" has been checked and fixed!"+ bcolors.ENDC)
+        else:
+            print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + path +" is greate nothing need to do!"+ bcolors.ENDC)
+                      
 def enum4liunx_ng_execute(ip):
     print(bcolors.WARNING +"[+]" + ip +" is in enum4liunx!"+ bcolors.ENDC)
     subprocess.run(["python3","enum4linux-ng/enum4linux-ng.py","-As",ip,"-u"," ","-oJ","data/raw/"+ip+"/"+ip+".e4raw.json"],stdout=open(os.devnull,'wb'))
     return ip +" En4liunx Success!" 
 
-
 if __name__ == "__main__":
-    Enum2Report("192.168.89.212")
+    Enum2Report("192.168.121.173")
     subprocess.run(['python3','data_clean.py'])
     

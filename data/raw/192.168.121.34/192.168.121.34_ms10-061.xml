@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Thu Sep 24 01:02:22 2020 as: nmap -p 445 -&#45;script smb-vuln-ms10-061 -oX data/raw/192.168.121.34/192.168.121.34_ms10-061.xml 192.168.121.34 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-vuln-ms10-061 -oX data/raw/192.168.121.34/192.168.121.34_ms10-061.xml 192.168.121.34" start="1600923742" startstr="Thu Sep 24 01:02:22 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1600923743" endtime="1600923743"><status state="up" reason="reset" reason_ttl="128"/>
+<address addr="192.168.121.34" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<hostscript><script id="smb-vuln-ms10-061" output="NT_STATUS_ACCESS_DENIED">false</script></hostscript><times srtt="412" rttvar="3834" to="100000"/>
+</host>
+<runstats><finished time="1600923743" timestr="Thu Sep 24 01:02:23 2020" elapsed="2.34" summary="Nmap done at Thu Sep 24 01:02:23 2020; 1 IP address (1 host up) scanned in 2.34 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

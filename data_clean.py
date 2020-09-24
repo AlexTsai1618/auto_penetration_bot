@@ -1,5 +1,6 @@
 import xmltodict,os,threading,subprocess,json
 
+
 # def report_generate(datas):
 class bcolors:
     HEADER = '\033[95m'
@@ -23,19 +24,51 @@ class filename:
     OS = "os.xml"
     CVE2020 = "cve_2020_1206.txt"
     CVE2020_2 = "cve_2020_0796.txt"
-
-def schedual(files,ip):
-
-    os,fqdn,workgroup = os_clean([e for e in files if e.endswith(filename.OS)][0])
-    account,password = account_clean([e for e in files if e.endswith(filename.PSSWD)][0])
-    share_data = share_clean([e for e in files if e.endswith(filename.SHARE)][0])
-    ms07029_data = nmap_datas([e for e in files if e.endswith(filename.MS07)][0])
-    ms08067_data = nmap_datas([e for e in files if e.endswith(filename.MS08)][0])
-    ms10054_data = nmap_datas([e for e in files if e.endswith(filename.MS10)][0])
-    ms10061_data = nmap_datas([e for e in files if e.endswith(filename.MS10_2)][0])
-    ms17010_data = handle_txt_file([e for e in files if e.endswith(filename.MS17)][0])
-    cve_2020_0796_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020)][0])
+def checkfile(all_files,filename_end,modelname):
+    if filename_end in all_files:
+        if modelname == "nmap_datas":
+            data =  nmap_datas([e for e in files if e.endswith(filename_end)][0])
+            return data
+        elif modelname == "os_clean":
+            os,fqdn,workgroup =  os_clean([e for e in files if e.endswith(filename_end)][0])
+            return os_data,fqdn,workgroup
+        elif modelname == "share_clean":
+            data = share_clean([e for e in files if e.endswith(filename_end)][0])
+            return data
+        elif modelname == "handle_txt_file":
+            data = handle_txt_file([e for e in files if e.endswith(filename_end)][0])
+            return data
+        elif modelname == "account_clean":
+            account,password = account_clean([e for e in files if e.endswith(filename_end)][0])
+            return account,password
+    else:
+        if modelname == "nmap_datas":
+            return "NULL"
+        elif modelname == "os_clean":
+            return "NULL","NULL","NULL"
+        elif modelname == "share_clean":
+            return "NULL"
+        elif modelname == "handle_txt_file":
+            return "NULL"
+        elif modelname == "account_clean":
+            return "NULL","NULL"
+def schedual(filepath,files,ip):
+    print(ip)
+    input()
+    all_files = os.listdir(filepath)
+    os_data,fqdn,workgroup = checkfile(all_files,filename.OS,"os_clean")
+    account,password = checkfile(all_files,filename.PSSWD,"account_clean")
+    share_data = checkfile(all_files,filename.SHARE,"share_clean")
+    ms07029_data = checkfile(all_files,filename.MS07,"nmap_datas")
+    ms08067_data = checkfile(all_files,filename.MS08,"nmap_datas")
+    ms10054_data = checkfile(all_files,filename.MS10,"nmap_datas")
+    ms10061_data = checkfile(all_files,filename.MS10_2,"nmap_datas")
+    # ms17010_data = handle_txt_file([e for e in files if e.endswith(filename.MS17)][0])
+    ms17010_data = checkfile(all_files,filename.MS07,"handle_txt_file")
+    # cve_2020_0796_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020)][0])
+    cve_2020_0796_data = checkfile(all_files,filename.CVE2020,"handle_txt_file")
     # cve_2020_1206_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020_2)][0])
+    cve_2020_1206_data = checkfile(all_files,filename.CVE2020_2,"handle_txt_file")
     datas = {
         "ip":ip,
         "os":os,
@@ -44,7 +77,7 @@ def schedual(files,ip):
         "account":account,
         "password":password,
         "share_data":share_data,
-        # "cve_2020_1206":cve_2020_1206_data,
+        "cve_2020_1206":cve_2020_1206_data,
         "cve_2020_0796":cve_2020_0796_data,
         "ms07-029":ms07029_data,
         "ms08-067":ms08067_data,
@@ -53,13 +86,13 @@ def schedual(files,ip):
         "ms17-010":ms17010_data,
 
     }
-    datas = json.dumps(datas)
+    # datas = json.dumps(datas)
     outputfile = ip + ".json"
-    
+    print(datas) 
     filepath = 'data/clean_data/'+outputfile
-    print(bcolors.OKBLUE + bcolors.BOLD +"[+] " + ip + " json file is generated"  + bcolors.ENDC)
-    with open(filepath,'w')as file:
-        file.write(datas)
+    # print(bcolors.OKBLUE + bcolors.BOLD +"[+] " + ip + " json file is generated"  + bcolors.ENDC)
+    # with open(filepath,'w')as file:
+    #     file.write(json.dumps(datas))
 def nmap_datas(raw_files):
     
     with open(raw_files,"rb")as file:
@@ -98,7 +131,7 @@ def data_path():
         temp_path = os.path.join('data/raw',directory)
         temp_files = os.listdir(temp_path)
         files = [os.path.join(temp_path,file) for file in temp_files]
-        task = threading.Thread(target=schedual, args=(files,directory))
+        task = threading.Thread(target=schedual, args=(temp_path,files,directory))
         task.start()
         thread_list.append(task)
     for thread in thread_list:
@@ -123,25 +156,31 @@ def share_clean(raw_file):
             return data
 def os_clean(raw_file):
     data = {}
-    with open(raw_file,'rb')as file:
-        try:
-            parsed_file = xmltodict.parse((file))
-            parsed_file2 = parsed_file['nmaprun']['host']['hostscript']["script"]['elem']
-            os = parsed_file2[0]['#text']
-            fqdn = parsed_file2[4]['#text']
-            workgroup = parsed_file2[6]['#text']
-            return os,fqdn,workgroup
-        except:
-            return "NULL","NULL","NULL"
+    if os.path.isfile(raw_file):
+        with open(raw_file,'rb')as file:
+            try:
+                parsed_file = xmltodict.parse((file))
+                parsed_file2 = parsed_file['nmaprun']['host']['hostscript']["script"]['elem']
+                os = parsed_file2[0]['#text']
+                fqdn = parsed_file2[4]['#text']
+                workgroup = parsed_file2[6]['#text']
+                return os,fqdn,workgroup
+            except:
+                return "NULL","NULL","NULL"
+    else:
+        return "NULL","NULL","NULL","NULL"
 def account_clean(raw_file):
-    with open(raw_file,'r') as file:
-        try:
-            raw = [file for file in file.readlines() if file.startswith("ACCOUNT FOUND:")][0]
-            clean_data = raw[50::].split(' ')
-            account = clean_data[0]
-            password = clean_data[2]
-            return account,password
-        except:
-            return "NULL","NULL"
+    if os.path.isfile(raw_file):
+        with open(raw_file,'r') as file:
+            try:
+                raw = [file for file in file.readlines() if file.startswith("ACCOUNT FOUND:")][0]
+                clean_data = raw[50::].split(' ')
+                account = clean_data[0]
+                password = clean_data[2]
+                return account,password
+            except:
+                return "NULL","NULL"
+    else:
+        return "NULL","NULL"
 if __name__ == "__main__":
     data_path()
