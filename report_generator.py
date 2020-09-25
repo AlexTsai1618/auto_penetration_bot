@@ -17,6 +17,7 @@ def data_count(datas):
         "Windows Server 2008 R2":0,
         "Windows Server 2008":0
     }
+
     vuln_count = {
         "cve_2020_1206":{
             "number":0,
@@ -66,6 +67,7 @@ def data_count(datas):
         },
 
     }
+    share_data = {}
     for data in datas:
         file = open(data)
         data = json.load(file)
@@ -75,27 +77,30 @@ def data_count(datas):
         if data["cve_2020_1206"] == "Vulnerable":
             vuln_count["cve_2020_1206"]["number"] += 1
             vuln_count["cve_2020_1206"]["ips"].append(data['ip'])
-        elif data["cve_2020_0796"] == "Vulnerable":
+        if data["cve_2020_0796"] == "Vulnerable":
             vuln_count["cve_2020_0796"]["number"] += 1
             vuln_count["cve_2020_0796"]["ips"].append(data['ip'])
-        elif data["ms07-029"] == "Vulnerable":
+        if data["ms07-029"] == "Vulnerable":
             vuln_count["ms07-029"]["number"] += 1
             vuln_count["ms07-029"]["ips"].append(data['ip'])
-        elif data["ms08-067"] == "Vulnerable":
+        if data["ms08-067"] == "Vulnerable":
             vuln_count["ms08-067"]["number"] += 1
             vuln_count["ms08-067"]["ips"].append(data['ip'])
-        elif data["ms10-054"] == "Vulnerable":
+        if data["ms10-054"] == "Vulnerable":
             vuln_count["ms10-054"]["number"] += 1
             vuln_count["ms10-054"]["ips"].append(data['ip'])
-        elif data["ms10-061"] == "Vulnerable":
+        if data["ms10-061"] == "Vulnerable":
             vuln_count["ms10-061"]["number"] += 1
             vuln_count["ms10-061"]["ips"].append(data['ip'])
-        elif data["ms17-010"] == "Vulnerable":
+        if data["ms17-010"] == "Vulnerable":
             vuln_count["ms17-010"]["number"] += 1
             vuln_count["ms17-010"]["ips"].append(data['ip'])                                                
-        elif data['password'] == "NULL" and data['account'] == "NULL":
+        if data['password'] == "NULL" and data['account'] == "NULL":
             account.append(data['ip'])
-    print(vuln_count,account)
+        if data['share_data'] != "NULL":
+            print("here")
+            share_data.update({data['ip']:data["share_data"]})
+    print(vuln_count,share_data)
 def cve_infomation(cve_name):
     description ={
         "cve_2020_1206":{
