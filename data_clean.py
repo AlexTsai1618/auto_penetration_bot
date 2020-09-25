@@ -68,11 +68,10 @@ def schedual(filepath,files,ip):
     ms08067_data = checkfile(files,filename.MS08,"nmap_datas")
     ms10054_data = checkfile(files,filename.MS10,"nmap_datas")
     ms10061_data = checkfile(files,filename.MS10_2,"nmap_datas")
-    ms17010_data = handle_txt_file([e for e in files if e.endswith(filename.MS17)][0])
-    ms17010_data = checkfile(files,filename.MS07,"handle_txt_file")
-    cve_2020_0796_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020)][0])
+    ms17010_data = checkfile(files,filename.MS17,"handle_txt_file")
+    # cve_2020_0796_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020)][0])
     cve_2020_0796_data = checkfile(files,filename.CVE2020,"handle_txt_file")
-    cve_2020_1206_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020_2)][0])
+    # cve_2020_1206_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020_2)][0])
     cve_2020_1206_data = checkfile(files,filename.CVE2020_2,"handle_txt_file")
     datas = {
         "ip":ip,
@@ -125,9 +124,10 @@ def handle_txt_file(raw_files):
     try:
         with open(raw_files,'r')as file:
             result = file.read()
-            return result
+            if result == "NULL":
+                return "Not Vulnerable"
     except:
-        return "NULL"
+        return "Not Vulnerable"
     
 def data_path():
     directories = os.listdir('data/raw_data')
@@ -164,17 +164,22 @@ def os_clean(raw_file):
     import os
     if os.path.isfile(raw_file):
         with open(raw_file,'rb')as file:
+            parsed_file = xmltodict.parse(file)
             try:
-                parsed_file = xmltodict.parse((file))
-                parsed_file2 = parsed_file['nmaprun']['host']['hostscript']["script"]['elem']
-                os = parsed_file2[0]['#text']
+                parsed_file2 = parsed_file['nmaprun']['host']
+                os_info = parsed_file2[0]['#text']
                 fqdn = parsed_file2[4]['#text']
                 workgroup = parsed_file2[6]['#text']
-                return os,fqdn,workgroup
+                print("here A")
+                return os_info,fqdn,workgroup
             except:
-                return "NULL","NULL","NULL"
-    else:
-        return "NULL","NULL","NULL","NULL"
+
+                try:
+                    parsed_file2 = parsed_file['nmaprun']['host']["os"]['osmatch'][0]['@name']
+                    os_info = parsed_file2
+                    return os_info,"NULL","NULL"
+                except:
+                    return "NULL","NULL","NULL"
 def account_clean(raw_file):
     if os.path.isfile(raw_file):
         with open(raw_file,'r') as file:

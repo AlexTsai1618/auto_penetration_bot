@@ -1,1 +1,1 @@
-Not vulnerable
+NULL
