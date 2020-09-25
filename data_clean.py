@@ -180,7 +180,7 @@ def account_clean(raw_file):
         with open(raw_file,'r') as file:
             try:
                 raw = [file for file in file.readlines() if file.startswith("ACCOUNT FOUND:")][0]
-                clean_data = raw[50::].split(' ')
+                clean_data = raw[51::].split(' ')
                 account = clean_data[0]
                 password = clean_data[2]
                 return account,password
