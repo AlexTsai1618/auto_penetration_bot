@@ -56,7 +56,7 @@ def checkfile(files,filename_end,modelname):
         elif modelname == "account_clean":
             return "NULL","NULL"
 def schedual(filepath,files,ip):
-  
+    # if ip == "192.168.121.173":
     import os
     all_files = os.listdir(filepath)
     os_data,fqdn,workgroup = checkfile(files,filename.OS,"os_clean")
@@ -124,7 +124,10 @@ def handle_txt_file(raw_files):
     try:
         with open(raw_files,'r')as file:
             result = file.read()
-            if result == "NULL":
+            print(result)
+            if result == "Vulnerable" or "vulnerable":
+                return "Vulnerable"
+            else:
                 return "Not Vulnerable"
     except:
         return "Not Vulnerable"
