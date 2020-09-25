@@ -56,7 +56,7 @@ def checkfile(files,filename_end,modelname):
         elif modelname == "account_clean":
             return "NULL","NULL"
 def schedual(filepath,files,ip):
-    # if ip == "192.168.121.173":
+    # if ip == "192.168.121.14":
     import os
     all_files = os.listdir(filepath)
     os_data,fqdn,workgroup = checkfile(files,filename.OS,"os_clean")
@@ -169,7 +169,7 @@ def os_clean(raw_file):
         with open(raw_file,'rb')as file:
             parsed_file = xmltodict.parse(file)
             try:
-                parsed_file2 = parsed_file['nmaprun']['host']
+                parsed_file2 = parsed_file['nmaprun']['host']['hostscript']['script']['elem']
                 os_info = parsed_file2[0]['#text']
                 fqdn = parsed_file2[4]['#text']
                 workgroup = parsed_file2[6]['#text']

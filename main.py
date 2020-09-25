@@ -166,7 +166,7 @@ class Enum2Report:
         filename = ip + "_ms17-010.txt"
         path = "data/raw_data/" + ip + '/' + filename
         try:
-            subprocess.run(['python2','ms17-010.py','-i',ip])
+            subprocess.run(['python2','ms17-010.py','-i',ip],stdout=open(os.devnull,'wb'))
             self.check_file(path)
         except:
             self.check_file(path)
@@ -176,7 +176,7 @@ class Enum2Report:
         filename = ip + "_cve_2020_1206.txt"
         path = "data/raw_data/" + ip + '/' + filename
         try:
-            subprocess.run(['python3','SMBleed-detection/SMBGhost-SMBleed-scanner.py',ip])
+            subprocess.run(['python3','SMBleed-detection/SMBGhost-SMBleed-scanner.py',ip],stdout=open(os.devnull,'wb'))
             self.check_file(path)
             print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" smb_bleeding_detection have just finished!"+ bcolors.ENDC)  
         except:
