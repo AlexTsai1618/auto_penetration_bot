@@ -8,13 +8,18 @@ class report_app:
         self.paths()
     def report(self,vuln_count,share_data,computer_os,ips,account,general_data):
         doc = DocxTemplate(os.path.join('data','smb_template','smb_template.docx'))
+        for ips in share_data:
+            for paths in share_data[ips]:
+                for index,access in enumerate(share_data[ips][paths]):
+                    if  access == "<none>":
+                        share_data[ips][paths][index] = "none"
         data={
             "name":self.name,
             "year":date.today().year-1911,
             "month":date.today().month,
             'day': date.today().day,  
             "vuln_count":vuln_count,
-            "share_data":share_data,
+            "share_datas":share_data,
             "computer_os":computer_os,
             "ips":ips,
             "accounts":account,
@@ -26,7 +31,7 @@ class report_app:
         # for vuln in data['share_data']:
         #     print(vuln)
         datas = json.dumps(data)
-        outputfile = "data2.json"
+        outputfile = "data.json"
         with open(outputfile,'w')as file:
                 file.write(datas)
         # print(data)
