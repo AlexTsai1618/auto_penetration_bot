@@ -7,7 +7,7 @@ class report_app:
         self.name = name
         self.paths()
     def report(self,vuln_count,share_data,computer_os,ips,account,general_data):
-        # doc = DocxTemplate(os.path.join('data','Template','smb_template.docx'))
+        doc = DocxTemplate(os.path.join('data','smb_template','smb_template.docx'))
         data={
             "name":self.name,
             "year":date.today().year-1911,
@@ -21,6 +21,8 @@ class report_app:
             "general_data":general_data
     
         }
+        doc.render(data)
+        doc.save(os.path.join("data","report",self.name+"_smb_report.docx"))
         # for vuln in data['share_data']:
         #     print(vuln)
         datas = json.dumps(data)
