@@ -17,7 +17,7 @@ class report_app:
             "share_data":share_data,
             "computer_os":computer_os,
             "ips":ips,
-            "account":account,
+            "accounts":account,
             "general_data":general_data
     
         }
