@@ -36,6 +36,7 @@ pyOpenSSL = ">=0.16.2"
 Flask = ">=1.0"
 impacket = "*"
 docxtpl = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.8"
