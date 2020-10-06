@@ -64,7 +64,7 @@ class Enum2Report:
                 print(bcolors.FAIL + bcolors.BOLD +"[+] SMB was not detected in "+ip + bcolors.ENDC)
         for task in tasks:
             task.join()                
-
+    
     def nmap_run_script(self,ip,script,name):
         print(bcolors.WARNING + bcolors.BOLD +"[+] "+ip+" "+ name + " exploit has started" + bcolors.ENDC)
         

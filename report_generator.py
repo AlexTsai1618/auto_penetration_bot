@@ -4,14 +4,34 @@ from docx.shared import Mm
 from docxtpl import DocxTemplate, RichText,InlineImage
 import json
 from datetime import date
+import nmap
 import matplotlib.pyplot as plt
 class report_app:
-    def __init__(self,name):
+    def __init__(self,name,ip):
         self.name = name
+        self.ip_input = ip
         self.paths()
-    def gen_pic(self,data):
+
+    def port_scanning(self):
+           
+            """
+            This function is used to scan through smb portocol by port 139,445
+            """
+            tasks = list()
+            nm = nmap.PortScanner()
+            data = nm.scan(self.ip_input,'3389')
+
+            ips = []
+            for ip in data['scan']:
+                
+                if data["scan"][ip]["tcp"][3389]["state"] == "open" :
+                    ips.append(ip)
+            print(ips)
+            self.ip = ips
+            
+    def gen_pic(self,data,smb_ips):
         import matplotlib.pyplot as plt
-        #data = {'account': 1, 'share_data': 1, 'vuln': {'cve_2020_1206': 5, 'cve_2020_0796': 6, 'ms17_010': 6}}
+        #vuln data donut
         names = ()
         for vuln_data,vuln_value in data['vuln'].items():
             names+=(vuln_data+' x '+str(vuln_value),)
@@ -24,8 +44,9 @@ class report_app:
         p=plt.gcf()
         p.gca().add_artist(my_circle)
         plt.savefig('data/picture/pic3.jpg', format='jpg',dpi = 1000)
+        plt.close()
 
-
+        #account data pie
         labels = 'Strong Account', 'Vulnerable Account'
         sizes = [data['ips'],data['account']]
         explode = (0.1, 0, )  # only "explode" the 2nd slice (i.e. 'Hogs')
@@ -34,7 +55,9 @@ class report_app:
                 shadow=True, startangle=90)
         ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
         plt.savefig('data/picture/pic2.jpg', format='jpg',dpi = 300)
+        plt.close()
 
+        #share data pie
         labels = 'Strong Share', 'Vulnerable Share'
         sizes = [data['ips'],data['share_data']]
         explode = (0.1, 0, )  # only "explode" the 2nd slice (i.e. 'Hogs')
@@ -43,6 +66,20 @@ class report_app:
                 shadow=True, startangle=90)
         ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
         plt.savefig('data/picture/pic1.jpg', format='jpg',dpi = 300)
+        plt.close()
+
+        import matplotlib.pyplot as plt2
+        self.port_scanning()
+        names = ('SMB x '+ str(data["ips"]),'RDP x '+ str(len(self.ip)),)
+        size = [data["ips"],len(self.ip)]
+        print(size,names)
+        color_codes = ['#FF2D01','#FAA40E']
+        my_circle=plt.Circle( (0,0), 0.7, color='white')
+        plt2.pie(size, labels=names, colors=color_codes)
+        p2=plt2.gcf()
+        p2.gca().add_artist(my_circle)
+        plt2.savefig('data/picture/pic0.jpg', format='jpg',dpi = 1000)
+
     def report(self,vuln_count,share_data,computer_os,ips,account,general_data):
         doc = DocxTemplate(os.path.join('data','smb_template','smb_template.docx'))
         for ip in share_data:
@@ -51,22 +88,26 @@ class report_app:
                     if  access == "<none>":
                         share_data[ip][paths][index] = "none"
         
-        self.gen_pic(general_data)
-        labels = 'Strong Share', 'Vulnerable Share'
-        sizes = [general_data['ips'],general_data['share_data']]
-        explode = (0.1, 0, )  # only "explode" the 2nd slice (i.e. 'Hogs')
+        # self.gen_pic(general_data,ips)
 
-        fig1, ax1 = plt.subplots()
-        ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
-                shadow=True, startangle=90)
-        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+        self.port_scanning()
+        # labels = 'Strong Share', 'Vulnerable Share'
+        # sizes = [general_data['ips'],general_data['share_data']]
+        # explode = (0.1, 0, )  # only "explode" the 2nd slice (i.e. 'Hogs')
 
-        plt.savefig('data/picture/pic1.jpg', format='jpg',dpi = 300)
+        # fig1, ax1 = plt.subplots()
+        # ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+        #         shadow=True, startangle=90)
+        # ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+        # plt.savefig('data/picture/pic1.jpg', format='jpg',dpi = 300)
+        print(self.ip)
 
         data={
-            "pic_account":InlineImage(doc, 'data/picture/pic2.jpg', width=Mm(120),height=Mm(90)),
-            "pic_share":InlineImage(doc, 'data/picture/pic1.jpg', width=Mm(120),height=Mm(90)),
-            "pic_vuln":InlineImage(doc, 'data/picture/pic3.jpg', width=Mm(120),height=Mm(90)),
+            "pic_account":InlineImage(doc, 'data/picture/pic2.jpg', width=Mm(105),height=Mm(70)),
+            "pic_share":InlineImage(doc, 'data/picture/pic1.jpg', width=Mm(105),height=Mm(70)),
+            "pic_vuln":InlineImage(doc, 'data/picture/pic3.jpg', width=Mm(105),height=Mm(70)),
+            "pic_rdp":InlineImage(doc, 'data/picture/pic0.jpg', width=Mm(105),height=Mm(70)),
             "name":self.name,
             "year":date.today().year-1911,
             "month":date.today().month,
@@ -76,12 +117,12 @@ class report_app:
             "computer_os":computer_os,
             "ips":ips,
             "accounts":account,
-            "general_data":general_data
-    
+            "general_data":general_data,
+            "rdp":self.ip,
         }
         
         doc.render(data)
-        doc.save(os.path.join("data","report",self.name+"_smb_reportA.docx"))
+        doc.save(os.path.join("data","report",self.name+"_smb_report.docx"))
  
         # datas = json.dumps(data)
         # outputfile = "data2.json"
@@ -213,4 +254,5 @@ class report_app:
         self.data_count(files)
 
 if __name__ == "__main__":
-    report_app("衛生福利部109年資通安全稽核作業")
+    report_app("衛生福利部109年資通安全稽核作業",'192.168.123.0/24')
+    
