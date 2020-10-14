@@ -15,6 +15,10 @@ pipenv install
 ```
 pipenv shell
 ```
+If you successfully activate the enviroment,it would be like this.
+```
+(smb_scanner) root@kali:/home/kali/Desktop/smb_scanner#
+```
 ### 6. run the program
 ```
 python3 main.py
