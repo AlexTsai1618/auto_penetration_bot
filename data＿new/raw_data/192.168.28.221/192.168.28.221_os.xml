@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Mon Oct 12 01:24:45 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.28.221/192.168.28.221_os.xml 192.168.28.221 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.28.221/192.168.28.221_os.xml 192.168.28.221" start="1602480285" startstr="Mon Oct 12 01:24:45 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1602480294" endtime="1602480294"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.28.221" addrtype="ipv4"/>
+<address addr="74:27:EA:F3:3F:76" addrtype="mac" vendor="Elitegroup Computer Systems"/>
+<hostnames>
+<hostname name="tygh-chtsms.tygh.gov.tw" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" product="Windows 7 Professional 7601 Service Pack 1 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows 7 Professional 7601 Service Pack 1 (Windows 7 Professional 6.1)&#xa;  OS CPE: cpe:/o:microsoft:windows_7::sp1:professional&#xa;  Computer name: TYGH-CHTSMS&#xa;  NetBIOS computer name: TYGH-CHTSMS\x00&#xa;  Domain name: TYGH.GOV.TW&#xa;  Forest name: TYGH.GOV.TW&#xa;  FQDN: TYGH-CHTSMS.TYGH.GOV.TW&#xa;  System time: 2020-10-12T13:24:47+08:00&#xa;"><elem key="os">Windows 7 Professional 7601 Service Pack 1</elem>
+<elem key="lanmanager">Windows 7 Professional 6.1</elem>
+<elem key="server">TYGH-CHTSMS\x00</elem>
+<elem key="date">2020-10-12T13:24:47+08:00</elem>
+<elem key="fqdn">TYGH-CHTSMS.TYGH.GOV.TW</elem>
+<elem key="domain_dns">TYGH.GOV.TW</elem>
+<elem key="forest_dns">TYGH.GOV.TW</elem>
+<elem key="workgroup">TYGH\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_7::sp1:professional</elem>
+</script></hostscript><times srtt="579" rttvar="3901" to="100000"/>
+</host>
+<runstats><finished time="1602480294" timestr="Mon Oct 12 01:24:54 2020" elapsed="12.48" summary="Nmap done at Mon Oct 12 01:24:54 2020; 1 IP address (1 host up) scanned in 12.48 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

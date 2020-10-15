@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Thu Oct 15 03:10:22 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.121.200/192.168.121.200_os.xml 192.168.121.200 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.121.200/192.168.121.200_os.xml 192.168.121.200" start="1602745822" startstr="Thu Oct 15 03:10:22 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1602745826" endtime="1602745829"><status state="up" reason="reset" reason_ttl="255"/>
+<address addr="192.168.121.200" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="microsoft-ds" product="Windows 7 Professional 7601 Service Pack 1 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows 7 Professional 7601 Service Pack 1 (Windows 7 Professional 6.1)&#xa;  OS CPE: cpe:/o:microsoft:windows_7::sp1:professional&#xa;  Computer name: artemis&#xa;  NetBIOS computer name: ARTEMIS\x00&#xa;  Workgroup: SUNNET\x00&#xa;  System time: 2020-10-15T15:10:24+08:00&#xa;"><elem key="os">Windows 7 Professional 7601 Service Pack 1</elem>
+<elem key="lanmanager">Windows 7 Professional 6.1</elem>
+<elem key="server">ARTEMIS\x00</elem>
+<elem key="date">2020-10-15T15:10:24+08:00</elem>
+<elem key="fqdn">artemis</elem>
+<elem key="domain_dns">artemis</elem>
+<elem key="workgroup">SUNNET\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_7::sp1:professional</elem>
+</script></hostscript><times srtt="138788" rttvar="138398" to="692380"/>
+</host>
+<runstats><finished time="1602745829" timestr="Thu Oct 15 03:10:29 2020" elapsed="7.53" summary="Nmap done at Thu Oct 15 03:10:29 2020; 1 IP address (1 host up) scanned in 7.53 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

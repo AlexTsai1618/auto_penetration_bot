@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Mon Oct 12 01:22:34 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.28.26/192.168.28.26_os.xml 192.168.28.26 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.28.26/192.168.28.26_os.xml 192.168.28.26" start="1602480154" startstr="Mon Oct 12 01:22:34 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1602480171" endtime="1602480172"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.28.26" addrtype="ipv4"/>
+<address addr="00:15:5D:18:37:13" addrtype="mac" vendor="Microsoft"/>
+<hostnames>
+<hostname name="virus.tygh.gov.tw" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" product="Windows Server 2012 R2 Standard 9600 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows Server 2012 R2 Standard 9600 (Windows Server 2012 R2 Standard 6.3)&#xa;  OS CPE: cpe:/o:microsoft:windows_server_2012::-&#xa;  Computer name: VIRUS&#xa;  NetBIOS computer name: VIRUS\x00&#xa;  Domain name: TYGH.GOV.TW&#xa;  Forest name: TYGH.GOV.TW&#xa;  FQDN: VIRUS.TYGH.GOV.TW&#xa;  System time: 2020-10-12T13:22:44+08:00&#xa;"><elem key="os">Windows Server 2012 R2 Standard 9600</elem>
+<elem key="lanmanager">Windows Server 2012 R2 Standard 6.3</elem>
+<elem key="server">VIRUS\x00</elem>
+<elem key="date">2020-10-12T13:22:44+08:00</elem>
+<elem key="fqdn">VIRUS.TYGH.GOV.TW</elem>
+<elem key="domain_dns">TYGH.GOV.TW</elem>
+<elem key="forest_dns">TYGH.GOV.TW</elem>
+<elem key="workgroup">TYGH\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_server_2012::-</elem>
+</script></hostscript><times srtt="1610" rttvar="3878" to="100000"/>
+</host>
+<runstats><finished time="1602480174" timestr="Mon Oct 12 01:22:54 2020" elapsed="24.34" summary="Nmap done at Mon Oct 12 01:22:54 2020; 1 IP address (1 host up) scanned in 24.34 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

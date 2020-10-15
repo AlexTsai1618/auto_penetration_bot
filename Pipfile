@@ -37,6 +37,7 @@ Flask = ">=1.0"
 impacket = "*"
 docxtpl = "*"
 matplotlib = "*"
+pysmbclient = "*"
 
 [requires]
 python_version = "3.8"

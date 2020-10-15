@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Mon Oct 12 01:24:13 2020 as: nmap -p 445 -&#45;script smb-vuln-ms06-025 -oX data/raw_data/192.168.28.145/192.168.28.145_ms06-025.xml 192.168.28.145 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-vuln-ms06-025 -oX data/raw_data/192.168.28.145/192.168.28.145_ms06-025.xml 192.168.28.145" start="1602480253" startstr="Mon Oct 12 01:24:13 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1602480280" endtime="1602480281"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.28.145" addrtype="ipv4"/>
+<address addr="6C:2B:59:82:BE:F5" addrtype="mac" vendor="Dell"/>
+<hostnames>
+<hostname name="tygh-egw01.tygh.gov.tw" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<times srtt="762" rttvar="3789" to="100000"/>
+</host>
+<runstats><finished time="1602480282" timestr="Mon Oct 12 01:24:42 2020" elapsed="33.35" summary="Nmap done at Mon Oct 12 01:24:42 2020; 1 IP address (1 host up) scanned in 33.35 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>
