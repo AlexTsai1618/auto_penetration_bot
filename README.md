@@ -27,4 +27,8 @@ python3 main.py
 python3 report_generator.py
 ```
 
+### 6. go to data/report get the report
+```
+cd data/report/<yourfile>
 
+```
