@@ -21,13 +21,17 @@ If you successfully activate the enviroment,it would be like this.
 ```
 (smb_scanner) root@kali:/home/kali/Desktop/smb_scanner#
 ```
-### 5. run the program
+### 5. run RPC Backgroundly
+```
+$ msfrpcd -P yourpassword -S
+```
+### 6. run the program
 ```
 python3 main.py
 python3 report_generator.py
 ```
 
-### 6. go to data/report get the report
+### 7. go to data/report get the report
 ```
 cd data/report/<yourfile>
 

@@ -38,6 +38,7 @@ impacket = "*"
 docxtpl = "*"
 matplotlib = "*"
 pysmbclient = "*"
+pymetasploit3 = "*"
 
 [requires]
 python_version = "3.8"
