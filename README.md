@@ -23,7 +23,8 @@ If you successfully activate the enviroment,it would be like this.
 ```
 ### 5. run RPC Backgroundly
 ```
-$ msfrpcd -P yourpassword -S
+$ msfconsole  
+msf> load msgrpc [Pass=yourpassword]
 ```
 ### 6. run the program
 ```

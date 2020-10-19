@@ -232,6 +232,7 @@ class report_app:
             #     vuln_count.update({"ms10_061":ms10_061})
             if data["ms17-010"] == "Vulnerable":
                 poc_result = poc_module(data['ip']).ms17010_poc()
+                print(poc_result,"MS17010")
                 if poc_result != "NULL":
                     ms17_010["number"] += 1
                     # ms17_010["ips"].append(data['ip'])

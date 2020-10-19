@@ -151,19 +151,19 @@ class Enum2Report:
         t1 = threading.Thread(target=self.smbghost_detection, args=(ip,))
         t2 = threading.Thread(target=self.nmap_enum, args=(ip,))
         t3 = threading.Thread(target=self.smb_brute_force, args=(ip,))
-        t4 = threading.Thread(target=self.ms17_010_detection,args=(ip,))
+        
         t5 = threading.Thread(target=self.smb_bleeding_detection,args=(ip,))
 
         
         t1.start()
         t2.start()
         t3.start()
-        t4.start()
+
         t5.start()
         t1.join()
         t2.join()
         t3.join()
-        t4.join()
+
         t5.join()
     def ms17_010_detection(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" ms17_010_detection is going!"+ bcolors.ENDC)
@@ -239,6 +239,6 @@ def enum4liunx_ng_execute(ip):
     return ip +" En4liunx Success!" 
 
 if __name__ == "__main__":
-    Enum2Report("192.168.1.1/24")
+    Enum2Report("10.10.174.61")
     subprocess.run(['python3','data_clean.py'])
     
