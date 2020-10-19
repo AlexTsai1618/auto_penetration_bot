@@ -190,7 +190,7 @@ class report_app:
         }
         ms17_010 = {
             "number":0,
-            "ips":{},
+            "ips":[],
             "description":"Microsoft Server Message Block 1.0 (SMBv1) 處理特定要求的方式中存在資訊洩漏弱點。攻擊者可能會蓄意製作封包，藉此導致伺服器資訊洩漏，以及執行任意程式。例如：WanaCrypt的勒索病毒，主要透過此弱點將受感染的電腦,大量檔案加密，並且要求高價比特幣贖金來贖回資料。",
             "solution":"關閉SMB1服務，詳細操作資訊，請到以下網址，https://walker-a.com/archives/4261，Step2開始將指引您如何關閉SMB1",
         }
@@ -218,7 +218,7 @@ class report_app:
                 print("MS08-067",poc_result)
                 if poc_result != "NULL":
                     ms08_067["number"] += 1
-                    ms08_067["ips"].update({data['ip']:poc_result})
+                    ms08_067["ips"].update({data['ip']:poc_result[::]})
                     vuln_count.update({"ms08_067":ms08_067})
             # if data["ms10-054"] == "Vulnerable":
             #     ms10_054["number"] += 1
@@ -232,10 +232,12 @@ class report_app:
             #     vuln_count.update({"ms10_061":ms10_061})
             if data["ms17-010"] == "Vulnerable":
                 poc_result = poc_module(data['ip']).ms17010_poc()
-                print(poc_result,"MS17010")
+                
                 if poc_result != "NULL":
                     ms17_010["number"] += 1
-                    # ms17_010["ips"].append(data['ip'])
+                    print(poc_result[::])
+                    ms17_010["ips"].append({data['ip']:poc_result[::]})
+                    print("heeerrrrreeeeee",ms17_010["ips"])
                     vuln_count.update({"ms17_010":ms17_010})                                                
             if data['password'] != "NULL" and data['account'] != "NULL":
                 if "\\\\x00" in data['workgroup']:
@@ -243,7 +245,7 @@ class report_app:
                 prove = poc_module(data['ip']).smb_account_poc(data['account'],data['password'],re.sub('\\x00','',data['workgroup']))
                 if prove != "NULL":
                     general_data['account'] += 1
-                    account.update({data['ip']:{"account":data["account"],"password":data["password"],"prove":prove}})
+                    account.update({data['ip']:{"account":data["account"],"password":data["password"],"prove":prove[::]}})
             if data['share_data'] != "NULL":
                 general_data['share_data']+=1
                 share_data.update({data['ip']:data["share_data"]})

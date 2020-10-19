@@ -52,4 +52,6 @@ class poc_module:
             print("null")
             return "NULL"
 
-print(poc_module("10.10.174.61").ms17010_poc())
+# data = {"prove":""}
+# data['prove'] = poc_module("10.10.174.61").ms17010_poc()
+# print(data['prove'])
