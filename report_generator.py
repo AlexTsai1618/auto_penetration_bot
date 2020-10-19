@@ -237,6 +237,8 @@ class report_app:
                     # ms17_010["ips"].append(data['ip'])
                     vuln_count.update({"ms17_010":ms17_010})                                                
             if data['password'] != "NULL" and data['account'] != "NULL":
+                if "\\\\x00" in data['workgroup']:
+                    data['workgroup'] = re.sub('\\\\x00','',data['workgroup'])
                 prove = poc_module(data['ip']).smb_account_poc(data['account'],data['password'],re.sub('\\x00','',data['workgroup']))
                 if prove != "NULL":
                     general_data['account'] += 1
