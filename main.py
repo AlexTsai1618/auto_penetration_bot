@@ -89,6 +89,7 @@ class Enum2Report:
             t4 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms10-054',"ms10-054",))
             t5 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms10-061',"ms10-061",))
             t6 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-enum-shares.nse',"share",))
+            t7 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms17-010',"ms17-010",))
             t0.start()
             t1.start()
             t2.start()
@@ -96,6 +97,7 @@ class Enum2Report:
             t4.start()
             t5.start()
             t6.start()
+            t7.start()
             t0.join()
             t1.join()
             t2.join()
@@ -103,7 +105,7 @@ class Enum2Report:
             t4.join()
             t5.join()
             t6.join()
-                    
+            t7.join()        
         else:
             subprocess.run(['nmap','445',ip,'-O','-oX','data/raw_data/'+ ip +'/'+ ip +'_os.xml'])
             t1 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms06-025',"ms06-025",))
@@ -112,19 +114,21 @@ class Enum2Report:
             t4 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms10-054',"ms10-054",))
             t5 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms10-061',"ms10-061",))
             t6 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-enum-shares.nse',"share",))
+            t7 = threading.Thread(target=self.nmap_run_script, args=(ip,'smb-vuln-ms17-010',"ms17-010",))
             t1.start()
             t2.start()
             t3.start()
             t4.start()
             t5.start()
             t6.start()
-            
+            t7.start()
             t1.join()
             t2.join()
             t3.join()
             t4.join()
             t5.join()
             t6.join()
+            t7.join()
 
         print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" has finished nmap_enumartion!"+ bcolors.ENDC)
     
@@ -235,6 +239,6 @@ def enum4liunx_ng_execute(ip):
     return ip +" En4liunx Success!" 
 
 if __name__ == "__main__":
-    Enum2Report("192.168.89.0/24")
+    Enum2Report("192.168.1.1/24")
     subprocess.run(['python3','data_clean.py'])
     

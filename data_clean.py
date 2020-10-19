@@ -18,7 +18,7 @@ class filename:
     MS08 = "ms08-067.xml"
     MS10 = "ms10-054.xml"
     MS10_2 = "ms10-061.xml"
-    MS17 = "ms17-010.txt"
+    MS17 = "ms17-010.xml"
     PSSWD = "password.txt"
     SHARE = "share.xml"
     OS = "os.xml"
@@ -68,7 +68,7 @@ def schedual(filepath,files,ip):
     ms08067_data = checkfile(files,filename.MS08,"nmap_datas")
     ms10054_data = checkfile(files,filename.MS10,"nmap_datas")
     ms10061_data = checkfile(files,filename.MS10_2,"nmap_datas")
-    ms17010_data = checkfile(files,filename.MS17,"handle_txt_file")
+    ms17010_data = checkfile(files,filename.MS17,"nmap_datas")
     # cve_2020_0796_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020)][0])
     cve_2020_0796_data = checkfile(files,filename.CVE2020,"handle_txt_file")
     # cve_2020_1206_data = handle_txt_file([e for e in files if e.endswith(filename.CVE2020_2)][0])
@@ -109,7 +109,7 @@ def nmap_datas(raw_files):
                 if parsed_file['nmaprun']['host']['hostscript']["script"]["@output"] == "ERROR: Script execution failed (use -d to debug)":
                     message = "Not Vulnerable"
                     return message  
-                elif parsed_file['nmaprun']['host']['hostscript']["script"]["table"]["elem"][1]["#text"] == "VULNERABLE" :
+                elif parsed_file['nmaprun']['host']['hostscript']["script"]["table"]["elem"][1]["#text"] == "VULNERABLE" or parsed_file['nmaprun']['host']['hostscript']["script"]["table"]["elem"][1]["#text"] == "LIKELY VULNERABLE" :
                     message =  "Vulnerable"
                     return message  
             else:
@@ -198,3 +198,4 @@ def account_clean(raw_file):
         return "NULL","NULL"
 if __name__ == "__main__":
     data_path()
+    # print(nmap_datas("data/raw_data/192.168.1.5/192.168.1.5_ms17-010.xml"))
