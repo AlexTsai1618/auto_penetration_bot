@@ -239,6 +239,6 @@ def enum4liunx_ng_execute(ip):
     return ip +" En4liunx Success!" 
 
 if __name__ == "__main__":
-    Enum2Report("10.10.174.61")
+    Enum2Report("192.168.89.1/24")
     subprocess.run(['python3','data_clean.py'])
     

@@ -25,7 +25,10 @@ If you successfully activate the enviroment,it would be like this.
 ```
 $ msfrpcd -P yourpassword -S
 ```
-
+or
+```
+msf> load msgrpc [Pass=yourpassword]
+```
 ### 6. run the program
 ```
 python3 main.py
