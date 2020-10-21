@@ -29,8 +29,8 @@ def main():
     configFile=open('configure.rc','w')  #以寫入方式開啟配置檔案
     usage='[-]Usage %prog -H <RHOSTS> -l/-L <LHOST> '
     parser=optparse.OptionParser(usage)
-    parser.add_option('-H',dest='target',type='string',help='target host')           #目標主機
-    parser.add_option('-l','-L',dest='lhost',type='string',help='listen address')    #我們的主機
+    # parser.add_option('-H',dest='target',type='string',help='target host')           #目標主機
+    # parser.add_option('-l','-L',dest='lhost',type='string',help='listen address')    #我們的主機
     (options,args)=parser.parse_args()
     target=options.target
     lhost=options.lhost
@@ -43,4 +43,4 @@ def main():
         configFile.close()
         os.system('msfconsole -r configure.rc')  #啟動metasploit並讀取配置檔案
 if __name__=='__main__':
-    main()
+    co
