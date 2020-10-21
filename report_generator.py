@@ -12,23 +12,6 @@ class report_app:
         self.name = name
         # self.ip_input = ip
         self.paths()
-
-    # def port_scanning(self):
-           
-    #         """
-    #         This function is used to scan through smb portocol by port 139,445
-    #         """
-    #         tasks = list()
-    #         nm = nmap.PortScanner()
-    #         data = nm.scan(self.ip_input,'3389')
-
-    #         ips = []
-    #         for ip in data['scan']:
-                
-    #             if data["scan"][ip]["tcp"][3389]["state"] == "open" :
-    #                 ips.append(ip)
-    #         print(ips)
-    #         self.ip = ips
             
     def gen_pic(self,data,smb_ips):
         import matplotlib.pyplot as plt
@@ -69,17 +52,6 @@ class report_app:
         plt.savefig('data/picture/pic1.jpg', format='jpg',dpi = 300)
         plt.close()
 
-        # import matplotlib.pyplot as plt2
-        # self.port_scanning()
-        # names = ('SMB x '+ str(data["ips"]),'RDP x '+ str(len(self.ip)),)
-        # size = [data["ips"],len(self.ip)]
-        # print(size,names)
-        # color_codes = ['#FF2D01','#FAA40E']
-        # my_circle=plt.Circle( (0,0), 0.7, color='white')
-        # plt2.pie(size, labels=names, colors=color_codes)
-        # p2=plt2.gcf()
-        # p2.gca().add_artist(my_circle)
-        # plt2.savefig('data/picture/pic0.jpg', format='jpg',dpi = 1000)
 
     def report(self,vuln_count,share_data,computer_os,ips,account,general_data):
         doc = DocxTemplate(os.path.join('data','smb_template','smb_template.docx'))
@@ -90,19 +62,6 @@ class report_app:
                         share_data[ip][paths][index] = "none"
         
         self.gen_pic(general_data,ips)
-
-        # self.port_scanning()
-        # labels = 'Strong Share', 'Vulnerable Share'
-        # sizes = [general_data['ips'],general_data['share_data']]
-        # explode = (0.1, 0, )  # only "explode" the 2nd slice (i.e. 'Hogs')
-
-        # fig1, ax1 = plt.subplots()
-        # ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
-        #         shadow=True, startangle=90)
-        # ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-
-        # plt.savefig('data/picture/pic1.jpg', format='jpg',dpi = 300)
-        # print(self.ip)
 
         data={
            "pic_account":InlineImage(doc, 'data/picture/pic2.jpg', width=Mm(105),height=Mm(70)),
@@ -209,10 +168,7 @@ class report_app:
                 cve_2020_0796["number"] += 1
                 cve_2020_0796["ips"].append(data['ip'])
                 vuln_count.update({"cve_2020_0796":cve_2020_0796})
-            if data["ms07-029"] == "Vulnerable":
-                ms07_029["number"] += 1
-                ms07_029["ips"].append(data['ip'])
-                vuln_count.update({"ms07_029":ms07_029})
+
             if data["ms08-067"] == "Vulnerable":
                 poc_result = poc_module(data['ip']).ms08067_poc()
                 print("MS08-067",poc_result)
@@ -220,16 +176,7 @@ class report_app:
                     ms08_067["number"] += 1
                     ms08_067["ips"].update({data['ip']:poc_result[::]})
                     vuln_count.update({"ms08_067":ms08_067})
-            # if data["ms10-054"] == "Vulnerable":
-            #     ms10_054["number"] += 1
-            #     poc_result = poc_module(data['ip']).ms10054_poc()
-            #     if bool(poc_result):
-            #         ms10_054["ips"].update(data['ip']:poc_result)
-            #         vuln_count.update({"ms10_054":ms10_054})
-            # if data["ms10-061"] == "Vulnerable":
-            #     ms10_061["number"] += 1
-            #     ms10_061["ips"].append(data['ip'])
-            #     vuln_count.update({"ms10_061":ms10_061})
+
             if data["ms17-010"] == "Vulnerable":
                 poc_result = poc_module(data['ip']).ms17010_poc()
                 
