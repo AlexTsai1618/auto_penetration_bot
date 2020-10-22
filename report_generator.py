@@ -194,12 +194,16 @@ class report_app:
                     ms17_010["pics"].append(image)
                     vuln_count.update({"ms17_010":ms17_010})                                                
             if data['password'] != "NULL" and data['account'] != "NULL":
+            # if True:
+                
                 if "\\\\x00" in data['workgroup']:
                     data['workgroup'] = re.sub('\\\\x00','',data['workgroup'])
-                prove = poc_module(data['ip']).smb_account_poc(data['account'],data['password'],re.sub('\\x00','',data['workgroup']))
-                if prove != "NULL":
-                    general_data['account'] += 1
-                    account.update({data['ip']:{"account":data["account"],"password":data["password"],"prove":prove[::]}})
+                else:    
+                    prove = poc_module(data['ip']).smb_account_poc(data['account'],data['password'],data['workgroup'])
+                    print(prove)
+                    if prove != "NULL":
+                        general_data['account'] += 1
+                        account.update({data['ip']:{"account":data["account"],"password":data["password"],"prove":prove[::]}})
             if data['share_data'] != "NULL":
                 general_data['share_data']+=1
                 share_data.update({data['ip']:data["share_data"]})

