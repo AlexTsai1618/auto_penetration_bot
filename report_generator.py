@@ -7,12 +7,30 @@ import json
 from datetime import date
 import matplotlib.pyplot as plt
 from data_poc import poc_module
+import nmap
 class report_app:
+    # def __init__(self,name,ip):
     def __init__(self,name):
         self.name = name
         self.doc = DocxTemplate(os.path.join('data','smb_template','smb_template.docx'))
         # self.ip_input = ip
         self.paths()
+    # def port_scanning(self):
+           
+    #     """
+    #     This function is used to scan through smb portocol by port 139,445
+    #     """
+    #     tasks = list()
+    #     nm = nmap.PortScanner()
+    #     data = nm.scan(self.ip_input,'3389')
+
+    #     ips = []
+    #     for ip in data['scan']:
+            
+    #         if data["scan"][ip]["tcp"][3389]["state"] == "open" :
+    #             ips.append(ip)
+    #     print(ips)
+    #     self.ip = ips
             
     def gen_pic(self,data,smb_ips):
         import matplotlib.pyplot as plt
@@ -54,6 +72,18 @@ class report_app:
         plt.close()
 
 
+        # import matplotlib.pyplot as plt2
+        # self.port_scanning()
+        # names = ('SMB x '+ str(data["ips"]),'RDP x '+ str(len(self.ip)),)
+        # size = [data["ips"],len(self.ip)]
+        # print(size,names)
+        # color_codes = ['#FF2D01','#FAA40E']
+        # my_circle=plt.Circle( (0,0), 0.7, color='white')
+        # plt2.pie(size, labels=names, colors=color_codes)
+        # p2=plt2.gcf()
+        # p2.gca().add_artist(my_circle)
+        # plt2.savefig('data/picture/pic0.jpg', format='jpg',dpi = 1000)
+
     def report(self,vuln_count,share_data,computer_os,ips,account,general_data):
         
         for ip in share_data:
@@ -63,11 +93,12 @@ class report_app:
                         share_data[ip][paths][index] = "none"
         
         self.gen_pic(general_data,ips)
-
+        # self.port_scanning()
         data={
            "pic_account":InlineImage(self.doc, 'data/picture/pic2.jpg', width=Mm(105),height=Mm(70)),
             "pic_share":InlineImage(self.doc, 'data/picture/pic1.jpg', width=Mm(105),height=Mm(70)),
             "pic_vuln":InlineImage(self.doc, 'data/picture/pic3.jpg', width=Mm(105),height=Mm(70)),
+            # "pic_rdp":InlineImage(self.doc, 'data/picture/pic0.jpg', width=Mm(105),height=Mm(70)),
             "name":self.name,
             "year":date.today().year-1911,
             "month":date.today().month,
@@ -101,6 +132,7 @@ class report_app:
             "Windows Server 2008 R2":0,
             "Windows Server 2008":0
         }
+        
         general_data = {
             "account":0,
             "share_data":0,
@@ -194,8 +226,7 @@ class report_app:
                     ms17_010["pics"].append(image)
                     vuln_count.update({"ms17_010":ms17_010})                                                
             if data['password'] != "NULL" and data['account'] != "NULL":
-            # if True:
-                
+            
                 if "\\\\x00" in data['workgroup']:
                     data['workgroup'] = re.sub('\\\\x00','',data['workgroup'])
                 else:    
@@ -206,6 +237,7 @@ class report_app:
                         account.update({data['ip']:{"account":data["account"],"password":data["password"],"prove":prove[::]}})
             if data['share_data'] != "NULL":
                 general_data['share_data']+=1
+            
                 share_data.update({data['ip']:data["share_data"]})
         for vuln in vuln_count:
             temp_data = {
@@ -224,11 +256,3 @@ class report_app:
 
 if __name__ == "__main__":
     report_app("109年資通安全稽核作業")
-    
-
-# {% for ip,picture in vuln_count[vuln].items() %}
-# 	{{ip}}
-# {{ picture}}
-# {%endfor %}
-
-# """

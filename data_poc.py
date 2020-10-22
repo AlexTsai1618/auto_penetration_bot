@@ -10,7 +10,7 @@ class poc_module:
     def smb_account_poc(self,username,password,domain):
         try:
             smb = smbclient.SambaClient(server=self.ip, share="C$", username=username, password=password, domain=domain)
-            exploit_folder = smb.listdir('/')
+            exploit_folder = smb.listdir('/Program Files (x86)')
             return exploit_folder
         except:
             exploit_folder = "NULL"
