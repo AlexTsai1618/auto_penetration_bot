@@ -8,6 +8,18 @@ from datetime import date
 import matplotlib.pyplot as plt
 from data_poc import poc_module
 import nmap
+import datetime
+import subprocess
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[91m'
+    FAIL = '\033[93m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 class report_app:
     # def __init__(self,name,ip):
     def __init__(self,name):
@@ -15,6 +27,7 @@ class report_app:
         self.doc = DocxTemplate(os.path.join('data','smb_template','smb_template.docx'))
         # self.ip_input = ip
         self.paths()
+        self.manage_files()
     # def port_scanning(self):
            
     #     """
@@ -95,9 +108,10 @@ class report_app:
         self.gen_pic(general_data,ips)
         # self.port_scanning()
         data={
-           "pic_account":InlineImage(self.doc, 'data/picture/pic2.jpg', width=Mm(105),height=Mm(70)),
-            "pic_share":InlineImage(self.doc, 'data/picture/pic1.jpg', width=Mm(105),height=Mm(70)),
-            "pic_vuln":InlineImage(self.doc, 'data/picture/pic3.jpg', width=Mm(105),height=Mm(70)),
+        #    "pic_account":InlineImage(self.doc, 'data/picture/pic2.jpg', width=Mm(105),height=Mm(70)),
+        #     "pic_share":InlineImage(self.doc, 'data/picture/pic1.jpg', width=Mm(105),height=Mm(70)),
+        #     "pic_vuln":InlineImage(self.doc, 'data/picture/pic3.jpg', width=Mm(105),height=Mm(70)),
+
             # "pic_rdp":InlineImage(self.doc, 'data/picture/pic0.jpg', width=Mm(105),height=Mm(70)),
             "name":self.name,
             "year":date.today().year-1911,
@@ -111,13 +125,32 @@ class report_app:
             "general_data":general_data,
             # "rdp":self.ip,
         }
-        print(data)
-             
-        # print(data["general_data"])
-        # print(data["accounts"])
+        data_json = json.dumps(data)
+        time = datetime.datetime.now()
+        file_name = str(time.year) + str(time.month) + str(time.day) + str(time.hour) + str(time.minute) + ".json"
+        outupt_path = "data/final_result/" + file_name
+        with open(outupt_path,'w')as file:
+            file.write(data_json)
+  
         self.doc.render(data)
         self.doc.save(os.path.join("data","report",self.name+"_smb_report.docx"))
-
+    def manage_files(self):
+        time = datetime.datetime.now()
+        file_name = str(time.year) + str(time.month) + str(time.day) + str(time.hour) + str(time.minute)
+        os.mkdir(file_name)
+        #copy files
+        subprocess.run(['cp -r data/raw_data '+ file_name],shell=True)
+        subprocess.run(['cp -r data/final_result '+ file_name],shell=True)
+        subprocess.run(['cp -r data/picture '+ file_name],shell=True)
+        subprocess.run(['cp -r data/clean_data '+ file_name],shell=True)
+        subprocess.run(['cp -r data/report/* '+ file_name],shell=True)
+        #remove file
+        subprocess.run(['rm -rf data/raw_data/*'],shell=True)
+        subprocess.run(['rm -rf data/final_result/*'],shell=True)
+        subprocess.run(['rm -rf data/picture/*'],shell=True)
+        subprocess.run(['rm -rf data/clean_data/*'],shell=True)
+        subprocess.run(['rm -rf data/report/*'],shell=True)
+        print(bcolors.OKBLUE + bcolors.BOLD +"[+] report is generated please go to "+ file_name + "/final_result get json file or "+ file_name+ "/report get docx"  + bcolors.ENDC)
     def data_count(self,datas):
         ips = []
         computer_os = []
@@ -205,11 +238,11 @@ class report_app:
                 cve_2020_0796["ips"].append(data['ip'])
                 vuln_count.update({"cve_2020_0796":cve_2020_0796})
 
-            # if data["ms08-067"] == "Vulnerable":
-            if counter == 0:
-                counter +=1
+            if data["ms08-067"] == "Vulnerable":
+            # if counter == 0:
+            #     counter +=1
                 poc_result = poc_module(data['ip']).ms08067_poc()
-                # poc_result = "data/picture/10_10_161_213.jpeg"
+                # poc_result = "data/picture/10_10_161_213.jpeg" This is for poc use
                 if poc_result != "NULL":
                     ms08_067["number"] += 1
                     image =InlineImage(self.doc, poc_result, width=Mm(105),height=Mm(70))
@@ -224,7 +257,7 @@ class report_app:
                     image =InlineImage(self.doc, poc_result, width=Mm(105),height=Mm(70))
                     ms17_010["ips"].append(data['ip'])
                     ms17_010["pics"].append(image)
-                    vuln_count.update({"ms17_010":ms17_010})                                                
+                    vuln_count.update({"ms17_010":ms17_010})                                               
             if data['password'] != "NULL" and data['account'] != "NULL":
             
                 if "\\\\x00" in data['workgroup']:
@@ -256,3 +289,4 @@ class report_app:
 
 if __name__ == "__main__":
     report_app("109年資通安全稽核作業")
+    

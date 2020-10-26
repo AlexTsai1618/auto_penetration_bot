@@ -15,6 +15,14 @@ class poc_module:
         except:
             exploit_folder = "NULL"
             return exploit_folder
+    def share_poc(self,share):
+        try:
+            smb = smbclient.SambaClient(server=self.ip, share=share, username=username, password=password, domain=domain)
+            exploit_folder = smb.listdir('/Program Files (x86)')
+            return exploit_folder
+        except:
+            exploit_folder = "NULL"
+            return exploit_folder    
     def write_config(self,file,ipaddress,module):
         #1 for bridege
         #2 localhost
@@ -70,4 +78,3 @@ class poc_module:
         except:
             os.remove("ms08067configure.rc")
             return "NULL"
-print(poc_module("192.168.89.214").smb_account_poc("administrator","1qaz@WSX","alex-ad.local"))

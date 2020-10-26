@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Fri Oct 23 02:31:42 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/10.5.19.5/10.5.19.5_os.xml 10.5.19.5 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/10.5.19.5/10.5.19.5_os.xml 10.5.19.5" start="1603434702" startstr="Fri Oct 23 02:31:42 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1603434702" endtime="1603434704"><status state="up" reason="reset" reason_ttl="255"/>
+<address addr="10.5.19.5" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="microsoft-ds" product="Windows 10 Pro 19041 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows 10 Pro 19041 (Windows 10 Pro 6.3)&#xa;  OS CPE: cpe:/o:microsoft:windows_10::-&#xa;  Computer name: WP1317&#xa;  NetBIOS computer name: WP1317\x00&#xa;  Workgroup: WCT_DM\x00&#xa;  System time: 2020-10-23T14:34:43+08:00&#xa;"><elem key="os">Windows 10 Pro 19041</elem>
+<elem key="lanmanager">Windows 10 Pro 6.3</elem>
+<elem key="server">WP1317\x00</elem>
+<elem key="date">2020-10-23T14:34:43+08:00</elem>
+<elem key="fqdn">WP1317</elem>
+<elem key="domain_dns">WP1317</elem>
+<elem key="workgroup">WCT_DM\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_10::-</elem>
+</script></hostscript><times srtt="558" rttvar="4172" to="100000"/>
+</host>
+<runstats><finished time="1603434704" timestr="Fri Oct 23 02:31:44 2020" elapsed="2.86" summary="Nmap done at Fri Oct 23 02:31:44 2020; 1 IP address (1 host up) scanned in 2.86 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

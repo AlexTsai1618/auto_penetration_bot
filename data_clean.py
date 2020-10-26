@@ -24,6 +24,7 @@ class filename:
     OS = "os.xml"
     CVE2020 = "cve_2020_1206.txt"
     CVE2020_2 = "cve_2020_0796.txt"
+
 def checkfile(files,filename_end,modelname):
     try:
     
@@ -61,7 +62,6 @@ def schedual(filepath,files,ip):
     all_files = os.listdir(filepath)
     os_data,fqdn,workgroup = checkfile(files,filename.OS,"os_clean")
     # os_data,fqdn,workgroup = os_clean([e for e in files if e.endswith(filename.OS)][0])
-    
     account,password = checkfile(files,filename.PSSWD,"account_clean")
     share_data = checkfile(files,filename.SHARE,"share_clean")
     ms07029_data = checkfile(files,filename.MS07,"nmap_datas")
@@ -198,4 +198,5 @@ def account_clean(raw_file):
         return "NULL","NULL"
 if __name__ == "__main__":
     data_path()
+    shutil.move("data", final_path)
     # print(nmap_datas("data/raw_data/192.168.1.5/192.168.1.5_ms17-010.xml"))

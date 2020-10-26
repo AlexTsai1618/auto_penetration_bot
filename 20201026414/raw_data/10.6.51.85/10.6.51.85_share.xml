@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Fri Oct 23 00:45:59 2020 as: nmap -p 445 -&#45;script smb-enum-shares.nse -oX data/raw_data/10.6.51.85/10.6.51.85_share.xml 10.6.51.85 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-enum-shares.nse -oX data/raw_data/10.6.51.85/10.6.51.85_share.xml 10.6.51.85" start="1603428359" startstr="Fri Oct 23 00:45:59 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1603428361" endtime="1603428361"><status state="up" reason="reset" reason_ttl="255"/>
+<address addr="10.6.51.85" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="closed" reason="reset" reason_ttl="255"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<times srtt="1033" rttvar="4032" to="100000"/>
+</host>
+<runstats><finished time="1603428361" timestr="Fri Oct 23 00:46:01 2020" elapsed="1.89" summary="Nmap done at Fri Oct 23 00:46:01 2020; 1 IP address (1 host up) scanned in 1.89 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>
