@@ -17,8 +17,8 @@ class poc_module:
             return exploit_folder
     def share_poc(self,share):
         try:
-            smb = smbclient.SambaClient(server=self.ip, share=share, username=username, password=password, domain=domain)
-            exploit_folder = smb.listdir('/Program Files (x86)')
+            smb = smbclient.SambaClient(server=self.ip, share=share, username=" ", password=" ")
+            exploit_folder = smb.listdir('/')
             return exploit_folder
         except:
             exploit_folder = "NULL"
@@ -78,3 +78,5 @@ class poc_module:
         except:
             os.remove("ms08067configure.rc")
             return "NULL"
+if __name__ == "__main__":
+    print(poc_module("192.168.89.208").share_poc("IPC$"))

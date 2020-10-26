@@ -151,13 +151,26 @@ def share_clean(raw_file):
             data = {}
             tables =  parsed_file['nmaprun']['host']['hostscript']["script"]['table']
             temp = []
+            # print(tables)
             for i in tables:
-                temp.append(i['elem'][2]["@key"])
-                temp.append(i['elem'][2]["#text"])
-                temp.append(i['elem'][3]["@key"])
-                temp.append(i['elem'][3]["#text"])
-                data[i["@key"]] = temp
-                temp = []
+                for j in range(0,len(i['elem'][::])):
+                #     print(tables[i]['elem'][j]["@key"])
+ 
+                    if i['elem'][j]["@key"] == "Anonymous access" and i['elem'][j]["#text"] !="<none>":
+                        print(i['elem'][j]["@key"])
+                        temp.append(i['elem'][j]["@key"])
+                        temp.append(i['elem'][j]["#text"])
+                    elif i['elem'][j]["@key"] == "Current user access" and i['elem'][j]["#text"] !="<none>": 
+                        print(i['elem'][j]["@key"])   
+                        temp.append(i['elem'][j]["@key"])
+                        temp.append(i['elem'][j]["#text"])
+
+                if bool(temp):
+                    folder = i["@key"].split("\\")[-1]
+                    data[folder] = temp
+                    temp = []
+                else:
+                    continue
             return data
         except:
             data = "NULL"
@@ -197,6 +210,7 @@ def account_clean(raw_file):
     else:
         return "NULL","NULL"
 if __name__ == "__main__":
-    data_path()
-
+    # data_path()
+    print(share_clean("20201026419/raw_data/10.6.51.193/10.6.51.193_share.xml"))
+    # print(share_clean("20201026633/raw_data/192.168.89.214/192.168.89.214_share.xml"))
     # print(nmap_datas("data/raw_data/192.168.1.5/192.168.1.5_ms17-010.xml"))
