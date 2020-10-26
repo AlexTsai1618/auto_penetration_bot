@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Mon Oct 12 01:23:05 2020 as: nmap -p 445 -&#45;script smb-enum-shares.nse -oX data/raw_data/192.168.28.72/192.168.28.72_share.xml 192.168.28.72 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-enum-shares.nse -oX data/raw_data/192.168.28.72/192.168.28.72_share.xml 192.168.28.72" start="1602480185" startstr="Mon Oct 12 01:23:05 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1602480208" endtime="1602480214"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.28.72" addrtype="ipv4"/>
+<address addr="00:15:5D:1C:80:04" addrtype="mac" vendor="Microsoft"/>
+<hostnames>
+<hostname name="cancertubes.tygh.gov.tw" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<hostscript><script id="smb-enum-shares" output="&#xa;  account_used: guest&#xa;  \\192.168.28.72\A$: &#xa;    Type: STYPE_DISKTREE_HIDDEN&#xa;    Comment: \xE9\xA0\x90\xE8\xA8\xAD\xE5\x85\xB1\xE7\x94\xA8&#xa;    Anonymous access: &lt;none&gt;&#xa;    Current user access: &lt;none&gt;&#xa;  \\192.168.28.72\ADMIN$: &#xa;    Type: STYPE_DISKTREE_HIDDEN&#xa;    Comment: \xE9\x81\xA0\xE7\xAB\xAF\xE7\xAE\xA1\xE7\x90\x86&#xa;    Anonymous access: &lt;none&gt;&#xa;    Current user access: &lt;none&gt;&#xa;  \\192.168.28.72\C$: &#xa;    Type: STYPE_DISKTREE_HIDDEN&#xa;    Comment: \xE9\xA0\x90\xE8\xA8\xAD\xE5\x85\xB1\xE7\x94\xA8&#xa;    Anonymous access: &lt;none&gt;&#xa;    Current user access: &lt;none&gt;&#xa;  \\192.168.28.72\D$: &#xa;    Type: STYPE_DISKTREE_HIDDEN&#xa;    Comment: \xE9\xA0\x90\xE8\xA8\xAD\xE5\x85\xB1\xE7\x94\xA8&#xa;    Anonymous access: &lt;none&gt;&#xa;    Current user access: &lt;none&gt;&#xa;  \\192.168.28.72\IPC$: &#xa;    Type: STYPE_IPC_HIDDEN&#xa;    Comment: \xE9\x81\xA0\xE7\xAB\xAF IPC&#xa;    Anonymous access: &lt;none&gt;&#xa;    Current user access: READ/WRITE"><elem key="account_used">guest</elem>
+<table key="\\192.168.28.72\A$">
+<elem key="Type">STYPE_DISKTREE_HIDDEN</elem>
+<elem key="Comment">\xE9\xA0\x90\xE8\xA8\xAD\xE5\x85\xB1\xE7\x94\xA8</elem>
+<elem key="Anonymous access">&lt;none&gt;</elem>
+<elem key="Current user access">&lt;none&gt;</elem>
+</table>
+<table key="\\192.168.28.72\ADMIN$">
+<elem key="Type">STYPE_DISKTREE_HIDDEN</elem>
+<elem key="Comment">\xE9\x81\xA0\xE7\xAB\xAF\xE7\xAE\xA1\xE7\x90\x86</elem>
+<elem key="Anonymous access">&lt;none&gt;</elem>
+<elem key="Current user access">&lt;none&gt;</elem>
+</table>
+<table key="\\192.168.28.72\C$">
+<elem key="Type">STYPE_DISKTREE_HIDDEN</elem>
+<elem key="Comment">\xE9\xA0\x90\xE8\xA8\xAD\xE5\x85\xB1\xE7\x94\xA8</elem>
+<elem key="Anonymous access">&lt;none&gt;</elem>
+<elem key="Current user access">&lt;none&gt;</elem>
+</table>
+<table key="\\192.168.28.72\D$">
+<elem key="Type">STYPE_DISKTREE_HIDDEN</elem>
+<elem key="Comment">\xE9\xA0\x90\xE8\xA8\xAD\xE5\x85\xB1\xE7\x94\xA8</elem>
+<elem key="Anonymous access">&lt;none&gt;</elem>
+<elem key="Current user access">&lt;none&gt;</elem>
+</table>
+<table key="\\192.168.28.72\IPC$">
+<elem key="Type">STYPE_IPC_HIDDEN</elem>
+<elem key="Comment">\xE9\x81\xA0\xE7\xAB\xAF IPC</elem>
+<elem key="Anonymous access">&lt;none&gt;</elem>
+<elem key="Current user access">READ/WRITE</elem>
+</table>
+</script></hostscript><times srtt="2097" rttvar="3915" to="100000"/>
+</host>
+<runstats><finished time="1602480216" timestr="Mon Oct 12 01:23:36 2020" elapsed="35.29" summary="Nmap done at Mon Oct 12 01:23:36 2020; 1 IP address (1 host up) scanned in 35.29 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

@@ -210,7 +210,7 @@ def account_clean(raw_file):
     else:
         return "NULL","NULL"
 if __name__ == "__main__":
-    # data_path()
-    print(share_clean("20201026419/raw_data/10.6.51.193/10.6.51.193_share.xml"))
+    data_path()
+    # print(share_clean("20201026419/raw_data/10.6.51.193/10.6.51.193_share.xml"))
     # print(share_clean("20201026633/raw_data/192.168.89.214/192.168.89.214_share.xml"))
     # print(nmap_datas("data/raw_data/192.168.1.5/192.168.1.5_ms17-010.xml"))

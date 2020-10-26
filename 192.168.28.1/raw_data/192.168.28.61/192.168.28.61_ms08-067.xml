@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Fri Oct 23 13:51:36 2020 as: nmap -p 445 -&#45;script smb-vuln-ms08-067 -oX data/raw_data/192.168.28.61/192.168.28.61_ms08-067.xml 192.168.28.61 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-vuln-ms08-067 -oX data/raw_data/192.168.28.61/192.168.28.61_ms08-067.xml 192.168.28.61" start="1603475496" startstr="Fri Oct 23 13:51:36 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1603475509" endtime="1603475516"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.28.61" addrtype="ipv4"/>
+<address addr="50:E5:49:43:50:AA" addrtype="mac" vendor="Giga-byte Technology"/>
+<hostnames>
+<hostname name="timestamp-01.tygh.gov.tw" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<hostscript><script id="smb-vuln-ms08-067" output="&#xa;  VULNERABLE:&#xa;  Microsoft Windows system vulnerable to remote code execution (MS08-067)&#xa;    State: VULNERABLE&#xa;    IDs:  CVE:CVE-2008-4250&#xa;          The Server service in Microsoft Windows 2000 SP4, XP SP2 and SP3, Server 2003 SP1 and SP2,&#xa;          Vista Gold and SP1, Server 2008, and 7 Pre-Beta allows remote attackers to execute arbitrary&#xa;          code via a crafted RPC request that triggers the overflow during path canonicalization.&#xa;          &#xa;    Disclosure date: 2008-10-23&#xa;    References:&#xa;      https://technet.microsoft.com/en-us/library/security/ms08-067.aspx&#xa;      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-4250&#xa;"><table key="CVE-2008-4250">
+<elem key="title">Microsoft Windows system vulnerable to remote code execution (MS08-067)</elem>
+<elem key="state">VULNERABLE</elem>
+<table key="ids">
+<elem>CVE:CVE-2008-4250</elem>
+</table>
+<table key="description">
+<elem>    The Server service in Microsoft Windows 2000 SP4, XP SP2 and SP3, Server 2003 SP1 and SP2,&#xa;    Vista Gold and SP1, Server 2008, and 7 Pre-Beta allows remote attackers to execute arbitrary&#xa;    code via a crafted RPC request that triggers the overflow during path canonicalization.&#xa;    </elem>
+</table>
+<table key="dates">
+<table key="disclosure">
+<elem key="year">2008</elem>
+<elem key="day">23</elem>
+<elem key="month">10</elem>
+</table>
+</table>
+<elem key="disclosure">2008-10-23</elem>
+<table key="refs">
+<elem>https://technet.microsoft.com/en-us/library/security/ms08-067.aspx</elem>
+<elem>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-4250</elem>
+</table>
+</table>
+</script></hostscript><times srtt="100493" rttvar="114704" to="559309"/>
+</host>
+<runstats><finished time="1603475516" timestr="Fri Oct 23 13:51:56 2020" elapsed="21.88" summary="Nmap done at Fri Oct 23 13:51:56 2020; 1 IP address (1 host up) scanned in 21.88 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

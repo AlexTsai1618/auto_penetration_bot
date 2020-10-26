@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Fri Oct 23 13:51:55 2020 as: nmap -p 445 -&#45;script smb-vuln-ms17-010 -oX data/raw_data/192.168.28.100/192.168.28.100_ms17-010.xml 192.168.28.100 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-vuln-ms17-010 -oX data/raw_data/192.168.28.100/192.168.28.100_ms17-010.xml 192.168.28.100" start="1603475515" startstr="Fri Oct 23 13:51:55 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1603475522" endtime="1603475527"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.28.100" addrtype="ipv4"/>
+<address addr="00:15:5D:4D:75:0B" addrtype="mac" vendor="Microsoft"/>
+<hostnames>
+<hostname name="dohupload-sw.tygh.gov.tw" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<times srtt="1324" rttvar="3886" to="100000"/>
+</host>
+<runstats><finished time="1603475527" timestr="Fri Oct 23 13:52:07 2020" elapsed="13.69" summary="Nmap done at Fri Oct 23 13:52:07 2020; 1 IP address (1 host up) scanned in 13.69 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

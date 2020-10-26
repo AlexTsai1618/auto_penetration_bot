@@ -241,7 +241,8 @@ class report_app:
                 vuln_count.update({"cve_2020_0796":cve_2020_0796})
 
             if data["ms08-067"] == "Vulnerable":
-                continue
+                # vuln_count.update({"ms08_067":ms08_067})
+                # continue
                 poc_result = poc_module(data['ip']).ms08067_poc()
                 # poc_result = "data/picture/10_10_161_213.jpeg" This is for poc use
                 if poc_result != "NULL":
@@ -251,7 +252,8 @@ class report_app:
                     ms08_067["pics"].append(image)
                     vuln_count.update({"ms08_067":ms08_067})
             if data["ms17-010"] == "Vulnerable":
-                continue
+                # vuln_count.update({"ms17_010":ms17_010})
+                # continue
                 poc_result = poc_module(data['ip']).ms17010_poc()
                 # poc_result = "data/picture/10_10_161_213.jpeg"
                 if poc_result != "NULL":
@@ -261,7 +263,7 @@ class report_app:
                     ms17_010["pics"].append(image)
                     vuln_count.update({"ms17_010":ms17_010})                                               
             if data['password'] != "NULL" and data['account'] != "NULL":
-            
+                # continue
                 if "\\\\x00" in data['workgroup']:
                     data['workgroup'] = re.sub('\\\\x00','',data['workgroup'])
                 else:    
@@ -271,9 +273,19 @@ class report_app:
                         general_data['account'] += 1
                         account.update({data['ip']:{"account":data["account"],"password":data["password"],"prove":prove[::]}})
             if data['share_data'] != "NULL":
-                general_data['share_data']+=1
-            
-                share_data.update({data['ip']:data["share_data"]})
+                # continue
+                for i in data['share_data'].copy():
+                    poc_result = poc_module(data['ip']).share_poc(i)
+                    if poc_result == "NULL":
+                        data['share_data'].pop(i)
+                    else:
+                        data['share_data'][i].append({"prove":poc_result})
+                        continue
+                if bool(data['share_data']):
+                # poc_result = poc_module()
+                    general_data['share_data']+=1
+                    print(data["share_data"])
+                    share_data.update({data['ip']:data["share_data"]})
         for vuln in vuln_count:
             temp_data = {
                 vuln:vuln_count[vuln]['number']

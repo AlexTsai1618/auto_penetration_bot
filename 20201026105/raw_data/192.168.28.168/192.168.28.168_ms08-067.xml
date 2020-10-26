@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Mon Oct 12 01:25:02 2020 as: nmap -p 445 -&#45;script smb-vuln-ms08-067 -oX data/raw_data/192.168.28.168/192.168.28.168_ms08-067.xml 192.168.28.168 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-vuln-ms08-067 -oX data/raw_data/192.168.28.168/192.168.28.168_ms08-067.xml 192.168.28.168" start="1602480302" startstr="Mon Oct 12 01:25:02 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1602480306" endtime="1602480306"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.28.168" addrtype="ipv4"/>
+<address addr="F4:28:53:0D:A2:C8" addrtype="mac" vendor="Zioncom Electronics (Shenzhen)"/>
+<hostnames>
+<hostname name="voice-tygh.tygh.gov.tw" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="closed" reason="reset" reason_ttl="128"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<times srtt="430" rttvar="3775" to="100000"/>
+</host>
+<runstats><finished time="1602480306" timestr="Mon Oct 12 01:25:06 2020" elapsed="4.29" summary="Nmap done at Mon Oct 12 01:25:06 2020; 1 IP address (1 host up) scanned in 4.29 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

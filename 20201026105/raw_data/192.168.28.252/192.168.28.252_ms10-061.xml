@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Mon Oct 12 01:25:15 2020 as: nmap -p 445 -&#45;script smb-vuln-ms10-061 -oX data/raw_data/192.168.28.252/192.168.28.252_ms10-061.xml 192.168.28.252 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-vuln-ms10-061 -oX data/raw_data/192.168.28.252/192.168.28.252_ms10-061.xml 192.168.28.252" start="1602480315" startstr="Mon Oct 12 01:25:15 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1602480315" endtime="1602480315"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.28.252" addrtype="ipv4"/>
+<address addr="00:1B:78:2B:A1:76" addrtype="mac" vendor="Hewlett Packard"/>
+<hostnames>
+<hostname name="fs2.tygh.gov.tw" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<hostscript><script id="smb-vuln-ms10-061" output="Could not negotiate a connection:SMB: ERROR: Server returned less data than it was supposed to (one or more fields are missing); aborting [14]">false</script></hostscript><times srtt="5498" rttvar="6113" to="100000"/>
+</host>
+<runstats><finished time="1602480315" timestr="Mon Oct 12 01:25:15 2020" elapsed="0.80" summary="Nmap done at Mon Oct 12 01:25:15 2020; 1 IP address (1 host up) scanned in 0.80 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

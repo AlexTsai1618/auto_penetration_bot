@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Fri Oct 23 13:51:43 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.28.73/192.168.28.73_os.xml 192.168.28.73 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.28.73/192.168.28.73_os.xml 192.168.28.73" start="1603475503" startstr="Fri Oct 23 13:51:43 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1603475511" endtime="1603475517"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.28.73" addrtype="ipv4"/>
+<address addr="90:1B:0E:D3:A9:2C" addrtype="mac" vendor="Fujitsu Technology Solutions GmbH"/>
+<hostnames>
+<hostname name="helthexamine.tygh.gov.tw" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" product="Windows Server 2016 Standard 14393 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows Server 2016 Standard 14393 (Windows Server 2016 Standard 6.3)&#xa;  Computer name: HELTHEXAMINE&#xa;  NetBIOS computer name: HELTHEXAMINE\x00&#xa;  Domain name: TYGH.GOV.TW&#xa;  Forest name: TYGH.GOV.TW&#xa;  FQDN: HELTHEXAMINE.TYGH.GOV.TW&#xa;  System time: 2020-10-23T17:51:56+08:00&#xa;"><elem key="os">Windows Server 2016 Standard 14393</elem>
+<elem key="lanmanager">Windows Server 2016 Standard 6.3</elem>
+<elem key="server">HELTHEXAMINE\x00</elem>
+<elem key="date">2020-10-23T17:51:56+08:00</elem>
+<elem key="fqdn">HELTHEXAMINE.TYGH.GOV.TW</elem>
+<elem key="domain_dns">TYGH.GOV.TW</elem>
+<elem key="forest_dns">TYGH.GOV.TW</elem>
+<elem key="workgroup">TYGH\x00</elem>
+</script></hostscript><times srtt="14843" rttvar="16732" to="100000"/>
+</host>
+<runstats><finished time="1603475517" timestr="Fri Oct 23 13:51:57 2020" elapsed="15.22" summary="Nmap done at Fri Oct 23 13:51:57 2020; 1 IP address (1 host up) scanned in 15.22 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

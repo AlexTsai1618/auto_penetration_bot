@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Fri Oct 23 13:51:27 2020 as: nmap -p 445 -&#45;script smb-enum-shares.nse -oX data/raw_data/192.168.28.5/192.168.28.5_share.xml 192.168.28.5 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-enum-shares.nse -oX data/raw_data/192.168.28.5/192.168.28.5_share.xml 192.168.28.5" start="1603475487" startstr="Fri Oct 23 13:51:27 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1603475495" endtime="1603475510"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.28.5" addrtype="ipv4"/>
+<address addr="00:1A:64:C2:54:C0" addrtype="mac" vendor="IBM"/>
+<hostnames>
+<hostname name="mail.tygh.gov.tw" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<times srtt="1521" rttvar="5000" to="100000"/>
+</host>
+<runstats><finished time="1603475510" timestr="Fri Oct 23 13:51:50 2020" elapsed="24.72" summary="Nmap done at Fri Oct 23 13:51:50 2020; 1 IP address (1 host up) scanned in 24.72 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

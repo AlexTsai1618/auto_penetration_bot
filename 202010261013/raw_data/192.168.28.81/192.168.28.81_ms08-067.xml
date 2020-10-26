@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Fri Oct 23 13:53:18 2020 as: nmap -p 445 -&#45;script smb-vuln-ms08-067 -oX data/raw_data/192.168.28.81/192.168.28.81_ms08-067.xml 192.168.28.81 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-vuln-ms08-067 -oX data/raw_data/192.168.28.81/192.168.28.81_ms08-067.xml 192.168.28.81" start="1603475598" startstr="Fri Oct 23 13:53:18 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1603475598" endtime="1603475604"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.28.81" addrtype="ipv4"/>
+<address addr="54:A4:93:D0:29:B2" addrtype="mac"/>
+<hostnames>
+<hostname name="laptop-4h703ea9.tygh.gov.tw" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<times srtt="276" rttvar="3764" to="100000"/>
+</host>
+<runstats><finished time="1603475604" timestr="Fri Oct 23 13:53:24 2020" elapsed="5.86" summary="Nmap done at Fri Oct 23 13:53:24 2020; 1 IP address (1 host up) scanned in 5.86 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

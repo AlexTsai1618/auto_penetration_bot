@@ -78,5 +78,5 @@ class poc_module:
         except:
             os.remove("ms08067configure.rc")
             return "NULL"
-if __name__ == "__main__":
-    print(poc_module("192.168.89.208").share_poc("IPC$"))
+# if __name__ == "__main__":
+    # print(poc_module("192.168.89.208").share_poc("IPC$"))
