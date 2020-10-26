@@ -198,5 +198,5 @@ def account_clean(raw_file):
         return "NULL","NULL"
 if __name__ == "__main__":
     data_path()
-    shutil.move("data", final_path)
+
     # print(nmap_datas("data/raw_data/192.168.1.5/192.168.1.5_ms17-010.xml"))

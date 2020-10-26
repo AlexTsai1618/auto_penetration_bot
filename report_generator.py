@@ -53,9 +53,10 @@ class report_app:
             names+=(vuln_data+'\n'+str(vuln_value)+" devices",)
         print(names)
         size = [value for key,value in data['vuln'].items() ]
-        print(size,names)
+        print(size)
         color_codes = ['#FF2D01','#FAA40E','#FAE101','#2BE33F','#3CC4FA','#2A8CFA','#A11BE3',"#E6018E"]
         my_circle=plt.Circle( (0,0), 0.7, color='white')
+        input()
         plt.pie(size, labels=names, colors=[color_codes[i] for i in range(len(size))])
         p=plt.gcf()
         p.gca().add_artist(my_circle)
@@ -67,6 +68,8 @@ class report_app:
         sizes = [data['ips'],data['account']]
         explode = (0.1, 0, )  # only "explode" the 2nd slice (i.e. 'Hogs')
         fig1, ax1 = plt.subplots()
+        print(sizes)
+        input()
         ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
                 shadow=True, startangle=90)
         ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
@@ -239,8 +242,7 @@ class report_app:
                 vuln_count.update({"cve_2020_0796":cve_2020_0796})
 
             if data["ms08-067"] == "Vulnerable":
-            # if counter == 0:
-            #     counter +=1
+                continue
                 poc_result = poc_module(data['ip']).ms08067_poc()
                 # poc_result = "data/picture/10_10_161_213.jpeg" This is for poc use
                 if poc_result != "NULL":
@@ -250,6 +252,7 @@ class report_app:
                     ms08_067["pics"].append(image)
                     vuln_count.update({"ms08_067":ms08_067})
             if data["ms17-010"] == "Vulnerable":
+                continue
                 poc_result = poc_module(data['ip']).ms17010_poc()
                 # poc_result = "data/picture/10_10_161_213.jpeg"
                 if poc_result != "NULL":
