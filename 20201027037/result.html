@@ -29,7 +29,7 @@
   
 
 <div align ="center">
-<h1 align="center" style="font-size:6vw"><strong>{{Name}}</strong></h1>
+<h1 align="center" style="font-size:6vw"><strong></strong></h1>
 <br>
 <h1 align="center">資安弱點檢測報告</h1>
 <h4 align="center">Vulnerability Assessment Report</h2>
@@ -38,7 +38,7 @@
 <br>
 <br>
 <br>
-<h3>中華民國 {{year}} 年 {{month}} 月 {{day}} 日</h4>
+<h3>中華民國 109 年 10 月 27 日</h4>
 </div>
 <div >
   <h4>
@@ -90,7 +90,7 @@
 </div>
 <div align="center">
 <h2>詳細資訊</h2>
-{% if accounts %}
+
 <h4>SMB低安全性帳號詳細資訊</h4>
 <table class="center">
   <tr align="center">
@@ -98,69 +98,109 @@
     <th>風險帳號</th>
     <th>風險風險密碼</th>
   </tr>
-  {% for act in accounts %}
+  
   <tr align="center"></tr>
-    <th>{{ act }}</th>
-    <th>{{ accounts[act]["account"] }}</th>
-    <th>{{ accounts[act]["password"] }}</th>
+    <th>192.168.89.214</th>
+    <th>administrator</th>
+    <th>1qaz@WSX</th>
   </tr>
-  {% endfor %}
+  
 </table>
 <br> 
-{% endif %}
 
-{% if vuln_count %}
+
+
 <h4>SMB系統漏洞檢測詳細資訊</h4>
-{% for vuln in vuln_count %}  
+  
 <table class="center">
   <tr align="center">
-    <th>漏洞名稱</th>
-    <th>{{vuln}}</th>
+    <th>IP位置</th>
+    <th>cve_2020_1206</th>
   </tr>  
   <tr align="center">
     <th>弱點敘述</th>
-    <th>{{vuln_count[vuln]["description"]}}</th>
+    <th>該漏洞產生的原因是SMB的解壓縮函數Srv2DecompressData在處理發送給目標SMBv3服務器以偽造的息請求時，所產生問題，攻擊者可以讀取未初始化的kernel內存，還可以對壓縮函數進行修改。</th>
   </tr>
   <tr align="center">
     <th>建議措施</th>
-    <th>{{vuln_count[vuln]["solution"]}}</th>
+    <th>用管理員身份執行命令提示字元，必輸入以下命令，Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" DisableCompression -Type DWORD -Value 1 -Force,此外無需重啟電腦</th>
   </tr>
   <tr align="center">
     <th>風險IP</th>
     <th>
-      {% for ip in vuln_count[vuln]["ips"] %}
-      <p>{{ip}}</p>
-      {%endfor %}
+      
+      <p>192.168.89.214</p>
+      
+      <p>192.168.89.208</p>
+      
       </th>
   </tr>
 </table>
-{% endfor %}
-<br>
-{% endif %}
+  
+<table class="center">
+  <tr align="center">
+    <th>IP位置</th>
+    <th>cve_2020_0796</th>
+  </tr>  
+  <tr align="center">
+    <th>弱點敘述</th>
+    <th>該漏洞遠讓遠端攻擊者可對目標系統之SMBv3服務發送特製請求或架設惡意的SMBv3伺服器誘騙受害者進行連線，導致遠端執行任意程式碼</th>
+  </tr>
+  <tr align="center">
+    <th>建議措施</th>
+    <th>目前微軟官方已針對此弱點釋出更新程式，請至下列連結進行更新：https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2020-0796</th>
+  </tr>
+  <tr align="center">
+    <th>風險IP</th>
+    <th>
+      
+      <p>192.168.89.214</p>
+      
+      <p>192.168.89.208</p>
+      
+      </th>
+  </tr>
+</table>
 
-{% if share_datas %}
+<br>
+
+
+
 <h4>資料共享風險詳細資訊</h4>
-{% for share_data in share_datas %}
+
 <table class="center">
   <tr align="center">
     <tr align="center">
       <th>IP位置</th>
-      <th>{{ share_data }}</th>
+      <th>192.168.89.208</th>
     </tr>
     <th>資料夾資訊</th>
     <th>
-      {% for path in share_datas[share_data] %}
-      <p>{{path}}</p>
-        {% for data in share_datas[share_data][path] %}
-        <p>{{ data }}</p>
-        {% endfor %}
-      {% endfor %}
+      
+      <p>Documents</p>
+        
+        <p>Current user access</p>
+        
+        <p>READ/WRITE</p>
+        
+        <p>{'prove': ['desktop.ini', 'My Music', 'My Pictures', 'My Videos', 'Testing.tw.txt']}</p>
+        
+      
+      <p>Users</p>
+        
+        <p>Current user access</p>
+        
+        <p>READ</p>
+        
+        <p>{'prove': ['admin', 'Alex-Win10', 'Default', 'desktop.ini']}</p>
+        
+      
       </th>
   </tr>
 
 </table>
-{% endfor %}
-{% endif %}
+
+
 </div>
 </body>
 </html>
