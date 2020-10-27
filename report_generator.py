@@ -10,6 +10,7 @@ from data_poc import poc_module
 import nmap
 import datetime
 import subprocess
+from jinja2 import Environment, FileSystemLoader
 
 class bcolors:
     HEADER = '\033[95m'
@@ -22,6 +23,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 class report_app:
     # def __init__(self,name,ip):
+
     def __init__(self,name):
         self.name = name
         self.doc = DocxTemplate(os.path.join('data','smb_template','smb_template.docx'))
@@ -98,6 +100,15 @@ class report_app:
         # p2=plt2.gcf()
         # p2.gca().add_artist(my_circle)
         # plt2.savefig('data/picture/pic0.jpg', format='jpg',dpi = 1000)
+    def html_report(self,data):
+        templates_dir = os.path.join('data','smb_template')
+        env = Environment( loader = FileSystemLoader(templates_dir) )
+        template = env.get_template('smb_template.html')
+        filename = os.path.join('data','report','result.html')
+        with open(filename, 'w') as fh:
+            fh.write(template.render(data))
+
+        print(bcolors.OKBLUE + bcolors.BOLD +"[+]HTML report is generated !"+ bcolors.ENDC)
 
     def report(self,vuln_count,share_data,computer_os,ips,account,general_data):
         
@@ -109,11 +120,13 @@ class report_app:
         
         self.gen_pic(general_data,ips)
         # self.port_scanning()
+        time = datetime.datetime.now()
+        folder_name = str(time.year) + str(time.month) + str(time.day) + str(time.hour) + str(time.minute)
         data={
         #    "pic_account":InlineImage(self.doc, 'data/picture/pic2.jpg', width=Mm(105),height=Mm(70)),
         #     "pic_share":InlineImage(self.doc, 'data/picture/pic1.jpg', width=Mm(105),height=Mm(70)),
         #     "pic_vuln":InlineImage(self.doc, 'data/picture/pic3.jpg', width=Mm(105),height=Mm(70)),
-
+            "folder":folder_name,
             # "pic_rdp":InlineImage(self.doc, 'data/picture/pic0.jpg', width=Mm(105),height=Mm(70)),
             "name":self.name,
             "year":date.today().year-1911,
@@ -127,13 +140,14 @@ class report_app:
             "general_data":general_data,
             # "rdp":self.ip,
         }
+        self.html_report(data)
         data_json = json.dumps(data)
-        time = datetime.datetime.now()
+      
         file_name = str(time.year) + str(time.month) + str(time.day) + str(time.hour) + str(time.minute) + ".json"
         outupt_path = "data/final_result/" + file_name
         with open(outupt_path,'w')as file:
             file.write(data_json)
-  
+
         self.doc.render(data)
         self.doc.save(os.path.join("data","report",self.name+"_smb_report.docx"))
     def manage_files(self):
@@ -296,7 +310,7 @@ class report_app:
         self.report(vuln_count,share_data,computer_os,ips,account,general_data)
     def paths(self):
     
-        path = os.path.join('data','clean_data')
+        path = os.path.join('202010262120','clean_data')
         files = os.listdir(path)
         files = [os.path.join(path,file) for file in files]
         self.data_count(files)

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Mon Oct 26 21:20:18 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.89.208/192.168.89.208_os.xml 192.168.89.208 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.89.208/192.168.89.208_os.xml 192.168.89.208" start="1603761618" startstr="Mon Oct 26 21:20:18 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1603761619" endtime="1603761619"><status state="up" reason="reset" reason_ttl="255"/>
+<address addr="192.168.89.208" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="microsoft-ds" product="Windows 10 Pro 19041 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows 10 Pro 19041 (Windows 10 Pro 6.3)&#xa;  OS CPE: cpe:/o:microsoft:windows_10::-&#xa;  Computer name: windows-10&#xa;  NetBIOS computer name: WINDOWS-10\x00&#xa;  Workgroup: WORKGROUP\x00&#xa;  System time: 2020-10-27T09:20:19+08:00&#xa;"><elem key="os">Windows 10 Pro 19041</elem>
+<elem key="lanmanager">Windows 10 Pro 6.3</elem>
+<elem key="server">WINDOWS-10\x00</elem>
+<elem key="date">2020-10-27T09:20:19+08:00</elem>
+<elem key="fqdn">windows-10</elem>
+<elem key="domain_dns">windows-10</elem>
+<elem key="workgroup">WORKGROUP\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_10::-</elem>
+</script></hostscript><times srtt="3550" rttvar="4796" to="100000"/>
+</host>
+<runstats><finished time="1603761619" timestr="Mon Oct 26 21:20:19 2020" elapsed="0.46" summary="Nmap done at Mon Oct 26 21:20:19 2020; 1 IP address (1 host up) scanned in 0.46 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>
