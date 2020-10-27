@@ -134,6 +134,7 @@
       </th>
   </tr>
 </table>
+<br>
 {% endfor %}
 <br>
 {% endif %}
@@ -150,7 +151,9 @@
     <th>資料夾資訊</th>
     <th>
       {% for path in share_datas[share_data] %}
-      <p>{{path}}</p>
+      <p>資料夾： {{path}}</p>
+      <!-- <th>資料夾： {{ path }}</th> -->
+      <p> 資料夾資料 </p>
         {% for data in share_datas[share_data][path] %}
         <p>{{ data }}</p>
         {% endfor %}

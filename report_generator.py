@@ -195,7 +195,7 @@ class report_app:
                 "number":0,
                 "ips":[],
                 "description":"該漏洞產生的原因是SMB的解壓縮函數Srv2DecompressData在處理發送給目標SMBv3服務器以偽造的息請求時，所產生問題，攻擊者可以讀取未初始化的kernel內存，還可以對壓縮函數進行修改。",
-                "solution":'用管理員身份執行命令提示字元，必輸入以下命令，Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" DisableCompression -Type DWORD -Value 1 -Force,此外無需重啟電腦',
+                "solution":'目前微軟官方已針對此弱點釋出更新程式，請至下列連結進行更新：https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2020-1206',
                 }
         cve_2020_0796 = {
                 "number":0,
@@ -311,7 +311,7 @@ class report_app:
         self.report(vuln_count,share_data,computer_os,ips,account,general_data)
     def paths(self):
     
-        path = os.path.join('data','clean_data')
+        path = os.path.join('data_old','clean_data')
         files = os.listdir(path)
         files = [os.path.join(path,file) for file in files]
         self.data_count(files)
