@@ -29,7 +29,7 @@
   
 
 <div align ="center">
-<h1 align="center" style="font-size:6vw"><strong>{{Name}}</strong></h1>
+<h1 align="center" style="font-size:6vw"><strong></strong></h1>
 <br>
 <h1 align="center">資安弱點檢測報告</h1>
 <h4 align="center">Vulnerability Assessment Report</h2>
@@ -38,7 +38,7 @@
 <br>
 <br>
 <br>
-<h3>中華民國 {{year}} 年 {{month}} 月 {{day}} 日</h4>
+<h3>中華民國 109 年 10 月 27 日</h4>
 </div>
 <div >
   <h4>
@@ -90,77 +90,11 @@
 </div>
 <div align="center">
 <h2>詳細資訊</h2>
-{% if accounts %}
-<h4>SMB低安全性帳號詳細資訊</h4>
-<table class="center">
-  <tr align="center">
-    <th>風險IP</th>
-    <th>風險帳號</th>
-    <th>風險風險密碼</th>
-  </tr>
-  {% for act in accounts %}
-  <tr align="center"></tr>
-    <th>{{ act }}</th>
-    <th>{{ accounts[act]["account"] }}</th>
-    <th>{{ accounts[act]["password"] }}</th>
-  </tr>
-  {% endfor %}
-</table>
-<br> 
-{% endif %}
 
-{% if vuln_count %}
-<h4>SMB系統漏洞檢測詳細資訊</h4>
-{% for vuln in vuln_count %}  
-<table class="center">
-  <tr align="center">
-    <th>IP位置</th>
-    <th>{{vuln}}</th>
-  </tr>  
-  <tr align="center">
-    <th>弱點敘述</th>
-    <th>{{vuln_count[vuln]["description"]}}</th>
-  </tr>
-  <tr align="center">
-    <th>建議措施</th>
-    <th>{{vuln_count[vuln]["solution"]}}</th>
-  </tr>
-  <tr align="center">
-    <th>風險IP</th>
-    <th>
-      {% for ip in vuln_count[vuln]["ips"] %}
-      <p>{{ip}}</p>
-      {%endfor %}
-      </th>
-  </tr>
-</table>
-{% endfor %}
-<br>
-{% endif %}
 
-{% if share_datas %}
-<h4>資料共享風險詳細資訊</h4>
-{% for share_data in share_datas %}
-<table class="center">
-  <tr align="center">
-    <tr align="center">
-      <th>IP位置</th>
-      <th>{{ share_data }}</th>
-    </tr>
-    <th>資料夾資訊</th>
-    <th>
-      {% for path in share_datas[share_data] %}
-      <p>{{path}}</p>
-        {% for data in share_datas[share_data][path] %}
-        <p>{{ data }}</p>
-        {% endfor %}
-      {% endfor %}
-      </th>
-  </tr>
 
-</table>
-{% endfor %}
-{% endif %}
+
+
 </div>
 </body>
 </html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Tue Oct 27 00:22:21 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.89.214/192.168.89.214_os.xml 192.168.89.214 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.89.214/192.168.89.214_os.xml 192.168.89.214" start="1603772541" startstr="Tue Oct 27 00:22:21 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1603772542" endtime="1603772543"><status state="up" reason="reset" reason_ttl="255"/>
+<address addr="192.168.89.214" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="microsoft-ds" product="Windows Server 2019 Standard Evaluation 17763 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows Server 2019 Standard Evaluation 17763 (Windows Server 2019 Standard Evaluation 6.3)&#xa;  Computer name: WIN-IMA5CJLM8C5&#xa;  NetBIOS computer name: WIN-IMA5CJLM8C5\x00&#xa;  Domain name: alex-ad.local&#xa;  Forest name: alex-ad.local&#xa;  FQDN: WIN-IMA5CJLM8C5.alex-ad.local&#xa;  System time: 2020-10-27T12:22:23+08:00&#xa;"><elem key="os">Windows Server 2019 Standard Evaluation 17763</elem>
+<elem key="lanmanager">Windows Server 2019 Standard Evaluation 6.3</elem>
+<elem key="server">WIN-IMA5CJLM8C5\x00</elem>
+<elem key="date">2020-10-27T12:22:23+08:00</elem>
+<elem key="fqdn">WIN-IMA5CJLM8C5.alex-ad.local</elem>
+<elem key="domain_dns">alex-ad.local</elem>
+<elem key="forest_dns">alex-ad.local</elem>
+<elem key="workgroup">ALEX-AD\x00</elem>
+</script></hostscript><times srtt="5568" rttvar="4917" to="100000"/>
+</host>
+<runstats><finished time="1603772543" timestr="Tue Oct 27 00:22:23 2020" elapsed="1.84" summary="Nmap done at Tue Oct 27 00:22:23 2020; 1 IP address (1 host up) scanned in 1.84 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

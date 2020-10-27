@@ -160,6 +160,7 @@ class report_app:
         subprocess.run(['cp -r data/picture '+ file_name],shell=True)
         subprocess.run(['cp -r data/clean_data '+ file_name],shell=True)
         subprocess.run(['cp -r data/report/* '+ file_name],shell=True)
+        subprocess.run(['cp data/logo.png '+ file_name+'/picture/'],shell=True)
         #remove file
         subprocess.run(['rm -rf data/raw_data/*'],shell=True)
         subprocess.run(['rm -rf data/final_result/*'],shell=True)
