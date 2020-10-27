@@ -310,7 +310,7 @@ class report_app:
         self.report(vuln_count,share_data,computer_os,ips,account,general_data)
     def paths(self):
     
-        path = os.path.join('202010262120','clean_data')
+        path = os.path.join('data','clean_data')
         files = os.listdir(path)
         files = [os.path.join(path,file) for file in files]
         self.data_count(files)
