@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Tue Oct 27 23:16:48 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/10.10.70.116/10.10.70.116_os.xml 10.10.70.116 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/10.10.70.116/10.10.70.116_os.xml 10.10.70.116" start="1603855008" startstr="Tue Oct 27 23:16:48 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1603855021" endtime="1603855022"><status state="up" reason="reset" reason_ttl="255"/>
+<address addr="10.10.70.116" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="microsoft-ds" product="Windows XP microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows XP (Windows 2000 LAN Manager)&#xa;  OS CPE: cpe:/o:microsoft:windows_xp::-&#xa;  Computer name: ADMIN-8&#xa;  NetBIOS computer name: ADMIN-8\x00&#xa;  Workgroup: ANTAI\x00&#xa;  System time: 2020-10-28T11:17:21+08:00&#xa;"><elem key="os">Windows 5.1</elem>
+<elem key="lanmanager">Windows 2000 LAN Manager</elem>
+<elem key="server">ADMIN-8\x00</elem>
+<elem key="date">2020-10-28T11:17:21+08:00</elem>
+<elem key="fqdn">ADMIN-8</elem>
+<elem key="domain_dns">ADMIN-8</elem>
+<elem key="workgroup">ANTAI\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_xp::-</elem>
+</script></hostscript><times srtt="3316" rttvar="3783" to="100000"/>
+</host>
+<runstats><finished time="1603855022" timestr="Tue Oct 27 23:17:02 2020" elapsed="14.38" summary="Nmap done at Tue Oct 27 23:17:02 2020; 1 IP address (1 host up) scanned in 14.38 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

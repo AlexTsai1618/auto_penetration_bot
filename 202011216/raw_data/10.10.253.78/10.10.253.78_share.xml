@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Mon Nov  2 00:45:19 2020 as: nmap -p 445 -&#45;script smb-enum-shares.nse -oX data/raw_data/10.10.253.78/10.10.253.78_share.xml 10.10.253.78 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-enum-shares.nse -oX data/raw_data/10.10.253.78/10.10.253.78_share.xml 10.10.253.78" start="1604295919" startstr="Mon Nov  2 00:45:19 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<taskprogress task="NSE" time="1604296170" percent="0.00"/>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Tue Oct 27 23:16:51 2020 as: nmap -p 445 -&#45;script smb-enum-shares.nse -oX data/raw_data/10.10.70.27/10.10.70.27_share.xml 10.10.70.27 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-enum-shares.nse -oX data/raw_data/10.10.70.27/10.10.70.27_share.xml 10.10.70.27" start="1603855011" startstr="Tue Oct 27 23:16:51 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1603855025" endtime="1603855028"><status state="up" reason="reset" reason_ttl="255"/>
+<address addr="10.10.70.27" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<hostscript><script id="smb-enum-shares" output="&#xa;  account_used: guest&#xa;  \\10.10.70.27\ADMIN$: &#xa;    Type: STYPE_DISKTREE_HIDDEN&#xa;    Comment: \xE9\x81\xA0\xE7\xAB\xAF\xE7\xAE\xA1\xE7\x90\x86&#xa;    Anonymous access: &lt;none&gt;&#xa;    Current user access: &lt;none&gt;&#xa;  \\10.10.70.27\C$: &#xa;    Type: STYPE_DISKTREE_HIDDEN&#xa;    Comment: \xE9\xA0\x90\xE8\xA8\xAD\xE5\x85\xB1\xE7\x94\xA8&#xa;    Anonymous access: &lt;none&gt;&#xa;    Current user access: &lt;none&gt;&#xa;  \\10.10.70.27\D$: &#xa;    Type: STYPE_DISKTREE_HIDDEN&#xa;    Comment: \xE9\xA0\x90\xE8\xA8\xAD\xE5\x85\xB1\xE7\x94\xA8&#xa;    Anonymous access: &lt;none&gt;&#xa;    Current user access: &lt;none&gt;&#xa;  \\10.10.70.27\IPC$: &#xa;    Type: STYPE_IPC_HIDDEN&#xa;    Comment: \xE9\x81\xA0\xE7\xAB\xAF IPC&#xa;    Anonymous access: READ&#xa;    Current user access: READ/WRITE&#xa;  \\10.10.70.27\Users: &#xa;    Type: STYPE_DISKTREE&#xa;    Comment: &#xa;    Anonymous access: &lt;none&gt;&#xa;    Current user access: READ"><elem key="account_used">guest</elem>
+<table key="\\10.10.70.27\ADMIN$">
+<elem key="Type">STYPE_DISKTREE_HIDDEN</elem>
+<elem key="Comment">\xE9\x81\xA0\xE7\xAB\xAF\xE7\xAE\xA1\xE7\x90\x86</elem>
+<elem key="Anonymous access">&lt;none&gt;</elem>
+<elem key="Current user access">&lt;none&gt;</elem>
+</table>
+<table key="\\10.10.70.27\C$">
+<elem key="Type">STYPE_DISKTREE_HIDDEN</elem>
+<elem key="Comment">\xE9\xA0\x90\xE8\xA8\xAD\xE5\x85\xB1\xE7\x94\xA8</elem>
+<elem key="Anonymous access">&lt;none&gt;</elem>
+<elem key="Current user access">&lt;none&gt;</elem>
+</table>
+<table key="\\10.10.70.27\D$">
+<elem key="Type">STYPE_DISKTREE_HIDDEN</elem>
+<elem key="Comment">\xE9\xA0\x90\xE8\xA8\xAD\xE5\x85\xB1\xE7\x94\xA8</elem>
+<elem key="Anonymous access">&lt;none&gt;</elem>
+<elem key="Current user access">&lt;none&gt;</elem>
+</table>
+<table key="\\10.10.70.27\IPC$">
+<elem key="Type">STYPE_IPC_HIDDEN</elem>
+<elem key="Comment">\xE9\x81\xA0\xE7\xAB\xAF IPC</elem>
+<elem key="Anonymous access">READ</elem>
+<elem key="Current user access">READ/WRITE</elem>
+</table>
+<table key="\\10.10.70.27\Users">
+<elem key="Type">STYPE_DISKTREE</elem>
+<elem key="Comment"></elem>
+<elem key="Anonymous access">&lt;none&gt;</elem>
+<elem key="Current user access">READ</elem>
+</table>
+</script></hostscript><times srtt="1460" rttvar="5023" to="100000"/>
+</host>
+<runstats><finished time="1603855028" timestr="Tue Oct 27 23:17:08 2020" elapsed="18.33" summary="Nmap done at Tue Oct 27 23:17:08 2020; 1 IP address (1 host up) scanned in 18.33 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

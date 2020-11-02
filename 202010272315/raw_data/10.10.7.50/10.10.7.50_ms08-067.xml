@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Tue Oct 27 22:47:11 2020 as: nmap -p 445 -&#45;script smb-vuln-ms08-067 -oX data/raw_data/10.10.7.50/10.10.7.50_ms08-067.xml 10.10.7.50 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-vuln-ms08-067 -oX data/raw_data/10.10.7.50/10.10.7.50_ms08-067.xml 10.10.7.50" start="1603853231" startstr="Tue Oct 27 22:47:11 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<runstats><finished time="1603853235" timestr="Tue Oct 27 22:47:15 2020" elapsed="4.46" summary="Nmap done at Tue Oct 27 22:47:15 2020; 1 IP address (0 hosts up) scanned in 4.46 seconds" exit="success"/><hosts up="0" down="1" total="1"/>
+</runstats>
+</nmaprun>

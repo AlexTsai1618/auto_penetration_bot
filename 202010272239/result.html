@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  table.center {
+    margin-left:auto; 
+    margin-right:auto;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+</style>
+</head>
+<body>
+  
+
+<div align ="center">
+<h1 align="center" style="font-size:6vw"><strong></strong></h1>
+<br>
+<h1 align="center">資安弱點檢測報告</h1>
+<h4 align="center">Vulnerability Assessment Report</h2>
+<br>
+<img align="center" src="picture/logo.png"></img>
+<br>
+<br>
+<br>
+<h3>中華民國 109 年 10 月 27 日</h4>
+</div>
+<div >
+  <h4>
+    <ul style="width: 30%;margin: auto;">
+      <!-- <li>RDP檢測項目：</li>
+      <p>
+      <span>1. Port開啟數量</span>
+      </p> -->
+
+      <li>SMB檢測項目: </li>
+      <p>
+        <span>1. CVE 2020-1206漏洞檢測</span>
+      </p>
+      <p>
+        <span>2. CVE 2020-0796漏洞檢測</span>
+      </p>      
+      <p>
+        <span>3. MS 08-067漏洞檢測</span>
+      </p>
+      <p>
+        <span>4. MS 17-010漏洞檢測</span>
+      </p>
+      <p>
+        <span>5. 風險帳號</span>
+      </p>
+      <p>
+        <span>6. 風險資料夾資訊</span>
+      </p>
+      <li>SMB低安全性概況: </li>
+      <div align="center">
+      <p>
+        <img align="center" src="picture/pic2.jpg" style="width: 384px;"></img>
+      </p>
+      <li>SMB系統漏洞檢測概況: </li>
+      <p>
+        <img align="center" src="picture/pic1.jpg" style="width: 384px;"></img>
+      </p>
+      <li>SMB資料共享風險概況: </li>
+      <p>
+        <img align="center" src="picture/pic3.jpg" style="width: 384px;"></img>
+      </p>
+      </div>
+      <!-- <li>RDP服務開啟概況 </li>
+      <p>
+        <img align="center" src="202010262120/picture/logo.png"></img>
+      </p> -->
+    </ul>
+  </h4>
+</div>
+<div align="center">
+<h2>詳細資訊</h2>
+
+
+
+<h4>SMB系統漏洞檢測詳細資訊</h4>
+  
+<table class="center">
+  <tr align="center">
+    <th>漏洞名稱</th>
+    <th>cve_2020_1206</th>
+  </tr>  
+  <tr align="center">
+    <th>弱點敘述</th>
+    <th>該漏洞產生的原因是SMB的解壓縮函數Srv2DecompressData在處理發送給目標SMBv3服務器以偽造的息請求時，所產生問題，攻擊者可以讀取未初始化的kernel內存，還可以對壓縮函數進行修改。</th>
+  </tr>
+  <tr align="center">
+    <th>建議措施</th>
+    <th>目前微軟官方已針對此弱點釋出更新程式，請至下列連結進行更新：https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2020-1206</th>
+  </tr>
+  <tr align="center">
+    <th>風險IP</th>
+    <th>
+      
+      <p>10.10.1.42</p>
+      
+      <p>10.10.1.111</p>
+      
+      <p>10.10.1.104</p>
+      
+      <p>10.10.1.159</p>
+      
+      <p>10.10.1.209</p>
+      
+      <p>10.10.1.131</p>
+      
+      <p>10.10.1.121</p>
+      
+      <p>10.10.1.185</p>
+      
+      <p>10.10.1.31</p>
+      
+      <p>10.10.1.69</p>
+      
+      <p>10.10.1.47</p>
+      
+      <p>10.10.1.180</p>
+      
+      <p>10.10.1.223</p>
+      
+      <p>10.10.1.135</p>
+      
+      <p>10.10.1.150</p>
+      
+      <p>10.10.1.43</p>
+      
+      <p>10.10.1.236</p>
+      
+      <p>10.10.1.154</p>
+      
+      <p>10.10.1.110</p>
+      
+      <p>10.10.1.143</p>
+      
+      <p>10.10.1.57</p>
+      
+      <p>10.10.1.64</p>
+      
+      <p>10.10.1.202</p>
+      
+      <p>10.10.1.140</p>
+      
+      <p>10.10.1.188</p>
+      
+      <p>10.10.1.63</p>
+      
+      <p>10.10.1.107</p>
+      
+      <p>10.10.1.72</p>
+      
+      <p>10.10.1.141</p>
+      
+      <p>10.10.1.189</p>
+      
+      <p>10.10.1.126</p>
+      
+      <p>10.10.1.152</p>
+      
+      <p>10.10.1.130</p>
+      
+      <p>10.10.1.153</p>
+      
+      <p>10.10.1.147</p>
+      
+      <p>10.10.1.73</p>
+      
+      <p>10.10.1.108</p>
+      
+      <p>10.10.1.148</p>
+      
+      <p>10.10.1.32</p>
+      
+      <p>10.10.1.136</p>
+      
+      <p>10.10.1.30</p>
+      
+      <p>10.10.1.137</p>
+      
+      <p>10.10.1.139</p>
+      
+      <p>10.10.1.106</p>
+      
+      <p>10.10.1.160</p>
+      
+      </th>
+  </tr>
+</table>
+<br>
+  
+<table class="center">
+  <tr align="center">
+    <th>漏洞名稱</th>
+    <th>cve_2020_0796</th>
+  </tr>  
+  <tr align="center">
+    <th>弱點敘述</th>
+    <th>該漏洞遠讓遠端攻擊者可對目標系統之SMBv3服務發送特製請求或架設惡意的SMBv3伺服器誘騙受害者進行連線，導致遠端執行任意程式碼</th>
+  </tr>
+  <tr align="center">
+    <th>建議措施</th>
+    <th>目前微軟官方已針對此弱點釋出更新程式，請至下列連結進行更新：https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2020-0796</th>
+  </tr>
+  <tr align="center">
+    <th>風險IP</th>
+    <th>
+      
+      <p>10.10.1.42</p>
+      
+      <p>10.10.1.61</p>
+      
+      <p>10.10.1.187</p>
+      
+      <p>10.10.1.111</p>
+      
+      <p>10.10.1.104</p>
+      
+      <p>10.10.1.138</p>
+      
+      <p>10.10.1.207</p>
+      
+      <p>10.10.1.7</p>
+      
+      <p>10.10.1.159</p>
+      
+      <p>10.10.1.209</p>
+      
+      <p>10.10.1.131</p>
+      
+      <p>10.10.1.121</p>
+      
+      <p>10.10.1.185</p>
+      
+      <p>10.10.1.31</p>
+      
+      <p>10.10.1.69</p>
+      
+      <p>10.10.1.47</p>
+      
+      <p>10.10.1.180</p>
+      
+      <p>10.10.1.223</p>
+      
+      <p>10.10.1.135</p>
+      
+      <p>10.10.1.51</p>
+      
+      <p>10.10.1.150</p>
+      
+      <p>10.10.1.43</p>
+      
+      <p>10.10.1.236</p>
+      
+      <p>10.10.1.154</p>
+      
+      <p>10.10.1.110</p>
+      
+      <p>10.10.1.143</p>
+      
+      <p>10.10.1.57</p>
+      
+      <p>10.10.1.64</p>
+      
+      <p>10.10.1.105</p>
+      
+      <p>10.10.1.48</p>
+      
+      <p>10.10.1.202</p>
+      
+      <p>10.10.1.140</p>
+      
+      <p>10.10.1.188</p>
+      
+      <p>10.10.1.63</p>
+      
+      <p>10.10.1.107</p>
+      
+      <p>10.10.1.72</p>
+      
+      <p>10.10.1.141</p>
+      
+      <p>10.10.1.125</p>
+      
+      <p>10.10.1.76</p>
+      
+      <p>10.10.1.189</p>
+      
+      <p>10.10.1.126</p>
+      
+      <p>10.10.1.152</p>
+      
+      <p>10.10.1.130</p>
+      
+      <p>10.10.1.153</p>
+      
+      <p>10.10.1.147</p>
+      
+      <p>10.10.1.59</p>
+      
+      <p>10.10.1.58</p>
+      
+      <p>10.10.1.73</p>
+      
+      <p>10.10.1.75</p>
+      
+      <p>10.10.1.60</p>
+      
+      <p>10.10.1.108</p>
+      
+      <p>10.10.1.109</p>
+      
+      <p>10.10.1.148</p>
+      
+      <p>10.10.1.32</p>
+      
+      <p>10.10.1.136</p>
+      
+      <p>10.10.1.100</p>
+      
+      <p>10.10.1.30</p>
+      
+      <p>10.10.1.137</p>
+      
+      <p>10.10.1.139</p>
+      
+      <p>10.10.1.238</p>
+      
+      <p>10.10.1.166</p>
+      
+      <p>10.10.1.199</p>
+      
+      <p>10.10.1.106</p>
+      
+      <p>10.10.1.160</p>
+      
+      </th>
+  </tr>
+</table>
+<br>
+
+<br>
+
+
+
+<h4>資料共享風險詳細資訊</h4>
+
+<table class="center">
+  <tr align="center">
+    <tr align="center">
+      <th>IP位置</th>
+      <th>10.10.1.47</th>
+    </tr>
+    <th>資料夾資訊</th>
+    <th>
+      
+      <p>資料夾： print$</p>
+      <!-- <th>資料夾： print$</th> -->
+      <p> 資料夾資料 </p>
+        
+        <p>Current user access</p>
+        
+        <p>READ</p>
+        
+        <p>{'prove': ['color', 'IA64', 'W32X86', 'x64']}</p>
+        
+      
+      </th>
+  </tr>
+
+</table>
+
+
+</div>
+</body>
+</html>

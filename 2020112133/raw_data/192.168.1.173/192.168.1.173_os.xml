@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Mon Nov  2 01:33:09 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.1.173/192.168.1.173_os.xml 192.168.1.173 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.1.173/192.168.1.173_os.xml 192.168.1.173" start="1604298789" startstr="Mon Nov  2 01:33:09 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1604298789" endtime="1604298790"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.1.173" addrtype="ipv4"/>
+<address addr="26:86:21:3B:70:45" addrtype="mac"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" product="Windows 7 Ultimate 7601 Service Pack 1 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows 7 Ultimate 7601 Service Pack 1 (Windows 7 Ultimate 6.1)&#xa;  OS CPE: cpe:/o:microsoft:windows_7::sp1&#xa;  Computer name: jessica-PC&#xa;  NetBIOS computer name: JESSICA-PC\x00&#xa;  Workgroup: WORKGROUP\x00&#xa;  System time: 2020-10-18T18:20:03+08:00&#xa;"><elem key="os">Windows 7 Ultimate 7601 Service Pack 1</elem>
+<elem key="lanmanager">Windows 7 Ultimate 6.1</elem>
+<elem key="server">JESSICA-PC\x00</elem>
+<elem key="date">2020-10-18T18:20:03+08:00</elem>
+<elem key="fqdn">jessica-PC</elem>
+<elem key="domain_dns">jessica-PC</elem>
+<elem key="workgroup">WORKGROUP\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_7::sp1</elem>
+</script></hostscript><times srtt="8041" rttvar="8300" to="100000"/>
+</host>
+<runstats><finished time="1604298790" timestr="Mon Nov  2 01:33:10 2020" elapsed="0.78" summary="Nmap done at Mon Nov  2 01:33:10 2020; 1 IP address (1 host up) scanned in 0.78 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

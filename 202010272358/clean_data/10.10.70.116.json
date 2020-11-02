@@ -1,0 +1,1 @@
+{"ip": "10.10.70.116", "os": "Windows 5.1", "fqdn": "ADMIN-8", "workgroup": "ANTAI\\x00", "account": "Test", "password": "password", "share_data": {"IPC$": ["Anonymous access", "READ"]}, "cve_2020_1206": "NULL", "cve_2020_0796": "Vulnerable", "ms07-029": "NULL", "ms08-067": "Not Vulernable", "ms10-054": "NULL", "ms10-061": "NULL", "ms17-010": "Vulnerable"}

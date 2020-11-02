@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Tue Oct 27 22:47:42 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/10.10.7.133/10.10.7.133_os.xml 10.10.7.133 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/10.10.7.133/10.10.7.133_os.xml 10.10.7.133" start="1603853262" startstr="Tue Oct 27 22:47:42 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1603853263" endtime="1603853263"><status state="up" reason="reset" reason_ttl="255"/>
+<address addr="10.10.7.133" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="microsoft-ds" product="Windows XP microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows XP (Windows 2000 LAN Manager)&#xa;  OS CPE: cpe:/o:microsoft:windows_xp::-&#xa;  Computer name: P2UA5291DJF&#xa;  NetBIOS computer name: P2UA5291DJF\x00&#xa;  Workgroup: CAREGROUP\x00&#xa;  System time: 2020-10-28T10:48:00+08:00&#xa;"><elem key="os">Windows 5.1</elem>
+<elem key="lanmanager">Windows 2000 LAN Manager</elem>
+<elem key="server">P2UA5291DJF\x00</elem>
+<elem key="date">2020-10-28T10:48:00+08:00</elem>
+<elem key="fqdn">P2UA5291DJF</elem>
+<elem key="domain_dns">P2UA5291DJF</elem>
+<elem key="workgroup">CAREGROUP\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_xp::-</elem>
+</script></hostscript><times srtt="5376" rttvar="4447" to="100000"/>
+</host>
+<runstats><finished time="1603853263" timestr="Tue Oct 27 22:47:43 2020" elapsed="1.49" summary="Nmap done at Tue Oct 27 22:47:43 2020; 1 IP address (1 host up) scanned in 1.49 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

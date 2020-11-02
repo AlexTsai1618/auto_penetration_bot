@@ -256,26 +256,26 @@ class report_app:
                 vuln_count.update({"cve_2020_0796":cve_2020_0796})
 
             if data["ms08-067"] == "Vulnerable":
+                # continue
                 # vuln_count.update({"ms08_067":ms08_067})
                 # continue
                 poc_result = poc_module(data['ip']).ms08067_poc()
                 # poc_result = "data/picture/10_10_161_213.jpeg" This is for poc use
                 if poc_result != "NULL":
                     ms08_067["number"] += 1
-                    image =InlineImage(self.doc, poc_result, width=Mm(105),height=Mm(70))
                     ms08_067["ips"].append("0_10_161_213")
-                    ms08_067["pics"].append(image)
+                    ms08_067["pics"].append(poc_result)
                     vuln_count.update({"ms08_067":ms08_067})
             if data["ms17-010"] == "Vulnerable":
+                # continue
                 # vuln_count.update({"ms17_010":ms17_010})
                 # continue
                 poc_result = poc_module(data['ip']).ms17010_poc()
                 # poc_result = "data/picture/10_10_161_213.jpeg"
                 if poc_result != "NULL":
                     ms17_010["number"] += 1
-                    image =InlineImage(self.doc, poc_result, width=Mm(105),height=Mm(70))
                     ms17_010["ips"].append(data['ip'])
-                    ms17_010["pics"].append(image)
+                    ms17_010["pics"].append(poc_result)
                     vuln_count.update({"ms17_010":ms17_010})                                               
             if data['password'] != "NULL" and data['account'] != "NULL":
                 # continue
@@ -311,7 +311,7 @@ class report_app:
         self.report(vuln_count,share_data,computer_os,ips,account,general_data)
     def paths(self):
     
-        path = os.path.join('data_old','clean_data')
+        path = os.path.join('data','clean_data')
         files = os.listdir(path)
         files = [os.path.join(path,file) for file in files]
         self.data_count(files)

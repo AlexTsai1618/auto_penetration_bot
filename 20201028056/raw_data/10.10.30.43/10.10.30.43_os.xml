@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Tue Oct 27 23:59:29 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/10.10.30.43/10.10.30.43_os.xml 10.10.30.43 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/10.10.30.43/10.10.30.43_os.xml 10.10.30.43" start="1603857569" startstr="Tue Oct 27 23:59:29 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1603857578" endtime="1603857579"><status state="up" reason="reset" reason_ttl="255"/>
+<address addr="10.10.30.43" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="microsoft-ds" product="Windows 7 Professional 7601 Service Pack 1 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows 7 Professional 7601 Service Pack 1 (Windows 7 Professional 6.1)&#xa;  OS CPE: cpe:/o:microsoft:windows_7::sp1:professional&#xa;  Computer name: OR-4&#xa;  NetBIOS computer name: OR-4\x00&#xa;  Workgroup: ANTAI\x00&#xa;  System time: 2020-10-28T11:59:50+08:00&#xa;"><elem key="os">Windows 7 Professional 7601 Service Pack 1</elem>
+<elem key="lanmanager">Windows 7 Professional 6.1</elem>
+<elem key="server">OR-4\x00</elem>
+<elem key="date">2020-10-28T11:59:50+08:00</elem>
+<elem key="fqdn">OR-4</elem>
+<elem key="domain_dns">OR-4</elem>
+<elem key="workgroup">ANTAI\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_7::sp1:professional</elem>
+</script></hostscript><times srtt="201055" rttvar="213886" to="1056599"/>
+</host>
+<runstats><finished time="1603857579" timestr="Tue Oct 27 23:59:39 2020" elapsed="10.59" summary="Nmap done at Tue Oct 27 23:59:39 2020; 1 IP address (1 host up) scanned in 10.59 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>
