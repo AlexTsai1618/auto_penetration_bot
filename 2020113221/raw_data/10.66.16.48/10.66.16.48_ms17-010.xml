@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Tue Nov  3 21:59:10 2020 as: nmap -p 445 -&#45;script smb-vuln-ms17-010 -oX data/raw_data/10.66.16.48/10.66.16.48_ms17-010.xml 10.66.16.48 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-vuln-ms17-010 -oX data/raw_data/10.66.16.48/10.66.16.48_ms17-010.xml 10.66.16.48" start="1604458750" startstr="Tue Nov  3 21:59:10 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1604458755" endtime="1604458756"><status state="up" reason="echo-reply" reason_ttl="126"/>
+<address addr="10.66.16.48" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="126"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<times srtt="20703" rttvar="22678" to="111415"/>
+</host>
+<runstats><finished time="1604458756" timestr="Tue Nov  3 21:59:16 2020" elapsed="6.76" summary="Nmap done at Tue Nov  3 21:59:16 2020; 1 IP address (1 host up) scanned in 6.76 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Thu Nov  5 22:46:29 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.105.110/192.168.105.110_os.xml 192.168.105.110 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.105.110/192.168.105.110_os.xml 192.168.105.110" start="1604634389" startstr="Thu Nov  5 22:46:29 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1604634392" endtime="1604634412"><status state="up" reason="echo-reply" reason_ttl="127"/>
+<address addr="192.168.105.110" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="127"/><service name="microsoft-ds" product="Windows Server (R) 2008 Enterprise 6001 Service Pack 1 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows Server (R) 2008 Enterprise 6001 Service Pack 1 (Windows Server (R) 2008 Enterprise 6.0)&#xa;  OS CPE: cpe:/o:microsoft:windows_server_2008::sp1&#xa;  Computer name: ReportServer1&#xa;  NetBIOS computer name: REPORTSERVER1\x00&#xa;  Domain name: csh.org.tw&#xa;  Forest name: csh.org.tw&#xa;  FQDN: ReportServer1.csh.org.tw&#xa;  System time: 2020-11-06T11:46:57+08:00&#xa;"><elem key="os">Windows Server (R) 2008 Enterprise 6001 Service Pack 1</elem>
+<elem key="lanmanager">Windows Server (R) 2008 Enterprise 6.0</elem>
+<elem key="server">REPORTSERVER1\x00</elem>
+<elem key="date">2020-11-06T11:46:57+08:00</elem>
+<elem key="fqdn">ReportServer1.csh.org.tw</elem>
+<elem key="domain_dns">csh.org.tw</elem>
+<elem key="forest_dns">csh.org.tw</elem>
+<elem key="workgroup">CSH\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_server_2008::sp1</elem>
+</script></hostscript><times srtt="794" rttvar="3906" to="100000"/>
+</host>
+<runstats><finished time="1604634412" timestr="Thu Nov  5 22:46:52 2020" elapsed="23.98" summary="Nmap done at Thu Nov  5 22:46:52 2020; 1 IP address (1 host up) scanned in 23.98 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

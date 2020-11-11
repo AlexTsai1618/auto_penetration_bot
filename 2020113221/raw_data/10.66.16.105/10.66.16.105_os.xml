@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Tue Nov  3 21:59:06 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/10.66.16.105/10.66.16.105_os.xml 10.66.16.105 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/10.66.16.105/10.66.16.105_os.xml 10.66.16.105" start="1604458746" startstr="Tue Nov  3 21:59:06 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1604458753" endtime="1604458753"><status state="up" reason="echo-reply" reason_ttl="62"/>
+<address addr="10.66.16.105" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="62"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="ERROR: Script execution failed (use -d to debug)"/></hostscript><times srtt="17156" rttvar="18712" to="100000"/>
+</host>
+<runstats><finished time="1604458753" timestr="Tue Nov  3 21:59:13 2020" elapsed="8.46" summary="Nmap done at Tue Nov  3 21:59:13 2020; 1 IP address (1 host up) scanned in 8.46 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

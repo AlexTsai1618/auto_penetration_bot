@@ -35,11 +35,15 @@ def port_scanning(ip):
             ips.append(ip)
     return ips
 if __name__ == "__main__":
-    result1 = port_scanning("10.6.51.1/24")
-    result2 = port_scanning("10.6.6.1/24")
+    result1 = port_scanning("192.168.110.0/24")
+    result2 = port_scanning("192.168.105.0/24")
+    result3 = port_scanning("192.168.126.0/24")
     print("resutl1")
     for ip in result1:
         print(ip)
     print("result2")
     for ip2 in result2:
         print(ip2)
+    print("result3")
+    for ip3 in result3:
+        print(ip3)

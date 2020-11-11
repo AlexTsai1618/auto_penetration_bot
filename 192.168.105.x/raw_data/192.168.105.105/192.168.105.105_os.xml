@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Thu Nov  5 22:46:35 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.105.105/192.168.105.105_os.xml 192.168.105.105 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/192.168.105.105/192.168.105.105_os.xml 192.168.105.105" start="1604634395" startstr="Thu Nov  5 22:46:35 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1604634413" endtime="1604634426"><status state="up" reason="echo-reply" reason_ttl="127"/>
+<address addr="192.168.105.105" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="127"/><service name="microsoft-ds" product="Windows Server 2008 R2 Enterprise 7600 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows Server 2008 R2 Enterprise 7600 (Windows Server 2008 R2 Enterprise 6.1)&#xa;  OS CPE: cpe:/o:microsoft:windows_server_2008::-&#xa;  Computer name: CancerSrv&#xa;  NetBIOS computer name: CANCERSRV\x00&#xa;  Domain name: csh.org.tw&#xa;  Forest name: csh.org.tw&#xa;  FQDN: CancerSrv.csh.org.tw&#xa;  System time: 2020-11-06T11:47:09+08:00&#xa;"><elem key="os">Windows Server 2008 R2 Enterprise 7600</elem>
+<elem key="lanmanager">Windows Server 2008 R2 Enterprise 6.1</elem>
+<elem key="server">CANCERSRV\x00</elem>
+<elem key="date">2020-11-06T11:47:09+08:00</elem>
+<elem key="fqdn">CancerSrv.csh.org.tw</elem>
+<elem key="domain_dns">csh.org.tw</elem>
+<elem key="forest_dns">csh.org.tw</elem>
+<elem key="workgroup">CSH\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_server_2008::-</elem>
+</script></hostscript><times srtt="769" rttvar="3861" to="100000"/>
+</host>
+<runstats><finished time="1604634426" timestr="Thu Nov  5 22:47:06 2020" elapsed="32.18" summary="Nmap done at Thu Nov  5 22:47:06 2020; 1 IP address (1 host up) scanned in 32.18 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

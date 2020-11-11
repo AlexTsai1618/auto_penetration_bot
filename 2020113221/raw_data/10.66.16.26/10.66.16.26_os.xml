@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Tue Nov  3 21:59:02 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/10.66.16.26/10.66.16.26_os.xml 10.66.16.26 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/10.66.16.26/10.66.16.26_os.xml 10.66.16.26" start="1604458742" startstr="Tue Nov  3 21:59:02 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1604458749" endtime="1604458749"><status state="up" reason="echo-reply" reason_ttl="126"/>
+<address addr="10.66.16.26" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="126"/><service name="microsoft-ds" product="Windows Server 2008 R2 Standard 7601 Service Pack 1 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows Server 2008 R2 Standard 7601 Service Pack 1 (Windows Server 2008 R2 Standard 6.1)&#xa;  OS CPE: cpe:/o:microsoft:windows_server_2008::sp1&#xa;  Computer name: WIN-VKFI564P7A4&#xa;  NetBIOS computer name: WIN-VKFI564P7A4\x00&#xa;  Workgroup: WORKGROUP\x00&#xa;  System time: 2020-11-04T10:59:08+08:00&#xa;"><elem key="os">Windows Server 2008 R2 Standard 7601 Service Pack 1</elem>
+<elem key="lanmanager">Windows Server 2008 R2 Standard 6.1</elem>
+<elem key="server">WIN-VKFI564P7A4\x00</elem>
+<elem key="date">2020-11-04T10:59:08+08:00</elem>
+<elem key="fqdn">WIN-VKFI564P7A4</elem>
+<elem key="domain_dns">WIN-VKFI564P7A4</elem>
+<elem key="workgroup">WORKGROUP\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_server_2008::sp1</elem>
+</script></hostscript><times srtt="3150" rttvar="3920" to="100000"/>
+</host>
+<runstats><finished time="1604458749" timestr="Tue Nov  3 21:59:09 2020" elapsed="6.97" summary="Nmap done at Tue Nov  3 21:59:09 2020; 1 IP address (1 host up) scanned in 6.97 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

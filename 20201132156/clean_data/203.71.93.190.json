@@ -1,0 +1,1 @@
+{"ip": "203.71.93.190", "os": "Windows 5.1", "fqdn": "B33.wfhis.local", "workgroup": "wfhis.local", "account": "NULL", "password": "NULL", "share_data": {"IPC$": ["Anonymous access", "READ"]}, "cve_2020_1206": "NULL", "cve_2020_0796": "Vulnerable", "ms07-029": "NULL", "ms08-067": "Not Vulernable", "ms10-054": "NULL", "ms10-061": "NULL", "ms17-010": "Not Vulernable"}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Tue Nov  3 21:59:06 2020 as: nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/10.66.16.77/10.66.16.77_os.xml 10.66.16.77 -->
+<nmaprun scanner="nmap" args="nmap -p 445 -&#45;script smb-os-discovery.nse -oX data/raw_data/10.66.16.77/10.66.16.77_os.xml 10.66.16.77" start="1604458746" startstr="Tue Nov  3 21:59:06 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="445"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1604458754" endtime="1604458756"><status state="up" reason="echo-reply" reason_ttl="126"/>
+<address addr="10.66.16.77" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="126"/><service name="microsoft-ds" product="Windows Server 2016 Standard 14393 microsoft-ds" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Windows Server 2016 Standard 14393 (Windows Server 2016 Standard 6.3)&#xa;  Computer name: PI03&#xa;  NetBIOS computer name: PI03\x00&#xa;  Domain name: ME4084P.LOCAL&#xa;  Forest name: ME4084P.LOCAL&#xa;  FQDN: PI03.ME4084P.LOCAL&#xa;  System time: 2020-11-04T10:59:15+08:00&#xa;"><elem key="os">Windows Server 2016 Standard 14393</elem>
+<elem key="lanmanager">Windows Server 2016 Standard 6.3</elem>
+<elem key="server">PI03\x00</elem>
+<elem key="date">2020-11-04T10:59:15+08:00</elem>
+<elem key="fqdn">PI03.ME4084P.LOCAL</elem>
+<elem key="domain_dns">ME4084P.LOCAL</elem>
+<elem key="forest_dns">ME4084P.LOCAL</elem>
+<elem key="workgroup">ME4084P\x00</elem>
+</script></hostscript><times srtt="2464" rttvar="3800" to="100000"/>
+</host>
+<runstats><finished time="1604458756" timestr="Tue Nov  3 21:59:16 2020" elapsed="10.85" summary="Nmap done at Tue Nov  3 21:59:16 2020; 1 IP address (1 host up) scanned in 10.85 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>
