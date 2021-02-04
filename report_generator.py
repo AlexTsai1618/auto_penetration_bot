@@ -153,7 +153,6 @@ class report_app:
             # "rdp":self.ip,
         }
         self.html_report(data)
-<<<<<<< HEAD
         print(data)
         try:        
             file_name = str(time.year) + str(time.month) + str(time.day) + str(time.hour) + str(time.minute) + ".txt"
@@ -175,17 +174,6 @@ class report_app:
         #     self.doc.save(os.path.join("data","report",self.name+"_smb_report.docx"))
         # except:
             
-=======
-        data_json = json.dumps(data)
-      
-        file_name = str(time.year) + str(time.month) + str(time.day) + str(time.hour) + str(time.minute) + ".json"
-        outupt_path = "data/final_result/" + file_name
-        with open(outupt_path,'w')as file:
-            file.write(data_json)
-
-        self.doc.render(data)
-        self.doc.save(os.path.join("data","report",self.name+"_smb_report.docx"))
->>>>>>> fb79b0f11df3ea955844714a660cdc3de4b1b8ad
     def manage_files(self):
         time = datetime.datetime.now()
         file_name = str(time.year) + str(time.month) + str(time.day) + str(time.hour) + str(time.minute)

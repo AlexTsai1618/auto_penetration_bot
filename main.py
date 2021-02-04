@@ -4,8 +4,37 @@ from queue import Queue
 import time
 from subprocess import Popen,PIPE
 import xml.etree.ElementTree as ET
+import argparse
+import sys
+from report_generator import report_app
 # class paths:
+def banner():
+    print(bcolors.OKBLUE + bcolors.BOLD + 
+        """        
+        ███████╗███╗   ██╗██╗   ██╗███╗   ███╗██████╗ ██████╗ ███████╗██████╗  ██████╗ ██████╗ ████████╗
+        ██╔════╝████╗  ██║██║   ██║████╗ ████║╚════██╗██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝
+        █████╗  ██╔██╗ ██║██║   ██║██╔████╔██║ █████╔╝██████╔╝█████╗  ██████╔╝██║   ██║██████╔╝   ██║   
+        ██╔══╝  ██║╚██╗██║██║   ██║██║╚██╔╝██║██╔═══╝ ██╔══██╗██╔══╝  ██╔═══╝ ██║   ██║██╔══██╗   ██║   
+        ███████╗██║ ╚████║╚██████╔╝██║ ╚═╝ ██║███████╗██║  ██║███████╗██║     ╚██████╔╝██║  ██║   ██║   
+        ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
+        """                                                                                                      
+         + bcolors.ENDC
+        )    
+def parser_error(errmsg):
+    banner()
+    print("Usage: python " + sys.argv[0] + " [Options] use -h for help")
+    print(bcolors.FAIL + "Error: " + errmsg + bcolors.ENDC)
+    sys.exit()
+
+def parser_args():
+    # parse the arguments
+    parser = argparse.ArgumentParser(epilog='\tExample: \r\npython ' + sys.argv[0] + " -t 192.168.89.1/24 -o 102PTtesting")
+    parser.error = parser_error
+    parser._optionals.title = "OPTIONS"
+    parser.add_argument('-t', '--target', help="Ip range ", required=True)
+    parser.add_argument('-n', '--name', help="Output file name", required=True)
     
+    return parser.parse_args()  
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -16,20 +45,11 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+
 class Enum2Report:
 
     def __init__(self,ipaddress):
-        print(bcolors.OKBLUE + bcolors.BOLD + 
-        """        
-        ███████╗███╗   ██╗██╗   ██╗███╗   ███╗██████╗ ██████╗ ███████╗██████╗  ██████╗ ██████╗ ████████╗
-        ██╔════╝████╗  ██║██║   ██║████╗ ████║╚════██╗██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝
-        █████╗  ██╔██╗ ██║██║   ██║██╔████╔██║ █████╔╝██████╔╝█████╗  ██████╔╝██║   ██║██████╔╝   ██║   
-        ██╔══╝  ██║╚██╗██║██║   ██║██║╚██╔╝██║██╔═══╝ ██╔══██╗██╔══╝  ██╔═══╝ ██║   ██║██╔══██╗   ██║   
-        ███████╗██║ ╚████║╚██████╔╝██║ ╚═╝ ██║███████╗██║  ██║███████╗██║     ╚██████╔╝██║  ██║   ██║   
-        ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
-        """                                                                                                      
-         + bcolors.ENDC
-        )
+
         
         self.port_scanning(ipaddress)
         print(bcolors.OKBLUE + bcolors.BOLD +"[+] We are now in port_scanning" + bcolors.ENDC)
@@ -239,7 +259,11 @@ def enum4liunx_ng_execute(ip):
     return ip +" En4liunx Success!" 
 
 if __name__ == "__main__":
-    Enum2Report("192.168.1.173")
+    agrs = parser_args()
+    ip = agrs.target
+    name = agrs.name
+    Enum2Report(ip)
     subprocess.run(['python3','data_clean.py'])
-    subprocess.run(['python3','report_generator.py'])
+    report_app(name)
+    # subprocess.run(['python3','report_generator.py'])
     #10.
