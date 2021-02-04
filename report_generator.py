@@ -24,6 +24,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 class report_app:
     # def __init__(self,name,ip):
+
     def __init__(self,name):
         self.name = name
         self.doc = DocxTemplate(os.path.join('data','smb_template','smb_template.docx'))
@@ -101,6 +102,7 @@ class report_app:
         # p2.gca().add_artist(my_circle)
         # plt2.savefig('data/picture/pic0.jpg', format='jpg',dpi = 1000)
     def html_report(self,data):
+<<<<<<< HEAD
             templates_dir = os.path.join('data','smb_template')
             env = Environment( loader = FileSystemLoader(templates_dir) )
             template = env.get_template('smb_template.html')
@@ -109,6 +111,16 @@ class report_app:
                 fh.write(template.render(data))
 
             print(bcolors.OKBLUE + bcolors.BOLD +"[+]HTML report is generated !"+ bcolors.ENDC)
+=======
+        templates_dir = os.path.join('data','smb_template')
+        env = Environment( loader = FileSystemLoader(templates_dir) )
+        template = env.get_template('smb_template.html')
+        filename = os.path.join('data','report','result.html')
+        with open(filename, 'w') as fh:
+            fh.write(template.render(data))
+
+        print(bcolors.OKBLUE + bcolors.BOLD +"[+]HTML report is generated !"+ bcolors.ENDC)
+>>>>>>> fb79b0f11df3ea955844714a660cdc3de4b1b8ad
 
     def report(self,vuln_count,share_data,computer_os,ips,account,general_data):
         
@@ -141,6 +153,7 @@ class report_app:
             # "rdp":self.ip,
         }
         self.html_report(data)
+<<<<<<< HEAD
         print(data)
         try:        
             file_name = str(time.year) + str(time.month) + str(time.day) + str(time.hour) + str(time.minute) + ".txt"
@@ -162,6 +175,17 @@ class report_app:
         #     self.doc.save(os.path.join("data","report",self.name+"_smb_report.docx"))
         # except:
             
+=======
+        data_json = json.dumps(data)
+      
+        file_name = str(time.year) + str(time.month) + str(time.day) + str(time.hour) + str(time.minute) + ".json"
+        outupt_path = "data/final_result/" + file_name
+        with open(outupt_path,'w')as file:
+            file.write(data_json)
+
+        self.doc.render(data)
+        self.doc.save(os.path.join("data","report",self.name+"_smb_report.docx"))
+>>>>>>> fb79b0f11df3ea955844714a660cdc3de4b1b8ad
     def manage_files(self):
         time = datetime.datetime.now()
         file_name = str(time.year) + str(time.month) + str(time.day) + str(time.hour) + str(time.minute)
@@ -172,6 +196,7 @@ class report_app:
         subprocess.run(['cp -r data/picture '+ file_name],shell=True)
         subprocess.run(['cp -r data/clean_data '+ file_name],shell=True)
         subprocess.run(['cp -r data/report/* '+ file_name],shell=True)
+        subprocess.run(['cp data/logo.png '+ file_name+'/picture/'],shell=True)
         #remove file
         subprocess.run(['rm -rf data/raw_data/*'],shell=True)
         subprocess.run(['rm -rf data/final_result/*'],shell=True)
@@ -206,7 +231,7 @@ class report_app:
                 "number":0,
                 "ips":[],
                 "description":"該漏洞產生的原因是SMB的解壓縮函數Srv2DecompressData在處理發送給目標SMBv3服務器以偽造的息請求時，所產生問題，攻擊者可以讀取未初始化的kernel內存，還可以對壓縮函數進行修改。",
-                "solution":'用管理員身份執行命令提示字元，必輸入以下命令，Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" DisableCompression -Type DWORD -Value 1 -Force,此外無需重啟電腦',
+                "solution":'目前微軟官方已針對此弱點釋出更新程式，請至下列連結進行更新：https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2020-1206',
                 }
         cve_2020_0796 = {
                 "number":0,
@@ -267,26 +292,26 @@ class report_app:
                 vuln_count.update({"cve_2020_0796":cve_2020_0796})
 
             if data["ms08-067"] == "Vulnerable":
+                # continue
                 # vuln_count.update({"ms08_067":ms08_067})
                 # continue
                 poc_result = poc_module(data['ip']).ms08067_poc()
                 # poc_result = "data/picture/10_10_161_213.jpeg" This is for poc use
                 if poc_result != "NULL":
                     ms08_067["number"] += 1
-                    image =InlineImage(self.doc, poc_result, width=Mm(105),height=Mm(70))
                     ms08_067["ips"].append("0_10_161_213")
-                    ms08_067["pics"].append(image)
+                    ms08_067["pics"].append(poc_result)
                     vuln_count.update({"ms08_067":ms08_067})
             if data["ms17-010"] == "Vulnerable":
+                # continue
                 # vuln_count.update({"ms17_010":ms17_010})
                 # continue
                 poc_result = poc_module(data['ip']).ms17010_poc()
                 # poc_result = "data/picture/10_10_161_213.jpeg"
                 if poc_result != "NULL":
                     ms17_010["number"] += 1
-                    image =InlineImage(self.doc, poc_result, width=Mm(105),height=Mm(70))
                     ms17_010["ips"].append(data['ip'])
-                    ms17_010["pics"].append(image)
+                    ms17_010["pics"].append(poc_result)
                     vuln_count.update({"ms17_010":ms17_010})                                               
             if data['password'] != "NULL" and data['account'] != "NULL":
                 # continue

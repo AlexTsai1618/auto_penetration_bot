@@ -1,5 +1,11 @@
 # SMB scanner
-## Environment : python3.8
+## Environment : kali liunx
+## Programming language : Python3.8
+### 0. setup environment
+```
+sudo apt update
+sudo apt install python3-pip 
+```
 ### 1. download this project
 ```
 git clone https://github.com/alexboy60318/smb_scanner.git
@@ -21,22 +27,21 @@ If you successfully activate the enviroment,it would be like this.
 ```
 (smb_scanner) root@kali:/home/kali/Desktop/smb_scanner#
 ```
-### 5. run RPC Backgroundly
-```
-$ msfrpcd -P yourpassword -S
-```
-or
-```
-msf> load msgrpc [Pass=yourpassword]
-```
 ### 6. run the program
+#### go to main.py line 242 type the ip range
+#### go to data_poc.py line 30 renew your host ip
+
 ```
 python3 main.py
-python3 report_generator.py
 ```
 
-### 7. go to data/report get the report
+### 7. get the report
 ```
-cd data/report/<yourfile>
-
+ex: 20201213/result.html
+[date]/result.html
+```
+### 8. Download report
+```
+ex: scp -r 20201213 root@192.168.168.23:/
+scp -r date_folder remote_account@remote_ip:path
 ```
