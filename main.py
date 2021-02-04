@@ -57,7 +57,7 @@ class Enum2Report:
 
                 ips.append(i)
 
-                task = threading.Thread(target=self.schedual, args=(ip,))
+                task = threading.Thread(target=self.schedule, args=(ip,))
                 task.start()
                 tasks.append(task)
             else:
@@ -145,7 +145,7 @@ class Enum2Report:
             self.check_file(path)
         print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" brute_force has finished!"+ bcolors.ENDC)  
            
-    def schedual(self,ip):
+    def schedule(self,ip):
 
        
         t1 = threading.Thread(target=self.smbghost_detection, args=(ip,))
