@@ -1,6 +1,7 @@
 # SMB scanner
 ## Environment : kali liunx
 ## Programming language : Python3.8
+<img source="./smbtool.gif" width=100%>
 ### 0. setup environment
 ```
 sudo apt update
