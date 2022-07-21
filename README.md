@@ -1,4 +1,4 @@
-# SMB scanner
+# Auto Penetration Bot
 ## Environment : kali liunx
 ## Programming language : Python3.8
 ![Alt Text](smb_tool.gif)
