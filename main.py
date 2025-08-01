@@ -5,8 +5,10 @@ import os
 import subprocess
 import threading
 import xml.etree.ElementTree as ET
+from thread_pool import ThreadPool
 import sys
 from report_generator import report_app
+from repository import ScanRepository
 # class paths:
 def banner():
     print(bcolors.OKBLUE + bcolors.BOLD + 
@@ -50,8 +52,7 @@ class Enum2Report:
     """Helper class to run SMB enumeration and vulnerability scans."""
 
     def __init__(self, ipaddress):
-
-        
+        self.repo = ScanRepository()
         self.port_scanning(ipaddress)
         print(bcolors.OKBLUE + bcolors.BOLD +"[+] We are now in port_scanning" + bcolors.ENDC)
     def port_scanning(self, ip_range):
@@ -68,14 +69,8 @@ class Enum2Report:
                 
                 
                 print(bcolors.WARNING + bcolors.BOLD +"[+]"+ ip +" is founded" + bcolors.ENDC)
-                path = 'data/raw_data/'+ip
-
-                if not os.path.isdir(path):
-                    print(bcolors.OKGREEN + bcolors.BOLD +"[+]"+ ip +" folder is created" + bcolors.ENDC)
-                    os.mkdir('data/raw_data/'+ip)
-
+                self.repo.host_dir(ip)
                 ips.append(ip)
-
                 task = threading.Thread(target=self.schedule, args=(ip,))
                 task.start()
                 tasks.append(task)
@@ -88,9 +83,10 @@ class Enum2Report:
         print(bcolors.WARNING + bcolors.BOLD +"[+] "+ip+" "+ name + " exploit has started" + bcolors.ENDC)
         
         try:
-            subprocess.run(['nmap','-p','445',ip,'--script',script,'-oX','data/raw_data/'+ ip +'/'+ ip +'_'+name+'.xml'],stdout=open(os.devnull,'wb'))
+            output = self.repo.file_path(ip, f"{ip}_{name}.xml")
+            subprocess.run(['nmap','-p','445',ip,'--script',script,'-oX',output], stdout=open(os.devnull,'wb'))
         except:
-            filename = 'data/raw_data/'+ ip +'/'+ ip +'_'+name+'.txt'
+            filename = self.repo.file_path(ip, f"{ip}_{name}.txt")
             with open(filename,'wb')as file:
                 file.write("NULL")
         print(bcolors.OKGREEN + bcolors.BOLD + "[+] "+ip+" "+ name + " exploit has Finished" + bcolors.ENDC)
@@ -153,9 +149,9 @@ class Enum2Report:
     
     def smb_brute_force(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" is in brute_force!"+ bcolors.ENDC)
-        path = 'data/raw_data/'+ip+'/'+ip+'_password.txt'
+        path = self.repo.file_path(ip, f"{ip}_password.txt")
         try:
-            subprocess.run(['medusa','-M','smbnt','-h',ip,'-U','data/wordlist_data/dummyusernames.txt','admin','-P','data/wordlist_data/dummypass.txt','-f','-O','data/raw_data/'+ip+'/'+ip+'_password.txt'],stdout=open(os.devnull,'wb'))
+            subprocess.run(['medusa','-M','smbnt','-h',ip,'-U','data/wordlist_data/dummyusernames.txt','admin','-P','data/wordlist_data/dummypass.txt','-f','-O',path], stdout=open(os.devnull,'wb'))
             self.check_file(path)
         except:
             file = open(path,'w')
@@ -166,28 +162,16 @@ class Enum2Report:
            
     def schedule(self,ip):
 
+        with ThreadPool() as pool:
+            pool.submit(self.smbghost_detection, ip)
+            pool.submit(self.nmap_enum, ip)
+            pool.submit(self.smb_brute_force, ip)
+            pool.submit(self.smb_bleeding_detection, ip)
        
-        t1 = threading.Thread(target=self.smbghost_detection, args=(ip,))
-        t2 = threading.Thread(target=self.nmap_enum, args=(ip,))
-        t3 = threading.Thread(target=self.smb_brute_force, args=(ip,))
-        
-        t5 = threading.Thread(target=self.smb_bleeding_detection,args=(ip,))
-
-        
-        t1.start()
-        t2.start()
-        t3.start()
-
-        t5.start()
-        t1.join()
-        t2.join() 
-        t3.join()
-
-        t5.join()
     def ms17_010_detection(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" ms17_010_detection is going!"+ bcolors.ENDC)
-        filename = ip + "_ms17-010.txt"
-        path = "data/raw_data/" + ip + '/' + filename
+        filename = f"{ip}_ms17-010.txt"
+        path = self.repo.file_path(ip, filename)
         try:
             subprocess.run(['python2','ms17-010.py','-i',ip],stdout=open(os.devnull,'wb'))
             self.check_file(path)
@@ -196,8 +180,8 @@ class Enum2Report:
         print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" ms17_010_detection have just finished!"+ bcolors.ENDC)  
     def smb_bleeding_detection(self,ip):
         print(bcolors.WARNING + bcolors.BOLD + "[+] " + ip +" smb_bleeding_detection is going!"+ bcolors.ENDC)
-        filename = ip + "_cve_2020_1206.txt"
-        path = "data/raw_data/" + ip + '/' + filename
+        filename = f"{ip}_cve_2020_1206.txt"
+        path = self.repo.file_path(ip, filename)
         try:
             subprocess.run(['python3','SMBleed-detection/SMBGhost-SMBleed-scanner.py',ip],stdout=open(os.devnull,'wb'))
             self.check_file(path)
@@ -228,8 +212,8 @@ class Enum2Report:
 
         nb, = struct.unpack(">I", sock.recv(4))
         res = sock.recv(nb)
-        filename = ip + "_cve_2020_0796.txt"
-        path = "data/raw_data/" + ip + '/' + filename
+        filename = f"{ip}_cve_2020_0796.txt"
+        path = self.repo.file_path(ip, filename)
         if res[68:70] != b"\x11\x03" or res[70:72] != b"\x02\x00":
 
             print(path)
@@ -244,18 +228,15 @@ class Enum2Report:
                 self.check_file(path)    
                 print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + ip +" smbghost detection has finished!"+ bcolors.ENDC)
     def check_file(self,path):
-        path = os.path.join(path)
-        if not os.path.isfile(path):
-            with open(path,'w')as file:
-                file.write("NULL")
-            print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + path +" has been checked and fixed!"+ bcolors.ENDC)
-        else:
-            print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + path +" is greate nothing need to do!"+ bcolors.ENDC)
+        self.repo.ensure_file(path)
+        print(bcolors.OKGREEN + bcolors.BOLD + "[+] " + path + " has been checked!" + bcolors.ENDC)
                       
 def enum4liunx_ng_execute(ip):
     print(bcolors.WARNING +"[+]" + ip +" is in enum4liunx!"+ bcolors.ENDC)
-    subprocess.run(["python3","enum4linux-ng/enum4linux-ng.py","-As",ip,"-u"," ","-oJ","data/raw_data/"+ip+"/"+ip+".e4raw_data.json"],stdout=open(os.devnull,'wb'))
-    return ip +" En4liunx Success!" 
+    repo = ScanRepository()
+    output = repo.file_path(ip, f"{ip}.e4raw_data.json")
+    subprocess.run(["python3","enum4linux-ng/enum4linux-ng.py","-As",ip,"-u"," ","-oJ",output], stdout=open(os.devnull,'wb'))
+    return ip +" En4liunx Success!"
 
 if __name__ == "__main__":
     agrs = parser_args()
