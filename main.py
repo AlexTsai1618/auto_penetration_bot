@@ -1,10 +1,10 @@
-import json,subprocess,asyncio,threading,nmap,re,os
-import json
-from queue import Queue
-import time
-from subprocess import Popen,PIPE
-import xml.etree.ElementTree as ET
 import argparse
+import json
+import nmap
+import os
+import subprocess
+import threading
+import xml.etree.ElementTree as ET
 import sys
 from report_generator import report_app
 # class paths:
@@ -47,20 +47,19 @@ class bcolors:
 
 
 class Enum2Report:
+    """Helper class to run SMB enumeration and vulnerability scans."""
 
-    def __init__(self,ipaddress):
+    def __init__(self, ipaddress):
 
         
         self.port_scanning(ipaddress)
         print(bcolors.OKBLUE + bcolors.BOLD +"[+] We are now in port_scanning" + bcolors.ENDC)
-    def port_scanning(self,i):
-        print(bcolors.WARNING + bcolors.BOLD +"[+] We are now in port_scanning" + bcolors.ENDC)
-        """
-        This function is used to scan through smb portocol by port 139,445
-        """
-        tasks = list()
+    def port_scanning(self, ip_range):
+        print(bcolors.WARNING + bcolors.BOLD + "[+] We are now in port_scanning" + bcolors.ENDC)
+        """Scan the given range for hosts with SMB ports open."""
+        tasks = []
         nm = nmap.PortScanner()
-        data = nm.scan(i,'445,139')
+        data = nm.scan(ip_range, '445,139')
 
         ips = []
         for ip in data['scan']:
@@ -75,7 +74,7 @@ class Enum2Report:
                     print(bcolors.OKGREEN + bcolors.BOLD +"[+]"+ ip +" folder is created" + bcolors.ENDC)
                     os.mkdir('data/raw_data/'+ip)
 
-                ips.append(i)
+                ips.append(ip)
 
                 task = threading.Thread(target=self.schedule, args=(ip,))
                 task.start()
@@ -266,4 +265,3 @@ if __name__ == "__main__":
     subprocess.run(['python3','data_clean.py'])
     report_app(name)
     # subprocess.run(['python3','report_generator.py'])
-    #10.
